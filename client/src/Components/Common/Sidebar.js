@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   faHouse,
   faCalendar,
@@ -12,31 +13,19 @@ const Sidebar = () => {
   return (
     <div className="Sidebar">
       <ul className="icon-container">
-        <li>
-          <FontAwesomeIcon icon={faHouse} />
-        </li>
-        <li>
-          <FontAwesomeIcon icon={faCalendar} />
-        </li>{" "}
-        <li>
-          <FontAwesomeIcon icon={faListCheck} />
-        </li>
-        <li>
-          <FontAwesomeIcon icon={faFile} />
-        </li>
-        <li>
-          <FontAwesomeIcon icon={faBookOpen} />
-        </li>
+        <li><Link to="/"><FontAwesomeIcon icon={faHouse} /></Link></li>
+        <li><Link to="/calendar"><FontAwesomeIcon icon={faCalendar} /></Link></li>
+        <li><Link to="/tasks"><FontAwesomeIcon icon={faListCheck} /></Link></li>
+        <li><Link to="/files"><FontAwesomeIcon icon={faFile} /></Link></li>
+        <li><Link to="/logbook"><FontAwesomeIcon icon={faBookOpen} /></Link></li>
       </ul>
 
-      {/*todo: hide/unhide option depending on the clicked icon*/}
       <ul className="clicked-option">
-        <li className="active">Dashboard</li>{" "}
-        {/*todo: dynamic setting of the "active" className. responsible for setting the current page.*/}
-        <li>Training Sessions</li>
-        <li>Progress</li>
-        <li>Document Submissions</li>
-        <li>Daily Logbook</li>
+        <li><Link to="/" className="active">Dashboard</Link></li>
+        <li><Link to="/training-sessions">Training Sessions</Link></li>
+        <li><Link to="/progress">Progress</Link></li>
+        <li><Link to="/document-submissions">Document Submissions</Link></li>
+        <li><Link to="/logbook">Daily Logbook</Link></li>
       </ul>
     </div>
   );
