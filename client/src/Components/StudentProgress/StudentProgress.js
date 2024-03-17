@@ -146,7 +146,7 @@ const StudentProgress = () => {
               <td>{item.frequentlyUtilizedSkill}</td>
               <td>{item.overall}</td>
               <td>
-                <Link to={"/dashboard"}>
+                <Link to={"/studentInfo"}>
                   <button>View Log Book</button>
                 </Link>
               </td>

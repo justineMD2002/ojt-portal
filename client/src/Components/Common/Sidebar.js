@@ -21,13 +21,12 @@ const Sidebar = () => {
       </ul>
 
       <ul className="clicked-option">
-        <li className="active">Dashboard</li>{" "}
-        {/*todo: dynamic setting of the "active" className. responsible for setting the current page.*/}
-        <li>Training Sessions</li>
-        <li>Progress</li>
-        <li>Document Submissions</li>
+        <Link to="/" className="active"><li>Dashboard</li></Link>
+        <Link to="/training-sessions"><li>Training Sessions</li></Link>
+        <Link to="/progress"><li>Progress</li></Link>
+        <Link to="/document-submissions"><li>Document Submissions</li></Link>
         <li>Student Progress</li>
-        <li>Daily Logbook</li>
+        <Link to="/logbook"><li>Daily Logbook</li></Link>
       </ul>
     </div>
   );
