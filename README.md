@@ -1,3 +1,3 @@
-#To start
-- npm i
+# To start
+- ./client > npm i
 - ./client > npm start
