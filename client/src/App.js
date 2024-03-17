@@ -5,24 +5,25 @@ import Header from "./Components/Common/Header";
 import Sidebar from "./Components/Common/Sidebar";
 import Footer from "./Components/Common/Footer";
 import Dashboard from "./Components/Dashboard/Dashboard";
-import LogbookForm from "./Components/LogbookSubmission/LogbookForm"; 
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import StudentProgress from "./Components/StudentProgress/StudentProgress";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <div className="App">
-        <Header />  
+        <Header />
         <Sidebar />
+        <Footer />
+
         <main>
           <Routes>
-            <Route exact path="/" element={<Dashboard />} />
-            <Route path="/logbook" element={<LogbookForm />} />
-            {/* Add more routes here */}
+            <Route path="/" element={<StudentProgress />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </main>
-        <Footer />
       </div>
-    </BrowserRouter>
+    </Router>
   );
 };
 
