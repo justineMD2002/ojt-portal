@@ -21,11 +21,11 @@ const Sidebar = () => {
       </ul>
 
       <ul className="clicked-option">
-        <li><Link to="/" className="active">Dashboard</Link></li>
-        <li><Link to="/training-sessions">Training Sessions</Link></li>
-        <li><Link to="/progress">Progress</Link></li>
-        <li><Link to="/document-submissions">Document Submissions</Link></li>
-        <li><Link to="/logbook">Daily Logbook</Link></li>
+        <Link to="/" className="active"><li>Dashboard</li></Link>
+        <Link to="/training-sessions"><li>Training Sessions</li></Link>
+        <Link to="/progress"><li>Progress</li></Link>
+        <Link to="/document-submissions"><li>Document Submissions</li></Link>
+        <Link to="/logbook"><li>Daily Logbook</li></Link>
       </ul>
     </div>
   );
