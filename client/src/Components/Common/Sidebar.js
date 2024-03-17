@@ -36,6 +36,7 @@ const Sidebar = () => {
         <li>Training Sessions</li>
         <li>Progress</li>
         <li>Document Submissions</li>
+        <li>Student Progress</li>
         <li>Daily Logbook</li>
       </ul>
     </div>
