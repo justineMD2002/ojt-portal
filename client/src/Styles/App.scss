@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+// colors
+$header-color: #fff8dc;
+$main-red: #660000;
+$strong-yellow: #ffd633;
+
+//dimensions
+$header-height: 50px;
+$footer-height: 60px;
+$sidebar-width: 300px;
+$bar-padding: 20px;
+$main-padding: 20px;
+
+// common styles
+@import "./Common/Sidebar.scss";
+@import "./Common/Header.scss";
+@import "./Common/Footer.scss";
+
+// main
+@import "./Main/Main.scss";

@@ -1,0 +1,22 @@
+.Footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $footer-height;
+  box-shadow: 0 0 5px 0 #e4e4e4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $bar-padding;
+  background-color: white;
+
+  ul {
+    display: flex;
+    list-style-type: none;
+    li {
+      padding-right: 15px;
+      cursor: pointer;
+    }
+  }
+}
