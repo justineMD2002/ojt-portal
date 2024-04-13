@@ -12,6 +12,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Approved",
     },
     {
       name: "John Doe",
@@ -21,6 +22,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Pending",
     },
     {
       name: "John Doe",
@@ -30,6 +32,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Rejected",
     },
     {
       name: "John Doe",
@@ -39,6 +42,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Approved",
     },
     {
       name: "John Doe",
@@ -48,6 +52,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Approved",
     },
     {
       name: "John Doe",
@@ -57,6 +62,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Pending",
     },
     {
       name: "John Doe",
@@ -66,6 +72,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Pending",
     },
     {
       name: "John Doe",
@@ -75,6 +82,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Pending",
     },
     {
       name: "John Doe",
@@ -84,6 +92,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Pending",
     },
     {
       name: "John Doe",
@@ -93,6 +102,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Rejected",
     },
     {
       name: "John Doe",
@@ -102,6 +112,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Pending",
     },
     {
       name: "John Doe",
@@ -111,6 +122,7 @@ const StudentProgress = () => {
       logBookProgress: 0,
       frequentlyUtilizedSkill: "Data structures",
       overall: 10,
+      status: "Approved",
     },
   ];
   return (
@@ -127,12 +139,13 @@ const StudentProgress = () => {
       <table>
         <thead>
           <th>Student</th>
-          <th>Degree Program</th>
-          <th>Company</th>
-          <th>OJT Hours Completed</th>
-          <th>Log Book Progress</th>
-          <th>Frequently Utilized Skill</th>
-          <th>Overall Progress</th>
+          <th>Logbook Date</th>
+          <th>Division</th>
+          <th>Department/Area Assigned</th>
+          <th>Designation</th>
+          <th>Time In</th>
+          <th>Time Out</th>
+          <th>Status</th>
           <th></th>
         </thead>
         <tbody>
@@ -145,8 +158,9 @@ const StudentProgress = () => {
               <td>{item.logBookProgress}</td>
               <td>{item.frequentlyUtilizedSkill}</td>
               <td>{item.overall}</td>
+              <td>{item.status}</td>
               <td>
-                <Link to={"/studentInfo"}>
+                <Link to={"/view-logbook"}>
                   <button>View Log Book</button>
                 </Link>
               </td>

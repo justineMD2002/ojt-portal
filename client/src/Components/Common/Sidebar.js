@@ -16,24 +16,16 @@ const Sidebar = () => {
       name: "Dashboard",
     },
     {
-      url: "/training-sessions",
-      name: "Training Sessions",
+      url: "/training-plan",
+      name: "Training Plan",
     },
     {
-      url: "/progress",
-      name: "Progress",
-    },
-    {
-      url: "/document-submission",
-      name: "Document Submissions",
-    },
-    {
-      url: "/studentProgress",
-      name: "Student Progress",
+      url: "/logbookSubmissions",
+      name: "View Logbook Submissions",
     },
     {
       url: "/logbook",
-      name: "Daily Logbook",
+      name: "Submit Daily Logbook",
     },
   ];
   const [currentPageIndex, setCurrentPageIndex] = useState(4); // student progress

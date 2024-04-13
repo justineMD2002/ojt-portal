@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StudentProgress from "./Components/StudentProgress/StudentProgress";
 import LogbookForm from "./Components/LogbookSubmission/LogbookForm";
 import { LoginSignup } from "./Components/UserManagement/LoginSignup";
+import { LogbookContents } from "./Components/ViewLogbook/LogbookContents";
 
 const App = () => {
   return (
@@ -19,10 +20,11 @@ const App = () => {
 
         <main>
           <Routes>
-            <Route path="/studentProgress" element={<StudentProgress />} />
+            <Route path="/logbookSubmissions" element={<StudentProgress />} />
             <Route path="/" element={<LoginSignup />} />
             <Route path="/student-info" element={<Dashboard />} />
             <Route path="/logbook" element={<LogbookForm />} />
+            <Route path="/view-logbook" element={<LogbookContents />} />
           </Routes>
         </main>
       </div>
