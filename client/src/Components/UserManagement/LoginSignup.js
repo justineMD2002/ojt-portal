@@ -11,7 +11,7 @@ export function LoginSignup() {
   };
 
   return (
-    <div>
+    <Components.Container>
       <Components.SignUpContainer signingIn={signIn}>
         <Components.Form onSubmit={handleLogin}>
           <Components.Title>Create Account</Components.Title>
@@ -52,6 +52,6 @@ export function LoginSignup() {
           </Components.RightOverlayPanel>
         </Components.Overlay>
       </Components.OverlayContainer>
-    </div>
+    </Components.Container>
   );
 }
