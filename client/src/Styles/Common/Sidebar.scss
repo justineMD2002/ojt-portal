@@ -27,7 +27,7 @@
 
     .active {
       background-color: $main-red !important;
-      color: $header-color;
+      color: $header-color !important;
     }
   }
 
@@ -47,8 +47,9 @@
     padding: 0;
     width: 100%;
     li:hover {
-      background-color: $main-red;
-      color: $header-color;
+      background-color: #f2f2f2;
+      color: black;
+      // color: $header-color;
       cursor: pointer;
     }
   }

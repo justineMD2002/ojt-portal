@@ -10,8 +10,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = () => {
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
-
   const links = [
     {
       url: "/student-info",
@@ -38,6 +36,7 @@ const Sidebar = () => {
       name: "Daily Logbook",
     },
   ];
+  const [currentPageIndex, setCurrentPageIndex] = useState(4); // student progress
 
   console.log(currentPageIndex);
 
