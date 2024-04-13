@@ -1,33 +1,33 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import * as Components from "./Components";
 
-export function Login_Signup() {
+export function LoginSignup() {
   const [signIn, toggle] = React.useState(true);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     navigate("/studentProgress");
   };
 
   return (
-    <Components.Container>
+    <div>
       <Components.SignUpContainer signingIn={signIn}>
-        <Components.Form onSubmit={handleLogin}> 
+        <Components.Form onSubmit={handleLogin}>
           <Components.Title>Create Account</Components.Title>
           <Components.Input type="text" placeholder="Name" />
           <Components.Input type="email" placeholder="Email" />
           <Components.Input type="password" placeholder="Password" />
-          <Components.Button type="submit">Sign Up</Components.Button> 
+          <Components.Button type="submit">Sign Up</Components.Button>
         </Components.Form>
       </Components.SignUpContainer>
       <Components.SignInContainer signingIn={signIn}>
-        <Components.Form onSubmit={handleLogin}> 
+        <Components.Form onSubmit={handleLogin}>
           <Components.Title>Sign in</Components.Title>
           <Components.Input type="email" placeholder="Email" />
           <Components.Input type="password" placeholder="Password" />
           <Components.Anchor href="#">Forgot your password?</Components.Anchor>
-          <Components.Button type="submit">Sign In</Components.Button> 
+          <Components.Button type="submit">Sign In</Components.Button>
         </Components.Form>
       </Components.SignInContainer>
       <Components.OverlayContainer signingIn={signIn}>
@@ -52,6 +52,6 @@ export function Login_Signup() {
           </Components.RightOverlayPanel>
         </Components.Overlay>
       </Components.OverlayContainer>
-    </Components.Container>
+    </div>
   );
 }
