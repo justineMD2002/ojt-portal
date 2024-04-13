@@ -13,20 +13,52 @@ const Sidebar = () => {
   return (
     <div className="Sidebar">
       <ul className="icon-container">
-        <li><Link to="/"><FontAwesomeIcon icon={faHouse} /></Link></li>
-        <li><Link to="/calendar"><FontAwesomeIcon icon={faCalendar} /></Link></li>
-        <li><Link to="/tasks"><FontAwesomeIcon icon={faListCheck} /></Link></li>
-        <li><Link to="/files"><FontAwesomeIcon icon={faFile} /></Link></li>
-        <li><Link to="/logbook"><FontAwesomeIcon icon={faBookOpen} /></Link></li>
+        <li>
+          <Link to="/">
+            <FontAwesomeIcon icon={faHouse} />
+          </Link>
+        </li>
+        <li>
+          <Link to="/calendar">
+            <FontAwesomeIcon icon={faCalendar} />
+          </Link>
+        </li>
+        <li>
+          <Link to="/tasks">
+            <FontAwesomeIcon icon={faListCheck} />
+          </Link>
+        </li>
+        <li>
+          <Link to="/files">
+            <FontAwesomeIcon icon={faFile} />
+          </Link>
+        </li>
+        <li>
+          <Link to="/logbook">
+            <FontAwesomeIcon icon={faBookOpen} />
+          </Link>
+        </li>
       </ul>
 
       <ul className="clicked-option">
-        <Link to="/" className="active"><li>Dashboard</li></Link>
-        <Link to="/training-sessions"><li>Training Sessions</li></Link>
-        <Link to="/progress"><li>Progress</li></Link>
-        <Link to="/document-submissions"><li>Document Submissions</li></Link>
-        <li>Student Progress</li>
-        <Link to="/logbook"><li>Daily Logbook</li></Link>
+        <Link to="/student-info">
+          <li className="active">Dashboard</li>
+        </Link>
+        <Link to="/training-sessions">
+          <li>Training Sessions</li>
+        </Link>
+        <Link to="/progress">
+          <li>Progress</li>
+        </Link>
+        <Link to="/document-submissions">
+          <li>Document Submissions</li>
+        </Link>{" "}
+        <Link to="/studentProgress">
+          <li>Student Progress</li>
+        </Link>
+        <Link to="/logbook">
+          <li>Daily Logbook</li>
+        </Link>
       </ul>
     </div>
   );

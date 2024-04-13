@@ -6,18 +6,18 @@
   display: flex;
   box-shadow: 3px 0 5px 0 #f6f6f6;
 
-  a { 
-    color: inherit; 
-    text-decoration: none; 
+  a {
+    color: inherit;
+    text-decoration: none;
     &:hover {
-      color: $header-color; 
+      color: $header-color;
     }
   }
 
   ul {
     li {
       padding: 20px;
-      background-color: transparent; 
+      background-color: transparent;
       &:hover {
         background-color: $main-red;
         color: $header-color;
@@ -25,8 +25,8 @@
       }
     }
 
-    .active { 
-      background-color: $main-red;
+    .active {
+      background-color: $main-red !important;
       color: $header-color;
     }
   }

@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   list-style-type: none;
+  font-family: "Montserrat";
 }
 
 // colors
@@ -28,3 +31,5 @@ $main-padding: 20px;
 //LogbookForm
 @import "./LogbookSubmission/LogbookForm.scss";
 
+// loginSingup
+@import "./UserManagement/Login_Signup.scss";
