@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   faHouse,
@@ -10,6 +10,37 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = () => {
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+
+  const links = [
+    {
+      url: "/student-info",
+      name: "Dashboard",
+    },
+    {
+      url: "/training-sessions",
+      name: "Training Sessions",
+    },
+    {
+      url: "/progress",
+      name: "Progress",
+    },
+    {
+      url: "/document-submission",
+      name: "Document Submissions",
+    },
+    {
+      url: "/studentProgress",
+      name: "Student Progress",
+    },
+    {
+      url: "/logbook",
+      name: "Daily Logbook",
+    },
+  ];
+
+  console.log(currentPageIndex);
+
   return (
     <div className="Sidebar">
       <ul className="icon-container">
@@ -41,24 +72,11 @@ const Sidebar = () => {
       </ul>
 
       <ul className="clicked-option">
-        <Link to="/student-info">
-          <li className="active">Dashboard</li>
-        </Link>
-        <Link to="/training-sessions">
-          <li>Training Sessions</li>
-        </Link>
-        <Link to="/progress">
-          <li>Progress</li>
-        </Link>
-        <Link to="/document-submissions">
-          <li>Document Submissions</li>
-        </Link>{" "}
-        <Link to="/studentProgress">
-          <li>Student Progress</li>
-        </Link>
-        <Link to="/logbook">
-          <li>Daily Logbook</li>
-        </Link>
+        {links.map((link, i) => (
+          <Link to={link.url} onClick={() => setCurrentPageIndex(i)} key={i}>
+            <li className={currentPageIndex === i && "active"}>{link.name}</li>
+          </Link>
+        ))}
       </ul>
     </div>
   );
