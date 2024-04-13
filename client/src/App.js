@@ -7,10 +7,11 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StudentProgress from "./Components/StudentProgress/StudentProgress";
 import LogbookForm from "./Components/LogbookSubmission/LogbookForm"; 
+import { Login_Signup } from "./Components/UserManagement/LoginSignup";
 
 const App = () => {
   return (
-    <Router>
+    <Router>  
       <div className="App">
         <Header />
         <Sidebar />
@@ -18,7 +19,8 @@ const App = () => {
 
         <main>
           <Routes>
-            <Route path="/" element={<StudentProgress />} />
+            {/* <Route path="/" element={<StudentProgress />} /> */}
+            <Route path="/" element={<Login_Signup />} />
             <Route path="/studentInfo" element={<Dashboard />} />
             <Route path="/logbook" element={<LogbookForm />} />
           </Routes>
