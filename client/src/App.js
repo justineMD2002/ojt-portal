@@ -9,6 +9,7 @@ import StudentProgress from "./Components/StudentProgress/StudentProgress";
 import LogbookForm from "./Components/LogbookSubmission/LogbookForm";
 import { LoginSignup } from "./Components/UserManagement/LoginSignup";
 import { LogbookContents } from "./Components/ViewLogbook/LogbookContents";
+import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/student-info" element={<Dashboard />} />
             <Route path="/logbook" element={<LogbookForm />} />
             <Route path="/view-logbook" element={<LogbookContents />} />
+            <Route path="/task-monitoring" element={<TaskMonitoring />} />
           </Routes>
         </main>
       </div>

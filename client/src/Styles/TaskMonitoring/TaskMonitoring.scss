@@ -1,0 +1,79 @@
+.TaskMonitoring {
+  .title {
+    color: black;
+  }
+  button {
+    background: $strong-yellow;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 20px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .training-plan-title {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+  .training-plan {
+    padding: 10px;
+    box-shadow: 0 0 5px 0 #e9e9e9;
+    border-radius: 10px;
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+
+      .btn-container {
+        display: flex;
+        button {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+  .TaskCard-container {
+    display: flex;
+    margin-top: 20px;
+    .TaskCard {
+      width: 100%;
+      padding: 10px;
+      box-shadow: 0 0 5px 0 #f1f1f1;
+      border-radius: 10px;
+
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        button {
+          padding: 5px 20px;
+        }
+      }
+
+      .thumbnail {
+        width: 100%;
+      }
+
+      .img-container {
+        display: flex;
+        margin: 10px 0;
+        img {
+          width: 15%;
+          border-radius: 5px;
+        }
+
+        img:nth-child(2) {
+          margin: 0 10px;
+        }
+      }
+    }
+
+    .TaskCard:nth-child(2) {
+      margin: 0 10px;
+    }
+  }
+}
