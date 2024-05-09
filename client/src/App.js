@@ -10,6 +10,7 @@ import LogbookForm from "./Components/LogbookSubmission/LogbookForm";
 import { LoginSignup } from "./Components/UserManagement/LoginSignup";
 import { LogbookContents } from "./Components/ViewLogbook/LogbookContents";
 import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
+import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/logbook" element={<LogbookForm />} />
             <Route path="/view-logbook" element={<LogbookContents />} />
             <Route path="/task-monitoring" element={<TaskMonitoring />} />
+            <Route path="/ojt-analytics" element={<OJTAnalytics />} />
           </Routes>
         </main>
       </div>

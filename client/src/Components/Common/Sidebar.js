@@ -31,6 +31,10 @@ const Sidebar = () => {
       goto: "/task-monitoring",
       name: "Task Monitoring",
     },
+    {
+      goto: "/ojt-analytics",
+      name: "OJT Analytics",
+    },
   ];
   const [currentPageIndex, setCurrentPageIndex] = useState(4); // student progress
 
