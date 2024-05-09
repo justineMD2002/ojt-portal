@@ -62,10 +62,14 @@
           cursor: pointer;
           border: none;
           outline: none;
-          //   box-shadow: 0 0 3px 0 #cecece;
+          box-shadow: 0 0 3px 0 #cecece;
         }
 
         .date-time-container {
+          label {
+            margin-left: 10px;
+            margin-right: 5px;
+          }
           display: flex;
         }
       }
