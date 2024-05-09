@@ -36,7 +36,7 @@ const Sidebar = () => {
       name: "OJT Analytics",
     },
   ];
-  const [currentPageIndex, setCurrentPageIndex] = useState(4); // student progress
+  const [currentPageIndex, setCurrentPageIndex] = useState(0); // student progress
 
   console.log(currentPageIndex);
 
