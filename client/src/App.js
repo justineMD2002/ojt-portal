@@ -10,8 +10,9 @@ import LogbookForm from "./Components/LogbookSubmission/LogbookForm";
 import { LoginSignup } from "./Components/UserManagement/LoginSignup";
 import { LogbookContents } from "./Components/ViewLogbook/LogbookContents";
 import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
-import Logbook from "./Components/SubmittedLogbooks/SubmittedLogbooks";
+import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
 import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
+import TraineeEvaluation from "./Components/TraineeEvaluation/TraineeEvaluation";
 
 const App = () => {
   return (
@@ -29,8 +30,9 @@ const App = () => {
             <Route path="/logbook" element={<LogbookForm />} />
             <Route path="/view-logbook" element={<LogbookContents />} />
             <Route path="/task-monitoring" element={<TaskMonitoring />} />
-            <Route path="/submitted-logbook" element={<Logbook />} />
+            <Route path="/submitted-logbook" element={<SubmittedLogbooks />} />
             <Route path="/ojt-analytics" element={<OJTAnalytics />} />
+            <Route path="/trainee-evaluation" element={<TraineeEvaluation />} />
           </Routes>
         </main>
       </div>
