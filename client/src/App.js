@@ -14,6 +14,7 @@ import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks"
 import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
 import TraineeEvaluation from "./Components/TraineeEvaluation/TraineeEvaluation";
 import InternEvalFeedbackForm from "./Components/InternEvalFeedbackForm/InternEvalFeedbackForm";
+import LogbookEntries from "./Components/LogbookEntries/LogbookEntries";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="/ojt-analytics" element={<OJTAnalytics />} />
             <Route path="/trainee-evaluation" element={<TraineeEvaluation />} />
             <Route path="/interneval-feedbackform" element={<InternEvalFeedbackForm />} />
+            <Route path="/logbook-entries" element={<LogbookEntries />} />
           </Routes>
         </main>
       </div>

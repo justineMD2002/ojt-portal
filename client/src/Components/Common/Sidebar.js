@@ -28,6 +28,10 @@ const Sidebar = () => {
       name: "Submit Daily Logbook",
     },
     {
+      goto: "/logbook-entries",
+      name: "Logbook Entries",
+    },
+    {
       goto: "/task-monitoring",
       name: "Task Monitoring",
     },
