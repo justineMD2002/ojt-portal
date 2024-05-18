@@ -25,6 +25,19 @@ header {
     }
   }
 
+  .head-side {
+    display: flex;
+    align-items: center;
+    a {
+      text-decoration: none;
+      padding: 5px 10px;
+      margin-left: 10px;
+      background-color: $main-red;
+      border-radius: 5px;
+      color: white;
+    }
+  }
+
   .logo {
     font-weight: bold;
     font-size: 1.1rem;
