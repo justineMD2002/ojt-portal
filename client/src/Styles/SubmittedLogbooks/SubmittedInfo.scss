@@ -1,0 +1,51 @@
+.submitted-info-wrapper {
+    .rectangle-style {
+      border: 3px solid white;
+      padding: 2%;
+      margin: 2% 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    .list-item-style {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1%;
+    }
+  
+    .colored-square-style {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      margin-right: -3%;
+    }
+  
+    .rectangle-button-style {
+      width: 15%;
+      height: 30px;
+      background-color: transparent;
+      border: 2px solid black;
+      text-align: center;
+      line-height: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  
+    .rec-button-style {
+      width: 35%;
+      height: 30px;
+      background-color: #C8EDFD;
+      border: 2px solid #C8EDFD;
+      text-align: center;
+      line-height: 30px;
+      cursor: pointer;
+      border-radius: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-weight: bold;
+    }
+  
+    .icon-style {
+      font-size: 1.5em;
+      color: #000;
+    }
+  }
+  

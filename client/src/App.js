@@ -9,8 +9,12 @@ import StudentProgress from "./Components/StudentProgress/StudentProgress";
 import LogbookForm from "./Components/LogbookSubmission/LogbookForm";
 import { LoginSignup } from "./Components/UserManagement/LoginSignup";
 import { LogbookContents } from "./Components/ViewLogbook/LogbookContents";
-import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
-import Logbook from "./Components/Logbook/Logbook/Logbook";
+import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
+import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
+import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
+import TraineeEvaluation from "./Components/TraineeEvaluation/TraineeEvaluation";
+import InternEvalFeedbackForm from "./Components/InternEvalFeedbackForm/InternEvalFeedbackForm";
+import LogbookEntries from "./Components/LogbookEntries/LogbookEntries";
 
 const App = () => {
   return (
@@ -27,8 +31,12 @@ const App = () => {
             <Route path="/student-info" element={<Dashboard />} />
             <Route path="/logbook" element={<LogbookForm />} />
             <Route path="/view-logbook" element={<LogbookContents />} />
-            <Route path="/training-plan" element={<TrainingPlan />} />
-            <Route path="/submit-logbook" element={<Logbook />} />
+            <Route path="/task-monitoring" element={<TaskMonitoring />} />
+            <Route path="/submitted-logbook" element={<SubmittedLogbooks />} />
+            <Route path="/ojt-analytics" element={<OJTAnalytics />} />
+            <Route path="/trainee-evaluation" element={<TraineeEvaluation />} />
+            <Route path="/interneval-feedbackform" element={<InternEvalFeedbackForm />} />
+            <Route path="/logbook-entries" element={<LogbookEntries />} />
           </Routes>
         </main>
       </div>

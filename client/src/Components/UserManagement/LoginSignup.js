@@ -7,7 +7,7 @@ export function LoginSignup() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate("/studentProgress");
+    navigate("/student-info");
   };
 
   return (

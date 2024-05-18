@@ -12,23 +12,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Sidebar = () => {
   const links = [
     {
-      url: "/student-info",
+      goto: "/student-info",
       name: "Dashboard",
     },
     {
-      url: "/training-plan",
+      goto: "/training-plan",
       name: "Training Plan",
     },
     {
-      url: "/logbookSubmissions",
+      goto: "/logbookSubmissions",
       name: "View Logbook Submissions",
     },
     {
-      url: "/logbook",
+      goto: "/logbook",
       name: "Submit Daily Logbook",
     },
+    {
+      goto: "/logbook-entries",
+      name: "Logbook Entries",
+    },
+    {
+      goto: "/task-monitoring",
+      name: "Task Monitoring",
+    },
+    {
+      goto: "/ojt-analytics",
+      name: "OJT Analytics",
+    },
   ];
-  const [currentPageIndex, setCurrentPageIndex] = useState(4); // student progress
+  const [currentPageIndex, setCurrentPageIndex] = useState(0); // student progress
 
   console.log(currentPageIndex);
 
@@ -64,7 +76,7 @@ const Sidebar = () => {
 
       <ul className="clicked-option">
         {links.map((link, i) => (
-          <Link to={link.url} onClick={() => setCurrentPageIndex(i)} key={i}>
+          <Link to={link.goto} onClick={() => setCurrentPageIndex(i)} key={i}>
             <li className={currentPageIndex === i && "active"}>{link.name}</li>
           </Link>
         ))}

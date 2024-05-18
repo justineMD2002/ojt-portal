@@ -1,0 +1,78 @@
+.OJTAnalytics {
+  .container {
+    box-shadow: 0 0 3px 0 #e1e1e1;
+  }
+  .chart-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    .chart {
+      padding: 15px 10px;
+      box-shadow: 0 0 5px 0 #e1e1e1;
+    }
+  }
+
+  .data-table {
+    margin-top: 20px;
+    padding: 10px;
+
+    h4 {
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+
+      td,
+      th {
+        padding: 5px;
+      }
+    }
+  }
+
+  .filter-options {
+    margin-top: 20px;
+    padding: 10px;
+    // box-shadow: 0 0 3px 0 #cecece;
+
+    .filters {
+      margin-top: 10px;
+      display: flex;
+      // background-color: red;
+      justify-content: space-between;
+
+      button {
+        background-color: $strong-yellow;
+        border: none;
+        outline: none;
+        padding: 0 15px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .select-container {
+        display: flex;
+
+        select,
+        input {
+          padding: 5px;
+          margin-right: 5px;
+          cursor: pointer;
+          border: none;
+          outline: none;
+          box-shadow: 0 0 3px 0 #cecece;
+        }
+
+        .date-time-container {
+          label {
+            margin-left: 10px;
+            margin-right: 5px;
+          }
+          display: flex;
+        }
+      }
+    }
+  }
+}

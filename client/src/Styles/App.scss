@@ -33,4 +33,17 @@ $main-padding: 20px;
 
 // loginSingup
 @import "./UserManagement/Login_Signup.scss";
-@import "./TrainingPlan/TrainingPlan.scss";
+@import "./TaskMonitoring/TaskMonitoring.scss";
+@import "./OJTAnalytics/OJTAnalytics.scss";
+
+//submittedLogbooks
+@import "./SubmittedLogbooks/SubmittedInfo.scss";
+
+//traineeEvaluation
+@import "./TraineeEvaluation/TraineeEvaluation.scss";
+
+//InternEvalFeedbackForm
+@import "./InternEvalFeedbackForm/InternEvalFeedbackForm.scss";
+
+//LogbookEntries
+@import "./LogbookEntries/LogbookEntries.scss";
