@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   faHouse,
@@ -9,8 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Sidebar = () => {
-  const links = [
+const Sidebar = ({ userRole }) => {
+  const [currentPageIndex, setCurrentPageIndex] = useState(0); 
+
+  const studentLinks = [
     {
       goto: "/student-info",
       name: "Dashboard",
@@ -20,17 +22,16 @@ const Sidebar = () => {
       name: "Training Plan",
     },
     {
-      goto: "/logbookSubmissions",
-      name: "View Logbook Submissions",
+      goto: "/logbook-entries",
+      name: "Logbook Entries",
     },
     {
       goto: "/logbook",
       name: "Submit Daily Logbook",
     },
-    {
-      goto: "/logbook-entries",
-      name: "Logbook Entries",
-    },
+  ];
+
+  const supervisorLinks = [
     {
       goto: "/task-monitoring",
       name: "Task Monitoring",
@@ -39,10 +40,17 @@ const Sidebar = () => {
       goto: "/ojt-analytics",
       name: "OJT Analytics",
     },
+    {
+      goto: "/logbookSubmissions",
+      name: "View Logbook Submissions",
+    },
   ];
-  const [currentPageIndex, setCurrentPageIndex] = useState(0); // student progress
 
-  // console.log(currentPageIndex);
+  const links = userRole === "ROLE_STUDENT" ? supervisorLinks : studentLinks;
+
+  useEffect(() => {
+    setCurrentPageIndex(links.findIndex((link) => link.goto === window.location.pathname));
+  }, [links]);
 
   return (
     <div className="Sidebar">

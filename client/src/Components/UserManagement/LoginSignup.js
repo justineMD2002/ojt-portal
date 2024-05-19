@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Components from "./Components";
 import {Admin, Student, Supervisor } from "./Details";
-import { DropdownUserType } from "./Dropdown";
+import { DropdownUserType } from "./DropdownUserType";
 import axios from 'axios';
 import qs from 'qs';
 import { useAuth } from "./AuthContext";
@@ -60,10 +60,9 @@ export function LoginSignup() {
           }
         }
       );
-      console.log("Login Response:", response.data);
       if (response.data.accessToken) {
         setIsLoggedIn(true);
-        setAuthUser(response.data.userInfo);
+        setAuthUser(response.data);
         navigate("/student-info");
       } else {
         setIsLoggedIn(false);

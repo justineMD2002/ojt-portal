@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useAuth } from "../UserManagement/AuthContext";
+import axios from 'axios';
 
 const OjtTRacking = () => {
+  const { authUser } = useAuth();
+
+  useEffect(() => {
+    const fetchOjtRecord = async() => {
+      try {
+        const response = await axios.get('https://ojt-portal-backend2.azurewebsites.net/student/get-ojt-record',{
+          params: {
+            studentNo: authUser.studentInfo.studentID
+          },
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`
+          }
+        });
+        console.log('Response from API:', response.data);
+      } catch (error) {
+        console.error('Error fetching ojt record:', error);
+      } 
+    }
+    fetchOjtRecord();
+  },[]);
+
   return (
     <section className="ojt-hrs-tracking">
       <div className="title-container">

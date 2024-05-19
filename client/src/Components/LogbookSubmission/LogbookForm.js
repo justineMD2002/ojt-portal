@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import { DropdownDomain } from './DropdownDomain';
+import { DropdownTask } from './DropdownTask';
+import { useAuth } from "../UserManagement/AuthContext";
+import axios from 'axios';
 
 const LogbookForm = () => {
+  const { authUser } = useAuth();
   const [formData, setFormData] = useState({
     date: '',
-    division: '',
-    department: '',
-    designation: '',
     timeIn: '',
     timeOut: '',
+    skill: '',
+    task: '',
     activities: '',
-    remarks: ''
   });
 
   const handleChange = (e) => {
@@ -17,7 +20,11 @@ const LogbookForm = () => {
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSkillChange = (selectedSkill) => {
+    setFormData(prevState => ({ ...prevState, skill: selectedSkill }));
+  };
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log('Form Data Submitted', formData);
   };
@@ -25,31 +32,34 @@ const LogbookForm = () => {
   return (
     <form onSubmit={handleSubmit} className="logbook-form">
       <div className="group">
-        <label>Date</label>
-        <input type="date" name="date" onChange={handleChange} />
-        <label>Division</label>
-        <input type="text" name="division" onChange={handleChange} />
-        <label>Department/Area Assigned</label>
-        <input type="text" name="department" onChange={handleChange} />
-        <label>Designation</label>
-        <input type="text" name="designation" onChange={handleChange} />
-      </div>
-
-      <div className="group">
-        <label>Time In</label>
-        <input type="time" name="timeIn" onChange={handleChange} />
-        <label>Time Out</label>
-        <input type="time" name="timeOut" onChange={handleChange} />
-      </div>
-
-      <div className="group">
-        <label>Activities</label>
-        <textarea name="activities" rows="4" onChange={handleChange}></textarea>
-      </div>
-
-      <div className="group">
-        <label>Remarks</label>
-        <textarea name="remarks" rows="4" onChange={handleChange}></textarea>
+        <div className="row">
+          <div className="column">
+            <label>Date</label>
+            <input type="date" name="date" onChange={handleChange} />
+          </div>
+          <div className="column">
+            <label>Time In</label>
+            <input type="time" name="timeIn" onChange={handleChange} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="column">
+            <label>Time Out</label>
+            <input type="time" name="timeOut" onChange={handleChange} />
+          </div>
+          <div className="column">
+            <label>Domain</label>
+            <DropdownDomain setSkill={handleSkillChange} />
+          </div>
+          <div className="column">
+            <label>Task</label>
+            <DropdownTask />
+          </div>
+        </div>
+        <div className="row">
+          <label>Activities</label>
+          <textarea name="activities" rows="4" onChange={handleChange}></textarea>
+        </div>
       </div>
 
       <button type="submit">Submit</button>
