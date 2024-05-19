@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DropdownDomain } from './DropdownDomain';
 import { DropdownTask } from './DropdownTask';
 import { useAuth } from "../UserManagement/AuthContext";
@@ -6,11 +6,18 @@ import axios from 'axios';
 
 const LogbookForm = () => {
   const { authUser } = useAuth();
+
+  const getCurrentDate = () => {
+    const date = new Date();
+    return date.toISOString().split('T')[0];
+  };
+
   const [formData, setFormData] = useState({
-    date: '',
+    date: getCurrentDate(),
     timeIn: '',
     timeOut: '',
     skill: '',
+    domain: '',
     task: '',
     activities: '',
   });
@@ -24,46 +31,75 @@ const LogbookForm = () => {
     setFormData(prevState => ({ ...prevState, skill: selectedSkill }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleTaskChange = (selectedTask) => {
+    setFormData(prevState => ({ ...prevState, task: selectedTask }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Data Submitted', formData);
+    const body = {
+      entry: {
+        timeIn: `${formData.date}T${formData.timeIn}`,
+        timeOut: `${formData.date}T${formData.timeOut}`,
+        activities: formData.activities,
+      },
+      taskIDs: [formData.task], 
+      skills: [{
+        skill_name: formData.skill.skill,
+        domain: formData.skill.domain,
+      }],
+    };
+    console.log(body);
+    try {
+      const response = await axios.post('https://ojt-portal-backend2.azurewebsites.net/student/add-logbook-entry', body, {
+        headers: {
+          Authorization: `Bearer ${authUser.accessToken}`
+        }
+      });
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }    
   };
 
   return (
-    <form onSubmit={handleSubmit} className="logbook-form">
-      <div className="group">
-        <div className="row">
-          <div className="column">
-            <label>Date</label>
-            <input type="date" name="date" onChange={handleChange} />
+    <div>
+      <form onSubmit={handleSubmit} className="logbook-form">
+        <div className="group">
+          <div className="row">
+            <div className="column">
+              <label>Date</label>
+              <input required readOnly type="date" name="date" value={formData.date} onChange={handleChange} />
+            </div>
+            <div className="column">
+              <label>Time In</label>
+              <input required type="time" name="timeIn" onChange={handleChange} />
+            </div>
           </div>
-          <div className="column">
-            <label>Time In</label>
-            <input type="time" name="timeIn" onChange={handleChange} />
+          <div className="row">
+            <div className="column">
+              <label>Time Out</label>
+              <input required type="time" name="timeOut" onChange={handleChange} />
+            </div>
+            <div className="column">
+              <label>Domain</label>
+              <DropdownDomain setSkill={handleSkillChange} />
+            </div>
+            {authUser && (
+              <div className="column">
+                <label>Task</label>
+                <DropdownTask required setTask={handleTaskChange}/>
+              </div>
+            )}
+          </div>
+          <div className="row">
+            <label>Activities</label>
+            <textarea required name="activities" rows="4" onChange={handleChange}></textarea>
           </div>
         </div>
-        <div className="row">
-          <div className="column">
-            <label>Time Out</label>
-            <input type="time" name="timeOut" onChange={handleChange} />
-          </div>
-          <div className="column">
-            <label>Domain</label>
-            <DropdownDomain setSkill={handleSkillChange} />
-          </div>
-          <div className="column">
-            <label>Task</label>
-            <DropdownTask />
-          </div>
-        </div>
-        <div className="row">
-          <label>Activities</label>
-          <textarea name="activities" rows="4" onChange={handleChange}></textarea>
-        </div>
-      </div>
-
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 };
 

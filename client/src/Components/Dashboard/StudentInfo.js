@@ -10,19 +10,19 @@ const StudentInfo = () => {
       <ul className="student-info">
         <li>
           <p className="title">Student ID:</p>
-          <p className="description">{authUser != null ? authUser.studentInfo.studentID : "Guest"}</p>
+          <p className="description">{authUser != null ? authUser.userInfo.studentID : "Guest"}</p>
         </li>
         <li>
           <p className="title">Student Name:</p>
-          <p className="description">{authUser != null ? authUser.studentInfo.firstname + " " + authUser.studentInfo.lastname : "Guest"}</p>
+          <p className="description">{authUser != null ? authUser.userInfo.firstname + " " + authUser.userInfo.lastname : "Guest"}</p>
         </li>
         <li>
           <p className="title">Email:</p>
-          <p className="description">{authUser != null ? authUser.studentInfo.email : "Guest"}</p>
+          <p className="description">{authUser != null ? authUser.userInfo.email : "Guest"}</p>
         </li>
         <li>
           <p className="title">Degree Program</p>
-          <p className="description">{authUser != null ? authUser.studentInfo.degreeProgram : "Guest"}</p>
+          <p className="description">{authUser != null ? authUser.userInfo.degreeProgram : "Guest"}</p>
         </li>
       </ul>
       <div className="separator" />
