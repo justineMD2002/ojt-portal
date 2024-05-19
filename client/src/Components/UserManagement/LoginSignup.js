@@ -48,30 +48,34 @@ export function LoginSignup() {
     setUser({...user, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        'https://ojt-portal-backend2.azurewebsites.net/auth/login',
-        qs.stringify(user), 
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          }
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.post(
+      'https://ojt-portal-backend2.azurewebsites.net/auth/login',
+      qs.stringify(user), 
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
         }
-      );
-      if (response.data.accessToken) {
-        setIsLoggedIn(true);
-        setAuthUser(response.data);
+      }
+    );
+    if (response.data.accessToken) {
+      setIsLoggedIn(true);
+      setAuthUser(response.data);
+      if(response.data.accountType === "ROLE_STUDENT") {
         navigate("/student-info");
       } else {
-        setIsLoggedIn(false);
-        console.log('Login failed');
-      }
-    } catch (error) {
-      console.error('Error:', error);
+        navigate("/task-monitoring"); 
+      } 
+    } else {
+      setIsLoggedIn(false);
+      console.log('Login failed');
     }
-  };  
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};  
 
   const handleSignupStudent = async (e) => {
     e.preventDefault();

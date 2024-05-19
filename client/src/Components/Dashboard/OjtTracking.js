@@ -1,66 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../UserManagement/AuthContext";
 import axios from 'axios';
 
 const OjtTRacking = () => {
   const { authUser } = useAuth();
-  
+  const [ojtEntries, setOjtEntries] = useState([]);
+
   useEffect(() => {
     const fetchOjtRecord = async() => {
-      try {
-        const response = await axios.get('https://ojt-portal-backend2.azurewebsites.net/student/get-ojt-record',{
-          params: {
-            studentNo: authUser.studentInfo.studentID
-          },
-          headers: {
-            Authorization: `Bearer ${authUser.accessToken}`
-          }
-        });
-        console.log('Response from API:', response.data);
-      } catch (error) {
-        console.error('Error fetching ojt record:', error);
-      } 
+      if (authUser && authUser.accessToken) {
+        try {
+          const response = await axios.get('https://ojt-portal-backend2.azurewebsites.net/student/get-all-entries',{
+            params: {
+              email: authUser.userInfo.email
+            },
+            headers: {
+              Authorization: `Bearer ${authUser.accessToken}`
+            }
+          });
+          console.log('Response from API:', response.data);
+          setOjtEntries(response.data); 
+        } catch (error) {
+          console.error('Error fetching logbook:', error);
+        }
+      }
     }
     fetchOjtRecord();
-  },[]);
+  },[authUser]); 
+
+  const handleOnClick = () => {
+    window.location.href = "/logbook-entries";
+  };
 
   return (
     <section className="ojt-hrs-tracking">
       <div className="title-container">
         <h3>OJT Hours Tracking</h3>
         <h3>
-          Total Rendered Hours: <span>20 hrs</span>
+          Total Rendered Hours: <span>{authUser && authUser.ojtRecord ? authUser.ojtRecord.renderedHrs : "Guest"}</span>{" "}
         </h3>
       </div>
       <table>
         <thead>
-          <th>Date</th>
-          <th>Start Time</th>
-          <th>End Time</th>
-          <th>Total Hours</th>
-          <th>Task Description</th>
-          <th>Supervisor Comments</th>
+          <tr>
+            <th>Entry ID</th>
+            <th>Total Hours</th>
+            <th>Remarks</th>
+            <th>Status</th>
+          </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>2022-05-20</td>
-            <td>9:00 AM</td>
-            <td>5:00 PM</td>
-            <td>8 hours</td>
-            <td>Developed new feature</td>
-            <td>Good job!</td>
-          </tr>
-          <tr>
-            <td>2022-05-20</td>
-            <td>9:00 AM</td>
-            <td>5:00 PM</td>
-            <td>8 hours</td>
-            <td>Developed new feature</td>
-            <td>Good job!</td>
-          </tr>
+          {ojtEntries.map(entry => (
+            <tr key={entry.entryId}>
+              <td>{entry.entryId}</td>
+              <td>{entry.totalHrs}</td>
+              <td>{entry.remarks || "N/A"}</td>
+              <td>{entry.status}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
-      <button>View Entire Log</button>
+      <button onClick={handleOnClick}>View Entire Log</button>
       <div className="separator" />
     </section>
   );
