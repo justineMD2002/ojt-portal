@@ -10,7 +10,7 @@ const OjtTRacking = () => {
       try {
         const response = await axios.get('https://ojt-portal-backend2.azurewebsites.net/student/get-ojt-record',{
           params: {
-            studentNo: authUser.studentInfo.studentID
+            studentNo: authUser.userInfo.studentID
           },
           headers: {
             Authorization: `Bearer ${authUser.accessToken}`
