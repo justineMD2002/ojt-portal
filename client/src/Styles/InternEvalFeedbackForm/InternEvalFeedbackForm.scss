@@ -1,102 +1,132 @@
 .InternEvalFeedbackForm {
-    padding-left: 20px;
-    padding-right: 20px;
-  
-    .container {
-      box-shadow: 0 0 3px 0 #e1e1e1;
-    }
-  
-    h3 {
-      margin-bottom: 5px;
-      color: black;
-    }
-  
-    h4 {
-      margin-bottom: 10px;
-      text-decoration: underline;
-    }
-  
-    .data-table {
-      margin-top: 20px;
-      padding: 10px;
-  
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-  
-        td,
-        th {
-          padding: 5px;
-        }
+  padding: 20px;
+
+  .container {
+    box-shadow: 0 0 3px 0 #e1e1e1;
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  h3 {
+    margin-bottom: 5px;
+    color: black;
+  }
+
+  h4 {
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+
+  .header-title {
+    text-align: center;
+    box-shadow: 0 0 3px 0 #e1e1e1;
+    padding: 10px;
+    text-decoration: underline;
+    margin-bottom: 20px;
+  }
+
+  .intern-info {
+    box-shadow: 0 0 3px 0 #e1e1e1;
+    padding: 20px;
+
+    .profile-section {
+      display: flex;
+      align-items: center;
+
+      .profile-pic {
+        width: 50px;
+        height: 50px;
+        margin-right: 20px; /* Adjusted space */
+      }
+
+      .intern-details {
+        font-size: 18px;
       }
     }
-  
-    .header-title {
-      text-align: center;
-      box-shadow: 0 0 3px 0 #e1e1e1;
-      margin-top: 20px;
-      padding: 10px;
-      text-decoration: underline;
-    }
-  
-    .intern-info {
-      box-shadow: 0 0 3px 0 #e1e1e1;
-      margin-top: 20px;
-      padding: 20px;
-    }
-  
-    .td {
-      padding-bottom: 20px;
-    }
-  
-    .td1 {
-      padding-right: 20px;
-    }
-  
-    .eval-info {
-      text-decoration: underline;
-      font-size: 16px;
-      padding-bottom: 5px;
-      font-weight: bold;
-    }
-  
-    button {
-      background-color: $strong-yellow;
-      border: none;
-      outline: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 13px;
-      font-weight: bold;
-    }
-  
-    .filter-options {
-      margin-top: 20px;
-      padding: 20px;
-  
-      .filters {
-        margin-top: 10px;
+  }
+
+  .evaluation {
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+
+      .dropdown-column {
         display: flex;
-        justify-content: space-between;
-  
-        .select-container {
+        flex-direction: column;
+        gap: 20px;
+        flex: 1;
+
+        .td {
           display: flex;
-  
-          select,
-          input {
+          flex-direction: column;
+          gap: 5px;
+          width: 100%;
+
+          select {
             padding: 10px;
-            padding-left: 100;
-            width: 612px;
-            cursor: pointer;
-            border: none;
-            outline: none;
-            box-shadow: 0 0 3px 0 #cecece;
+            width: 100%;
+            box-sizing: border-box;
           }
         }
       }
     }
   }
-  
+
+  .comment-section {
+    textarea {
+      width: 100%;
+    }
+  }
+
+  button {
+    background-color: #f0c14b;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 13px;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .filters {
+      flex-direction: column;
+    }
+
+    .dropdown-column {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+
+    .intern-info {
+      padding: 10px;
+
+      .profile-section {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .profile-pic {
+          width: 40px;
+          height: 40px;
+          margin-bottom: 10px; /* Adjusted space for smaller screens */
+        }
+
+        .intern-details {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .comment-section {
+      textarea {
+        height: 150px;
+      }
+    }
+  }
+}
