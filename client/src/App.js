@@ -7,8 +7,8 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StudentProgress from "./Components/StudentProgress/StudentProgress";
 import LogbookForm from "./Components/LogbookSubmission/LogbookForm";
+import LogbookContents from "./Components/ViewLogbook/LogbookContents";
 import { LoginSignup } from "./Components/UserManagement/LoginSignup";
-import { LogbookContents } from "./Components/ViewLogbook/LogbookContents";
 import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
 import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
 import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
@@ -22,28 +22,37 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
-      <div className="App">
-        <Header />
-        <Sidebar />
-        <Footer />
+        <div className="App">
+          <Header />
+          <Sidebar />
+          <Footer />
 
-        <main>
-          <Routes>
-            <Route path="/logbookSubmissions" element={<StudentProgress />} />
-            <Route path="/" element={<LoginSignup />} />
-            <Route path="/student-info" element={<Dashboard />} />
-            <Route path="/logbook" element={<LogbookForm />} />
-            <Route path="/view-logbook" element={<LogbookContents />} />
-            <Route path="/task-monitoring" element={<TaskMonitoring />} />
-            <Route path="/submitted-logbook" element={<SubmittedLogbooks />} />
-            <Route path="/ojt-analytics" element={<OJTAnalytics />} />
-            <Route path="/trainee-evaluation" element={<TraineeEvaluation />} />
-            <Route path="/interneval-feedbackform" element={<InternEvalFeedbackForm />} />
-            <Route path="/logbook-entries" element={<LogbookEntries />} />
-            <Route path="/training-plan" element={<TrainingPlan />} />
-          </Routes>
-        </main>
-      </div>
+          <main>
+            <Routes>
+              <Route path="/logbookSubmissions" element={<StudentProgress />} />
+              <Route path="/" element={<LoginSignup />} />
+              <Route path="/student-info" element={<Dashboard />} />
+              <Route path="/logbook" element={<LogbookForm />} />
+              <Route path="/view-logbook" element={<LogbookContents />} />
+              <Route path="/task-monitoring" element={<TaskMonitoring />} />
+              <Route
+                path="/submitted-logbook"
+                element={<SubmittedLogbooks />}
+              />
+              <Route path="/ojt-analytics" element={<OJTAnalytics />} />
+              <Route
+                path="/trainee-evaluation"
+                element={<TraineeEvaluation />}
+              />
+              <Route
+                path="/interneval-feedbackform"
+                element={<InternEvalFeedbackForm />}
+              />
+              <Route path="/logbook-entries" element={<LogbookEntries />} />
+              <Route path="/training-plan" element={<TrainingPlan />} />
+            </Routes>
+          </main>
+        </div>
       </Router>
     </AuthProvider>
   );

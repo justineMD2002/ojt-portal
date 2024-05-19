@@ -1,5 +1,5 @@
 .logbook-form {
-  max-width: 1500px; 
+  max-width: 1500px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -13,7 +13,7 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; 
+  gap: 20px;
 }
 
 .column {
@@ -36,10 +36,14 @@ textarea {
 
 button {
   width: 100%;
-  background-color: #FFD633;
+  background-color: #ffd633;
   color: #000;
   border: none;
   padding: 10px 20px;
   border-radius: 3px;
   cursor: pointer;
+}
+ .logbook-entry {
+  display: flex;
+  justify-content: space-between;
 }
