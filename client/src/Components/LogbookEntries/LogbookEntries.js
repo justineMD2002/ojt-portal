@@ -35,7 +35,7 @@ const LogbookEntries = () => {
         "https://ojt-portal-backend2.azurewebsites.net/student/get-all-entries",
         {
           params: {
-            recordNo: recordNo,
+            email: authUser.userInfo.email,
           },
           headers: {
             Authorization: `Bearer ${authUser.accessToken}`,

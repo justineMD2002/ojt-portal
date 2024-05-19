@@ -35,19 +35,10 @@ const App = () => {
               <Route path="/logbook" element={<LogbookForm />} />
               <Route path="/view-logbook" element={<LogbookContents />} />
               <Route path="/task-monitoring" element={<TaskMonitoring />} />
-              <Route
-                path="/submitted-logbook"
-                element={<SubmittedLogbooks />}
-              />
+              <Route path="/submitted-logbook" element={<SubmittedLogbooks />} />
               <Route path="/ojt-analytics" element={<OJTAnalytics />} />
-              <Route
-                path="/trainee-evaluation"
-                element={<TraineeEvaluation />}
-              />
-              <Route
-                path="/interneval-feedbackform"
-                element={<InternEvalFeedbackForm />}
-              />
+              <Route path="/trainee-evaluation" element={<TraineeEvaluation />} />
+              <Route path="/interneval-feedbackform" element={<InternEvalFeedbackForm />} />
               <Route path="/logbook-entries" element={<LogbookEntries />} />
               <Route path="/training-plan" element={<TrainingPlan />} />
             </Routes>

@@ -45,6 +45,14 @@ const Sidebar = ({ userRole }) => {
       goto: "/logbookSubmissions",
       name: "View Logbook Submissions",
     },
+    {
+      goto: "/submitted-logbook",
+      name: "View Logbook Submissions",
+    },
+    {
+      goto: "/trainee-evaluation",
+      name: "Evaluate Trainee",
+    },
   ];
 
   const links = authUser && authUser.accountType === "ROLE_STUDENT" ? studentLinks : supervisorLinks;

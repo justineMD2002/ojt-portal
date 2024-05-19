@@ -79,7 +79,7 @@ const TraineeEvaluation = () => {
                 </div>
               </td>
               <td>
-                <Link to={" "}>
+                <Link to={"/interneval-feedbackform"}>
                   <button>Evaluate Trainee</button>
                 </Link>
               </td>
