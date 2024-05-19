@@ -42,7 +42,7 @@ const Sidebar = () => {
   ];
   const [currentPageIndex, setCurrentPageIndex] = useState(0); // student progress
 
-  console.log(currentPageIndex);
+  // console.log(currentPageIndex);
 
   return (
     <div className="Sidebar">

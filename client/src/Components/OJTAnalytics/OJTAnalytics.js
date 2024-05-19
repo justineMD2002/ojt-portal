@@ -1,6 +1,5 @@
 import React from "react";
 import { Line, Bar } from "react-chartjs-2";
-import Chart from "chart.js/auto";
 
 const OJTAnalytics = () => {
   const lineData = {

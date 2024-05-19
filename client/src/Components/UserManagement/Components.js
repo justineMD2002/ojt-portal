@@ -7,7 +7,7 @@ export const Container = styled.div`
   overflow: hidden;
   width: 678px;
   max-width: 100%;
-  min-height: 400px;
+  min-height: 650px;
 `;
 
 export const SignUpContainer = styled.div`
@@ -156,3 +156,4 @@ export const Paragraph = styled.p`
   letter-spacing: 0.5px;
   margin: 20px 0 30px;
 `;
+

@@ -15,10 +15,13 @@ import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
 import TraineeEvaluation from "./Components/TraineeEvaluation/TraineeEvaluation";
 import InternEvalFeedbackForm from "./Components/InternEvalFeedbackForm/InternEvalFeedbackForm";
 import LogbookEntries from "./Components/LogbookEntries/LogbookEntries";
+import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
+import { AuthProvider } from "./Components/UserManagement/AuthContext";
 
 const App = () => {
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
       <div className="App">
         <Header />
         <Sidebar />
@@ -37,10 +40,12 @@ const App = () => {
             <Route path="/trainee-evaluation" element={<TraineeEvaluation />} />
             <Route path="/interneval-feedbackform" element={<InternEvalFeedbackForm />} />
             <Route path="/logbook-entries" element={<LogbookEntries />} />
+            <Route path="/training-plan" element={<TrainingPlan />} />
           </Routes>
         </main>
       </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 };
 
