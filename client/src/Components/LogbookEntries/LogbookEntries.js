@@ -2,40 +2,21 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../UserManagement/AuthContext";
-import { ClipLoader } from "react-spinners";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const LogbookEntries = () => {
   const { authUser } = useAuth();
   const [logbookEntries, setLogbookEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const recordNumber = async () => {
+  const studentLogbookEntries = async () => {
     try {
-      const response = await axios.get(
-        "https://ojt-portal-backend2.azurewebsites.net/student/get-ojt-record",
-        {
-          params: {
-            studentNo: authUser.userInfo.studentID,
-          },
-          headers: {
-            Authorization: `Bearer ${authUser.accessToken}`,
-          },
-        }
-      );
-
-      return response.data;
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const studentLogbookEntries = async (recordNo) => {
-    try {
+      setLoading(true);
       const response = await axios.get(
         "https://ojt-portal-backend2.azurewebsites.net/student/get-all-entries",
         {
           params: {
-            recordNo: recordNo,
+            email: authUser.userInfo.email,
           },
           headers: {
             Authorization: `Bearer ${authUser.accessToken}`,
@@ -43,41 +24,26 @@ const LogbookEntries = () => {
         }
       );
 
-      return response.data;
+      setLogbookEntries(response.data);
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    const fetchLogbookEntries = async () => {
-      setLoading(true);
-      try {
-        const record = await recordNumber();
-        if (record) {
-          const entries = await studentLogbookEntries(record.recordNo);
-          if (entries) {
-            setLogbookEntries(entries);
-          }
-          console.log(entries);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLogbookEntries();
+    studentLogbookEntries();
   }, [authUser]);
 
   return (
     <div className="LogbookEntries">
       <h1>Logbook Entries</h1>
-
+      <br />
+      <hr />
       <table>
         <tbody>
-          {loading && logbookEntries.length > 0 ? (
+          {loading ? (
             <div
               style={{
                 display: "flex",
@@ -86,10 +52,10 @@ const LogbookEntries = () => {
                 height: "50vh",
               }}
             >
-              <ClipLoader size={100} loading={loading} />
+              <ClipLoader loading={loading} size={150} />
             </div>
-          ) : (
-            logbookEntries.map((item) => (
+          ) : logbookEntries.length > 0 ? (
+            logbookEntries.map((item, i) => (
               <div className="container">
                 <td>
                   <div>
@@ -101,8 +67,10 @@ const LogbookEntries = () => {
                 </td>
                 <td>
                   <Link
-                    to={"/view-logbook"}
+                    key={i}
+                    to="/view-logbook"
                     state={{
+                      entries: logbookEntries,
                       entryID: item.entryId,
                     }}
                   >
@@ -111,6 +79,18 @@ const LogbookEntries = () => {
                 </td>
               </div>
             ))
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "20vh",
+                color: "red",
+              }}
+            >
+              <h2>No logbook entries found.</h2>
+            </div>
           )}
         </tbody>
       </table>
