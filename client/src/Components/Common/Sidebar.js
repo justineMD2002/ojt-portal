@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../UserManagement/AuthContext";
 import {
   faHouse,
   faCalendar,
@@ -11,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({ userRole }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0); 
-
+  const { authUser } = useAuth();
   const studentLinks = [
     {
       goto: "/student-info",
@@ -44,9 +45,17 @@ const Sidebar = ({ userRole }) => {
       goto: "/logbookSubmissions",
       name: "View Logbook Submissions",
     },
+    {
+      goto: "/submitted-logbook",
+      name: "View Logbook Submissions",
+    },
+    {
+      goto: "/trainee-evaluation",
+      name: "Evaluate Trainee",
+    },
   ];
 
-  const links = userRole === "ROLE_STUDENT" ? supervisorLinks : studentLinks;
+  const links = authUser && authUser.accountType === "ROLE_STUDENT" ? studentLinks : supervisorLinks;
 
   useEffect(() => {
     setCurrentPageIndex(links.findIndex((link) => link.goto === window.location.pathname));
