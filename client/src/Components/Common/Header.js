@@ -15,7 +15,7 @@ const Header = () => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    setIsLoggedIn(false);
+    setIsLoggedIn(null);
     setAuthUser(null);
     navigate("/");
   };

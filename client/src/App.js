@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StudentProgress from "./Components/StudentProgress/StudentProgress";
 import LogbookForm from "./Components/LogbookSubmission/LogbookForm";
 import LogbookContents from "./Components/ViewLogbook/LogbookContents";
-import { LoginSignup } from "./Components/UserManagement/LoginSignup";
 import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
 import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
 import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
@@ -18,6 +17,7 @@ import LogbookEntries from "./Components/LogbookEntries/LogbookEntries";
 import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
 import { AuthProvider } from "./Components/UserManagement/AuthContext";
 import ActivateAccount from "./Components/UserManagement/ActivateAccount";
+import LoginSignupController from "./Components/UserManagement/controllers/LoginSignupController";
 
 const App = () => {
   return (
@@ -31,7 +31,7 @@ const App = () => {
           <main>
             <Routes>
               <Route path="/logbookSubmissions" element={<StudentProgress />} />
-              <Route path="/" element={<LoginSignup />} />
+              <Route path="/" element={<LoginSignupController />} />
               <Route path="/student-info" element={<Dashboard />} />
               <Route path="/logbook" element={<LogbookForm />} />
               <Route path="/view-logbook" element={<LogbookContents />} />
