@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Components from "./Components";
-import {Admin, Student, Supervisor } from "./Details";
+import { Admin, Student, Supervisor } from "./Details";
 import { DropdownUserType } from "./DropdownUserType";
-import axios from 'axios';
-import qs from 'qs';
+import axios from "axios";
+import qs from "qs";
 import { useAuth } from "./AuthContext";
 
 export function LoginSignup() {
   const [signIn, toggle] = useState(true);
   const navigate = useNavigate();
   const [userType, setUserType] = useState(null);
-  const {authUser,
-    setAuthUser,
-    isLoggedIn,
-    setIsLoggedIn,} = useAuth();
+  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const [student, setStudent] = useState({
     studentID: "",
     firstname: "",
     lastname: "",
-    department: "", 
+    department: "",
     email: "",
-    password: ""
+    password: "",
   });
   const [supervisor, setSupervisor] = useState({
     firstname: "",
@@ -35,68 +32,70 @@ export function LoginSignup() {
     company_contactNo: "",
     company_location: "",
     position: "",
-    password: ""
+    password: "",
   });
   const [admin, setAdmin] = useState({
     firstname: "",
     lastname: "",
     email: "",
-    password: ""
+    password: "",
   });
 
   const handleChange = (e) => {
-    setUser({...user, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post(
-      'https://ojt-portal-backend2.azurewebsites.net/auth/login',
-      qs.stringify(user), 
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "https://ojt-portal-backend2.azurewebsites.net/auth/login",
+        qs.stringify(user),
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
-      }
-    );
-    if (response.data.accessToken) {
-      setIsLoggedIn(true);
-      setAuthUser(response.data);
-      if(response.data.accountType === "ROLE_STUDENT") {
-        navigate("/student-info");
+      );
+      if (response.data.accessToken) {
+        setIsLoggedIn(true);
+        setAuthUser(response.data);
+        if (response.data.accountType === "ROLE_STUDENT") {
+          navigate("/student-info");
+        } else {
+          navigate("/task-monitoring");
+        }
       } else {
-        navigate("/task-monitoring"); 
-      } 
-    } else {
-      setIsLoggedIn(false);
-      console.log('Login failed');
+        setIsLoggedIn(false);
+        console.log(user.email);
+        navigate("/activate-account", {
+          state: { email: user.email },
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-};  
+  };
 
   const handleSignupStudent = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'https://ojt-portal-backend2.azurewebsites.net/student/register',
-        qs.stringify(student), 
+        "https://ojt-portal-backend2.azurewebsites.net/student/register",
+        qs.stringify(student),
         {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          }
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
       );
       if (response.data === 1) {
-        console.log('Registration successful');
-        navigate("/student-info");
+        alert("Registration Successful. Redirecting to Login Page.");
       } else {
-        console.log('Registration failed');
+        console.log("Registration failed");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -104,22 +103,22 @@ const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'https://ojt-portal-backend2.azurewebsites.net/auth/admin-register',
-        qs.stringify(admin), 
+        "https://ojt-portal-backend2.azurewebsites.net/auth/admin-register",
+        qs.stringify(admin),
         {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          }
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
       );
       if (response.data === 1) {
-        console.log('Registration successful');
+        console.log("Registration successful");
         navigate("/student-info");
       } else {
-        console.log('Registration failed');
+        console.log("Registration failed");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -127,37 +126,37 @@ const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'https://ojt-portal-backend2.azurewebsites.net/supervisor/register',
-        qs.stringify(supervisor), 
+        "https://ojt-portal-backend2.azurewebsites.net/supervisor/register",
+        qs.stringify(supervisor),
         {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          }
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
       );
       if (response.data === 1) {
-        console.log('Registration successful');
+        console.log("Registration successful");
         navigate("/student-info");
       } else {
-        console.log('Registration failed');
+        console.log("Registration failed");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
   const getSignupHandler = () => {
     switch (userType) {
-      case 'Student':
+      case "Student":
         return handleSignupStudent;
-      case 'Admin':
+      case "Admin":
         return handleSignupAdmin;
-      case 'Supervisor':
+      case "Supervisor":
         return handleSignupSupervisor;
       default:
         return (e) => {
           e.preventDefault();
-          console.log('Please select a user type.');
+          console.log("Please select a user type.");
         };
     }
   };
@@ -168,11 +167,20 @@ const handleLogin = async (e) => {
         <Components.SignUpContainer signingIn={signIn}>
           <Components.Form onSubmit={getSignupHandler()}>
             <Components.Title>Create Account</Components.Title>
-            {!userType && <DropdownUserType setUserType={setUserType}/>}
+            {!userType && <DropdownUserType setUserType={setUserType} />}
             <div className="content">
-              {userType === "Student" && <Student student={student} setStudent={setStudent}/> }
-              {userType === "Supervisor" && <Supervisor supervisor={supervisor} setSupervisor={setSupervisor}/> }
-              {userType === "Admin" && <Admin  admin={admin} setAdmin={setAdmin}/> }
+              {userType === "Student" && (
+                <Student student={student} setStudent={setStudent} />
+              )}
+              {userType === "Supervisor" && (
+                <Supervisor
+                  supervisor={supervisor}
+                  setSupervisor={setSupervisor}
+                />
+              )}
+              {userType === "Admin" && (
+                <Admin admin={admin} setAdmin={setAdmin} />
+              )}
             </div>
             <Components.Button type="submit">Sign Up</Components.Button>
           </Components.Form>
@@ -180,13 +188,25 @@ const handleLogin = async (e) => {
         <Components.SignInContainer signingIn={signIn}>
           <Components.Form onSubmit={handleLogin}>
             <Components.Title>Sign in</Components.Title>
-            <Components.Input name="email" type="email" placeholder="Email" onChange={handleChange}/>
-            <Components.Input name="password" type="password" placeholder="Password" onChange={handleChange}/>
+            <Components.Input
+              name="email"
+              type="email"
+              placeholder="Email"
+              onChange={handleChange}
+            />
+            <Components.Input
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+            />
             <Components.Anchor href="#">
               Forgot your password?
             </Components.Anchor>
             {isLoggedIn != null && (
-              <p style={{ color: 'red' }}>Login failed. Please check your credentials.</p>
+              <p style={{ color: "red" }}>
+                Login failed. Please check your credentials.
+              </p>
             )}
             <Components.Button type="submit">Sign In</Components.Button>
           </Components.Form>
@@ -217,4 +237,3 @@ const handleLogin = async (e) => {
     </div>
   );
 }
-

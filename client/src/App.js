@@ -17,6 +17,7 @@ import InternEvalFeedbackForm from "./Components/InternEvalFeedbackForm/InternEv
 import LogbookEntries from "./Components/LogbookEntries/LogbookEntries";
 import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
 import { AuthProvider } from "./Components/UserManagement/AuthContext";
+import ActivateAccount from "./Components/UserManagement/ActivateAccount";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
               <Route path="/interneval-feedbackform" element={<InternEvalFeedbackForm />} />
               <Route path="/logbook-entries" element={<LogbookEntries />} />
               <Route path="/training-plan" element={<TrainingPlan />} />
+              <Route path="/activate-account" element={<ActivateAccount />} />
             </Routes>
           </main>
         </div>
