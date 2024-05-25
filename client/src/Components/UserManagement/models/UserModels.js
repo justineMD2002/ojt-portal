@@ -13,6 +13,7 @@ export const initialStudentState = {
 };
 
 export const initialSupervisorState = {
+  email: "",
   firstname: "",
   lastname: "",
   company_name: "",

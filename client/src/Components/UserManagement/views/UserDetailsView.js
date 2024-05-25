@@ -51,6 +51,13 @@ export const SupervisorView = ({ supervisor, handleChange }) => (
   <div>
     <Components.Input
       type="text"
+      name="email"
+      placeholder="Email"
+      onChange={handleChange}
+      value={supervisor.email}
+    />
+    <Components.Input
+      type="text"
       name="firstname"
       placeholder="Firstname"
       onChange={handleChange}

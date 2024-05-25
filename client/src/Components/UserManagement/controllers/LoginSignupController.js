@@ -83,6 +83,7 @@ const LoginSignupController = () => {
   const handleSignupSupervisor = async (e) => {
     e.preventDefault();
     try {
+      console.log("Supervisor info:", supervisor);
       const response = await axios.post(
         "https://ojt-portal-backend2.azurewebsites.net/supervisor/register",
         qs.stringify(supervisor),

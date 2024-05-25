@@ -14,13 +14,8 @@ const ActivateAccount = () => {
   };
 
   const activateAccount = async (e) => {
-    console.log({
-      email: email,
-      verificationCode: activationCode,
-    });
     e.preventDefault();
     try {
-      console.log("email:", email, "activationCode:", activationCode);
       const response = await axios.put(
         "https://ojt-portal-backend2.azurewebsites.net/auth/activate",
         qs.stringify({
@@ -48,19 +43,27 @@ const ActivateAccount = () => {
   };
 
   return (
-    <form>
-      <label>
-        Activation Code:
-        <input
-          type="text"
-          onChange={handleActivationCodeChange}
-          value={activationCode}
-        />
-      </label>
-      <button type="submit" onClick={activateAccount}>
-        Activate Account
-      </button>
-    </form>
+    <div className="activate-account">
+      <h1>Activate Account</h1>
+      <p>
+        An activation code has been sent to your email. Please enter the
+        activation code below. If you did not receive the email, please check
+        your spam folder.
+      </p>
+      <form>
+        <label>
+          Activation Code:
+          <input
+            type="text"
+            onChange={handleActivationCodeChange}
+            value={activationCode}
+          />
+        </label>
+        <button type="submit" onClick={activateAccount}>
+          Activate Account
+        </button>
+      </form>
+    </div>
   );
 };
 
