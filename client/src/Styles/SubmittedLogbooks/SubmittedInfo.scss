@@ -25,9 +25,11 @@
       background-color: transparent;
       border: 2px solid black;
       text-align: center;
-      line-height: 30px;
+      line-height: 10px;
       cursor: pointer;
       font-weight: bold;
+      margin-top: -9px;
+      margin-bottom: 15px;
     }
   
     .rec-button-style {
@@ -36,11 +38,13 @@
       background-color: #C8EDFD;
       border: 2px solid #C8EDFD;
       text-align: center;
-      line-height: 30px;
+      line-height: 10px;
       cursor: pointer;
       border-radius: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       font-weight: bold;
+      margin-top: -9px;
+      margin-bottom: 15px;
     }
   
     .icon-style {

@@ -34,6 +34,10 @@ const Sidebar = ({ userRole }) => {
 
   const supervisorLinks = [
     {
+      goto: "/intern-monitoring",
+      name: "Intern Monitoring",
+    },
+    {
       goto: "/task-monitoring",
       name: "Task Monitoring",
     },
@@ -97,11 +101,15 @@ const Sidebar = ({ userRole }) => {
       </ul>
 
       <ul className="clicked-option">
-        {links.map((link, i) => (
-          <Link to={link.goto} onClick={() => setCurrentPageIndex(i)} key={i}>
-            <li className={currentPageIndex === i && "active"}>{link.name}</li>
-          </Link>
-        ))}
+        {links.map((link, i) => {
+          return (
+            <Link to={link.goto} onClick={() => setCurrentPageIndex(i)} key={i}>
+              <li className={currentPageIndex === i && "active"}>
+                {link.name}
+              </li>
+            </Link>
+          );
+        })}
       </ul>
     </div>
   );

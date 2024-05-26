@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "../UserManagement/AuthContext";
 
 const StudentInfo = () => {
   const { authUser} = useAuth();
+
+  useEffect(() => {
+    console.log("here", authUser);
+  }, [])
+  
 
   return (
     <section className="student-info-wrapper">

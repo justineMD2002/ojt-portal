@@ -18,6 +18,7 @@ import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
 import { AuthProvider } from "./Components/UserManagement/AuthContext";
 import ActivateAccount from "./Components/UserManagement/ActivateAccount";
 import LoginSignupController from "./Components/UserManagement/controllers/LoginSignupController";
+import InternMonitoringController from "./Components/InternMonitoring/controllers/InternMonitoringController";
 
 const App = () => {
   return (
@@ -52,6 +53,7 @@ const App = () => {
               <Route path="/logbook-entries" element={<LogbookEntries />} />
               <Route path="/training-plan" element={<TrainingPlan />} />
               <Route path="/activate-account" element={<ActivateAccount />} />
+              <Route path="/intern-monitoring" element={<InternMonitoringController />} />
             </Routes>
           </main>
         </div>

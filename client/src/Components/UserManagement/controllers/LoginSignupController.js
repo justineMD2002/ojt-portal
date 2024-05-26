@@ -15,7 +15,7 @@ const LoginSignupController = () => {
   const [signIn, toggle] = useState(true);
   const navigate = useNavigate();
   const [userType, setUserType] = useState(null);
-  const { setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn, setAuthUser } = useAuth();
   const [user, setUser] = useState(initialUserState);
   const [student, setStudent] = useState(initialStudentState);
   const [supervisor, setSupervisor] = useState(initialSupervisorState);
@@ -38,13 +38,17 @@ const LoginSignupController = () => {
       );
       if (response.data.accessToken) {
         setIsLoggedIn(true);
+        console.log("Login successful", isLoggedIn);
         setAuthUser(response.data);
         if (response.data.accountType === "ROLE_STUDENT") {
           navigate("/student-info");
         } else {
-          navigate("/task-monitoring");
+          navigate("/intern-monitoring");
         }
-      } else if (response.data !== "ERROR: User does not exist") {
+      } else if (
+        response.data ===
+        "ERROR: Account is still pending verification. Check email for the account activation code."
+      ) {
         navigate("/activate-account", {
           state: { email: user.email },
         });
@@ -73,7 +77,7 @@ const LoginSignupController = () => {
       if (response.data === 1) {
         alert("Registration Successful. Please log in.");
       } else {
-        console.log("Registration failed");
+        alert("Registration failed");
       }
     } catch (error) {
       console.error("Error:", error);

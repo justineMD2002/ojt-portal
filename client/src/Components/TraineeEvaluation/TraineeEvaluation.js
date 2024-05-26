@@ -1,90 +1,92 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../UserManagement/AuthContext";
+import axios from "axios";
+import InternEvalFeedbackForm from "../InternEvalFeedbackForm/InternEvalFeedbackForm";
 
 const TraineeEvaluation = () => {
-  const trainees = [
-    {
-      name: "John Doe",
-      position: "UI/UX Intern",
-      degreeProgram: "Computer Science",
-      ojtHrsCompleted: "340 OJT Hours Renderred",
-    },
-    {
-      name: "John Doe",
-      position: "UI/UX Intern",
-      degreeProgram: "Computer Science",
-      ojtHrsCompleted: "340 OJT Hours Renderred",
-    },
-    {
-      name: "John Doe",
-      position: "UI/UX Intern",
-      degreeProgram: "Computer Science",
-      ojtHrsCompleted: "340 OJT Hours Renderred",
-    },
-    {
-      name: "John Doe",
-      position: "UI/UX Intern",
-      degreeProgram: "Computer Science",
-      ojtHrsCompleted: "340 OJT Hours Renderred",
-    },
-    {
-      name: "John Doe",
-      position: "UI/UX Intern",
-      degreeProgram: "Computer Science",
-      ojtHrsCompleted: "340 OJT Hours Renderred",
-    },
-    {
-      name: "John Doe",
-      position: "UI/UX Intern",
-      degreeProgram: "Computer Science",
-      ojtHrsCompleted: "340 OJT Hours Renderred",
-    },
-    {
-      name: "John Doe",
-      position: "UI/UX Intern",
-      degreeProgram: "Computer Science",
-      ojtHrsCompleted: "340 OJT Hours Renderred",
-    },
-    
-  ];
+  const { authUser } = useAuth();
+  const [trainees, setTrainees] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [openFeedback, setOpenFeedback] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://ojt-portal-backend2.azurewebsites.net/company/get-all-students",
+          {
+            params: {
+              companyName: authUser.company_name,
+            },
+            headers: {
+              Authorization: `Bearer ${authUser.accessToken}`,
+            },
+          }
+        );
+        setTrainees(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [authUser]);
+
+  const handleChange = () => {
+    setOpenFeedback(true);
+    console.log("sud")
+  };
+
   return (
     <div className="TraineeEvaluation">
       <h1>Trainee Evaluation</h1>
 
       <table>
-      <thead>
-          <td className="trainees-count">9 Trainees</td>
-          <td></td>
-          <td></td>
-          <td className="filter-department">Filter by Department</td>
+        <thead>
+          <tr>
+            <th className="trainees-count">Trainees</th>
+            <th></th>
+            <th></th>
+            <th className="filter-department">Filter by Department</th>
+          </tr>
         </thead>
         <tbody>
-          {trainees.map((item) => (
+          {loading ? (
             <tr>
-              <td>
-                <FontAwesomeIcon icon={faUserCircle} style={{ fontSize: "30px", marginRight: '-100px' }} />
-              </td>
-              <td>
-                <div>
-                  <div className="item-name">{item.name}</div>
-                  <div className="item-position">{item.position}</div>
-                </div>
-              </td>
-              <td>
-                <div>
-                  <div>{item.degreeProgram}</div>
-                  <div className="item-ojtHrs">{item.ojtHrsCompleted}</div>
-                </div>
-              </td>
-              <td>
-                <Link to={"/interneval-feedbackform"}>
-                  <button>Evaluate Trainee</button>
-                </Link>
-              </td>
+              <td colSpan="4">Loading...</td>
             </tr>
-          ))}
+          ) : (
+            trainees.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <FontAwesomeIcon
+                    icon={faUserCircle}
+                    style={{ fontSize: "30px", marginRight: "-100px" }}
+                  />
+                </td>
+                <td>
+                  <div>
+                    <div className="item-name">{item.user.firstname} {item.user.lastname}</div>
+                    <div className="item-position">{item.user.email}</div>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <div>{item.degreeProgram}</div>
+                    <div className="item-ojtHrs">Student ID: {item.studentid}</div>
+                  </div>
+                </td>
+                <td>
+                  <button onChange={handleChange}>Evaluate Trainee</button>
+                  {openFeedback && <InternEvalFeedbackForm />}
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

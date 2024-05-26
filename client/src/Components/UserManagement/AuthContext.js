@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 
 const AuthContext = React.createContext();
 
@@ -6,27 +6,33 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export function AuthProvider(props) { 
-  const [authUser, setAuthUserState] = useState(null);
-  const [isLoggedIn, setIsLoggedInState] = useState(null);
+export function AuthProvider(props) {
+  const [authUser, setAuthUserState] = useState(() => {
+    const savedAuthUser = localStorage.getItem("authUser");
+    return savedAuthUser ? JSON.parse(savedAuthUser) : null;
+  });
+  const [isLoggedIn, setIsLoggedInState] = useState(() => {
+    const savedLoginState = localStorage.getItem("isLoggedIn");
+    return JSON.parse(savedLoginState);
+  });
 
-  useEffect(() => {
-    const storedAuthUser = JSON.parse(localStorage.getItem('authUser'));
-    const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  // useEffect(() => {
+  //   const storedAuthUser = JSON.parse(localStorage.getItem('authUser'));
+  //   const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
-    if (storedAuthUser && storedIsLoggedIn) {
-      setAuthUserState(storedAuthUser);
-      setIsLoggedInState(storedIsLoggedIn);
-    }
-  }, []);
+  //   if (storedAuthUser && storedIsLoggedIn) {
+  //     setAuthUserState(storedAuthUser);
+  //     setIsLoggedInState(storedIsLoggedIn);
+  //   }
+  // }, []);
 
   const setAuthUser = (userData) => {
-    localStorage.setItem('authUser', JSON.stringify(userData));
+    localStorage.setItem("authUser", JSON.stringify(userData));
     setAuthUserState(userData);
   };
 
   const setIsLoggedIn = (loggedIn) => {
-    localStorage.setItem('isLoggedIn', loggedIn);
+    localStorage.setItem("isLoggedIn", loggedIn);
     setIsLoggedInState(loggedIn);
   };
 
@@ -38,8 +44,6 @@ export function AuthProvider(props) {
   };
 
   return (
-    <AuthContext.Provider value={value}>
-      {props.children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
   );
 }
