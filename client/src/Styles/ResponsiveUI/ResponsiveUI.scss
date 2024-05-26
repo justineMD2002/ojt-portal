@@ -1,0 +1,19 @@
+@media only screen and (max-width: 800px) {
+  .Sidebar {
+    display: none;
+  }
+  main {
+    margin-left: 0 !important;
+    padding: 20px !important;
+  }
+
+  .Header {
+    .logout {
+      display: none;
+    }
+  }
+
+  .Footer {
+    display: none;
+  }
+}

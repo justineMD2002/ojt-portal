@@ -173,56 +173,90 @@ const TaskMonitoring = () => {
 
       <div className="training-plan-title">
         <h3 className="title">Create Training Plan</h3>
-        <button onClick={() => setIsModalOpen(true)}>Create Training Plan</button>
+        <button onClick={() => setIsModalOpen(true)}>
+          Create Training Plan
+        </button>
       </div>
 
       <ul className="training-plan">
         {trainingPlan.map((item, i) => (
           <li key={i}>
-            <p>Module {item.id} - {item.title}</p>
+            <p>
+              Module {item.id} - {item.title}
+            </p>
             <div className="btn-container">
-              <p>Tasks: {countCompleteTasks(item.tasks)}/{item.tasks.length}</p>
+              <p>
+                Tasks: {countCompleteTasks(item.tasks)}/{item.tasks.length}
+              </p>
               <button>View Details</button>
             </div>
           </li>
         ))}
       </ul>
 
-      <Modal 
-        isOpen={isModalOpen} 
+      <Modal
+        isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         style={{
           content: {
-            width: '50%', // Adjust the width as needed
-            height: '60%', // Adjust the height as needed
-            margin: 'auto',
-            padding: '20px',
-            background: '#fff',
-            borderRadius: '8px',
-            outline: 'none',
+            width: "50%", // Adjust the width as needed
+            height: "60%", // Adjust the height as needed
+            margin: "auto",
+            padding: "20px",
+            background: "#fff",
+            borderRadius: "8px",
+            outline: "none",
           },
           overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
           },
         }}
       >
         <h2>Create Training Plan</h2>
-        <form onSubmit={(e) => { e.preventDefault(); handleCreateTrainingPlan(); }} >
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCreateTrainingPlan();
+          }}
+        >
           <label>
             Title:
-            <input type="text" name="title" value={formData.title} onChange={handleInputChange} required />
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              required
+            />
           </label>
           <label>
             Description:
-            <textarea name="description" value={formData.description} onChange={handleInputChange} required />
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              required
+            />
           </label>
           <label>
             Start Date:
-            <input type="date" name="startDate" value={formData.startDate} onChange={handleInputChange} required />
+            <input
+              type="date"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleInputChange}
+              required
+            />
           </label>
           <label>
             End Date:
-            <input type="date" name="endDate" value={formData.endDate} onChange={handleInputChange} required />
+            <input
+              type="date"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleInputChange}
+              required
+            />
           </label>
           <button type="submit">Create</button>
         </form>
