@@ -50,6 +50,16 @@
     }
   }
 
+  .TaskMonitoring {
+    .TaskCard-container {
+      display: block;
+
+      .TaskCard {
+        margin-top: 20px;
+      }
+    }
+  }
+
   .OJTAnalytics {
     .chart-container {
       display: block;
