@@ -15,7 +15,8 @@ const LoginSignupController = () => {
   const [signIn, toggle] = useState(true);
   const navigate = useNavigate();
   const [userType, setUserType] = useState(null);
-  const { setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+  const { setAuthUser,  } = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [user, setUser] = useState(initialUserState);
   const [student, setStudent] = useState(initialStudentState);
   const [supervisor, setSupervisor] = useState(initialSupervisorState);
@@ -76,7 +77,7 @@ const LoginSignupController = () => {
       if (response.data === 1) {
         alert("Registration Successful. Please log in.");
       } else {
-        console.log("Registration failed");
+        alert("Registration failed");
       }
     } catch (error) {
       console.error("Error:", error);

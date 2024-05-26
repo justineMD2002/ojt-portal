@@ -28,13 +28,13 @@ export function AuthProvider(props) {
   //   }
   // }, []);
 
-  const setAuthUser = (userData) => {
+  const setAuthUser = (userData) => { 
     localStorage.setItem('authUser', JSON.stringify(userData));
     setAuthUserState(userData);
   };
 
   const setIsLoggedIn = (loggedIn) => {
-    localStorage.setItem('isLoggedIn', loggedIn);
+    localStorage.setItem('isLoggedIn', loggedIn); 
     setIsLoggedInState(loggedIn);
   };
 
