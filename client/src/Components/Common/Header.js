@@ -25,10 +25,21 @@ const Header = () => {
       <p className="logo">OJT Management Portal</p>
       <div className="head-side">
         <p className="user">
-          Welcome, <span>{authUser != null ? authUser.userInfo.firstname + " " + authUser.userInfo.lastname : "Guest"}</span>{" "}
+          Welcome,{" "}
+          <span>
+            {authUser != null
+              ? authUser.userInfo.firstname + " " + authUser.userInfo.lastname
+              : "Guest"}
+          </span>{" "}
           <FontAwesomeIcon className="icon" icon={faUserCircle} />
         </p>
-        <Link onClick={(e) => { handleLogout(e) }} to={"/"}>
+        <Link
+          onClick={(e) => {
+            handleLogout(e);
+          }}
+          to={"/"}
+          className="logout"
+        >
           <p>Logout</p>
         </Link>
       </div>

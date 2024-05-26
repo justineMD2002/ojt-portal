@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from "react-modal";
 import TaskCard from "./TaskCard";
 
 const TaskMonitoring = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    startDate: "",
+    endDate: "",
+  });
+
   const tasks = [
     {
       thumbnail:
@@ -123,21 +132,35 @@ const TaskMonitoring = () => {
 
   const countCompleteTasks = (tasks) => {
     let completeCount = 0;
-
     tasks.forEach((task) => {
       if (task.mark === "complete") {
         completeCount++;
       }
     });
-
     return completeCount;
   };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleCreateTrainingPlan = () => {
+    // Handle the logic to create a training plan
+    console.log(formData);
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="TaskMonitoring">
       <h3 className="title">Task Status Overview</h3>
       <div className="TaskCard-container">
         {tasks.map((task, i) => (
           <TaskCard
+            key={i}
             thumbnail={task.thumbnail}
             title={task.title}
             details={task.details}
@@ -150,26 +173,95 @@ const TaskMonitoring = () => {
 
       <div className="training-plan-title">
         <h3 className="title">Create Training Plan</h3>
-        <button>Create Training Plan</button>
+        <button onClick={() => setIsModalOpen(true)}>
+          Create Training Plan
+        </button>
       </div>
 
       <ul className="training-plan">
         {trainingPlan.map((item, i) => (
-          <li>
+          <li key={i}>
             <p>
               Module {item.id} - {item.title}
             </p>
-
             <div className="btn-container">
               <p>
                 Tasks: {countCompleteTasks(item.tasks)}/{item.tasks.length}
               </p>
-
               <button>View Details</button>
             </div>
           </li>
         ))}
       </ul>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        style={{
+          content: {
+            width: "50%", // Adjust the width as needed
+            height: "60%", // Adjust the height as needed
+            margin: "auto",
+            padding: "20px",
+            background: "#fff",
+            borderRadius: "8px",
+            outline: "none",
+          },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        <h2>Create Training Plan</h2>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCreateTrainingPlan();
+          }}
+        >
+          <label>
+            Title:
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+          <label>
+            Description:
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+          <label>
+            Start Date:
+            <input
+              type="date"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+          <label>
+            End Date:
+            <input
+              type="date"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+          <button type="submit">Create</button>
+        </form>
+        <button onClick={() => setIsModalOpen(false)}>Close</button>
+      </Modal>
     </div>
   );
 };
