@@ -82,6 +82,15 @@
       display: block !important;
     }
   }
+
+  .TrainingPlan {
+    .task-list {
+      display: block !important;
+      .task {
+        margin-bottom: 15px;
+      }
+    }
+  }
 }
 
 @import "./HamburgerNavigation.scss";
