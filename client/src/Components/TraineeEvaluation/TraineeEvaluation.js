@@ -38,7 +38,7 @@ const TraineeEvaluation = () => {
 
   const handleChange = () => {
     setOpenFeedback(true);
-    console.log("sud")
+    console.log("sud");
   };
 
   return (
@@ -70,14 +70,18 @@ const TraineeEvaluation = () => {
                 </td>
                 <td>
                   <div>
-                    <div className="item-name">{item.user.firstname} {item.user.lastname}</div>
+                    <div className="item-name">
+                      {item.user.firstname} {item.user.lastname}
+                    </div>
                     <div className="item-position">{item.user.email}</div>
                   </div>
                 </td>
                 <td>
                   <div>
                     <div>{item.degreeProgram}</div>
-                    <div className="item-ojtHrs">Student ID: {item.studentid}</div>
+                    <div className="item-ojtHrs">
+                      Student ID: {item.studentid}
+                    </div>
                   </div>
                 </td>
                 <td>
