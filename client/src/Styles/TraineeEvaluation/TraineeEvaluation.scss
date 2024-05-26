@@ -1,66 +1,87 @@
 .TraineeEvaluation {
-  table {
-    border-collapse: collapse;
-    text-align: left;
-    width: 100%;
+  ul {
+    margin-top: 20px;
+    li {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      margin-bottom: 10px;
+      box-shadow: 0 0 5px 0 #f3f3f3;
+      padding: 10px;
 
-    th {
-      text-align: right; 
-    }
-    td {
-      padding: 25px 5px;
-      font-size: 18px;
-    }
+      .user {
+        display: flex;
+        align-items: center;
 
-    tr {
-      border-top: 2px solid #c6c6c6;
-    }
-
-    tr:last-child {
-      border-bottom: 1px solid #c6c6c6;
-    }
-
-    td:first-child {
-      width: 1%; 
-      white-space: nowrap; 
-    }
-
-    td:last-child {
-      text-align: right; 
-    }
-
-    button {
-      padding: 5px;
-      border-radius: 10px;
-      background-color: $strong-yellow;
-      border: none;
-      width: 150px;
-      height: 35px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 13px;
+        .icon {
+          font-size: 2rem;
+          margin-right: 10px;
+        }
+      }
     }
   }
+  // table {
+  //   border-collapse: collapse;
+  //   text-align: left;
+  //   width: 100%;
 
-  thead .trainees-count,
-  .filter-department {
-    font-size: 16px;
-    color:gray;
-  }
+  //   th {
+  //     text-align: right;
+  //   }
+  //   td {
+  //     padding: 25px 5px;
+  //     font-size: 18px;
+  //   }
 
-  .item-name{
-    margin-left: -30px;
-    margin-right: 120px;
-  }
+  //   tr {
+  //     border-top: 2px solid #c6c6c6;
+  //   }
 
-  .item-position{
-    margin-left: -30px;
-    font-size: 12px;
-    color: gray;
-  }
+  //   tr:last-child {
+  //     border-bottom: 1px solid #c6c6c6;
+  //   }
 
-  .item-ojtHrs{
-    font-size: 12px;
-    color: gray;
-  }
+  //   td:first-child {
+  //     width: 1%;
+  //     white-space: nowrap;
+  //   }
+
+  //   td:last-child {
+  //     text-align: right;
+  //   }
+
+  //   button {
+  //     padding: 5px;
+  //     border-radius: 10px;
+  //     background-color: $strong-yellow;
+  //     border: none;
+  //     width: 150px;
+  //     height: 35px;
+  //     cursor: pointer;
+  //     font-weight: bold;
+  //     font-size: 13px;
+  //   }
+  // }
+
+  // thead .trainees-count,
+  // .filter-department {
+  //   font-size: 16px;
+  //   color: gray;
+  // }
+
+  // .item-name {
+  //   margin-left: -30px;
+  //   margin-right: 120px;
+  // }
+
+  // .item-position {
+  //   margin-left: -30px;
+  //   font-size: 12px;
+  //   color: gray;
+  // }
+
+  // .item-ojtHrs {
+  //   font-size: 12px;
+  //   color: gray;
+  // }
 }
