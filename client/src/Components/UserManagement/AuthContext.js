@@ -12,8 +12,8 @@ export function AuthProvider(props) {
     return savedAuthUser ? JSON.parse(savedAuthUser) : null;
   });
   const [isLoggedIn, setIsLoggedInState] = useState(() => {
-    const savedLoginState = localStorage.getItem("isLoggedIn") === "true";
-    return savedLoginState ? JSON.parse(savedLoginState) : null;
+    const savedLoginState = localStorage.getItem("isLoggedIn");
+    return JSON.parse(savedLoginState);
   });
 
   // useEffect(() => {

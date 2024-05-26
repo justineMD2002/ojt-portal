@@ -15,8 +15,7 @@ const LoginSignupController = () => {
   const [signIn, toggle] = useState(true);
   const navigate = useNavigate();
   const [userType, setUserType] = useState(null);
-  const { setAuthUser,  } = useAuth();
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const { isLoggedIn, setIsLoggedIn, setAuthUser } = useAuth();
   const [user, setUser] = useState(initialUserState);
   const [student, setStudent] = useState(initialStudentState);
   const [supervisor, setSupervisor] = useState(initialSupervisorState);
@@ -39,6 +38,7 @@ const LoginSignupController = () => {
       );
       if (response.data.accessToken) {
         setIsLoggedIn(true);
+        console.log("Login successful", isLoggedIn);
         setAuthUser(response.data);
         if (response.data.accountType === "ROLE_STUDENT") {
           navigate("/student-info");
