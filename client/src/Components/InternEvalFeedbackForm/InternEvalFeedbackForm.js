@@ -1,11 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useAuth } from "../UserManagement/AuthContext";
 
 const InternEvalFeedbackForm = (props) => {
+  const [grades, setGrades] = useState({
+    attendance: 5,
+    communication: 5,
+    qualOfWork: 5,
+    probSolving: 5,
+  });
+  const [feedback, setFeedback] = useState("");
+  const { authUser } = useAuth();
 
-  const attendance = ["Excellent", "Very Good", "Good", "Poor"];
-  const communication = ["Excellent", "Very Good", "Good", "Poor"];
-  const qualOfWork = ["Excellent", "Very Good", "Good", "Po yor"];
-  const probSolving = ["Excellent", "Very Good", "Good", "Poor"];
+  const handleChange = (e, type) => {
+    const value = e.target.value;
+    const grade = getGrade(value);
+    setGrades((prevGrades) => ({
+      ...prevGrades,
+      [type]: grade,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    const averageGrade = calculateAverageGrade();
+    const formData = new FormData();
+    formData.append('grade', averageGrade);
+    formData.append('feedback', feedback);
+    formData.append('studentEmail', props.student.email);
+
+    try {
+      const response = await axios.post(
+        "https://ojt-portal-backend2.azurewebsites.net/supervisor/evaluate-intern",
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${authUser.accessToken}`,
+          }
+        }
+      );
+      console.log(response.data);
+      if (/^ERROR/.test(response.data)) {
+        alert(`${response.data}`);
+      } else {
+        alert(`${response.data}`);
+        props.onClose(); 
+      }
+    } catch (error) {
+      console.error("Error submitting evaluation:", error);
+    }
+  };
+
+  const getGrade = (value) => {
+    switch (value) {
+      case "Excellent":
+        return 5;
+      case "Very Good":
+        return 4;
+      case "Average":
+        return 3;
+      case "Needs Improvement":
+        return 2;
+      case "Poor":
+        return 1;
+      default:
+        return 0;
+    }
+  };
+
+  const calculateAverageGrade = () => {
+    const { attendance, communication, qualOfWork, probSolving } = grades;
+    const averageGrade =
+      (attendance + communication + qualOfWork + probSolving) / 4;
+    return averageGrade.toFixed(1);
+  };
 
   return (
     <div className="InternEvalFeedbackForm">
@@ -20,9 +88,11 @@ const InternEvalFeedbackForm = (props) => {
             className="profile-pic"
           />
           <div className="intern-details">
-            <div>John Doe</div>
-            <div>Job Position: Software Engineer Intern</div>
-            <div>Department:</div>
+            <div>ID: {props.student.uid}</div>
+            <div>
+              {props.student.firstname} {props.student.lastname}
+            </div>
+            <div>Email: {props.student.email}</div>
           </div>
         </div>
       </div>
@@ -32,17 +102,33 @@ const InternEvalFeedbackForm = (props) => {
           <div className="dropdown-column">
             <div className="td">
               <div className="eval-info">Attendance</div>
-              <select>
-                {attendance.map((skill, i) => (
-                  <option key={i} value={skill}>{skill}</option>
+              <select onChange={(e) => handleChange(e, "attendance")}>
+                {[
+                  "Excellent",
+                  "Very Good",
+                  "Average",
+                  "Needs Improvement",
+                  "Poor",
+                ].map((skill, i) => (
+                  <option key={i} value={skill}>
+                    {skill}
+                  </option>
                 ))}
               </select>
             </div>
             <div className="td">
               <div className="eval-info">Communication</div>
-              <select>
-                {communication.map((skill, i) => (
-                  <option key={i} value={skill}>{skill}</option>
+              <select onChange={(e) => handleChange(e, "communication")}>
+                {[
+                  "Excellent",
+                  "Very Good",
+                  "Average",
+                  "Needs Improvement",
+                  "Poor",
+                ].map((skill, i) => (
+                  <option key={i} value={skill}>
+                    {skill}
+                  </option>
                 ))}
               </select>
             </div>
@@ -50,32 +136,53 @@ const InternEvalFeedbackForm = (props) => {
           <div className="dropdown-column">
             <div className="td">
               <div className="eval-info">Quality of Work</div>
-              <select>
-                {qualOfWork.map((skill, i) => (
-                  <option key={i} value={skill}>{skill}</option>
+              <select onChange={(e) => handleChange(e, "qualOfWork")}>
+                {[
+                  "Excellent",
+                  "Very Good",
+                  "Average",
+                  "Needs Improvement",
+                  "Poor",
+                ].map((skill, i) => (
+                  <option key={i} value={skill}>
+                    {skill}
+                  </option>
                 ))}
               </select>
             </div>
             <div className="td">
               <div className="eval-info">Problem Solving</div>
-              <select>
-                {probSolving.map((skill, i) => (
-                  <option key={i} value={skill}>{skill}</option>
+              <select onChange={(e) => handleChange(e, "probSolving")}>
+                {[
+                  "Excellent",
+                  "Very Good",
+                  "Average",
+                  "Needs Improvement",
+                  "Poor",
+                ].map((skill, i) => (
+                  <option key={i} value={skill}>
+                    {skill}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
         </div>
       </div>
+      <div className="average-grade">
+        <p>Average Grade: {calculateAverageGrade()}</p>
+      </div>
       <div className="comment-section container">
-        <h3>Comment</h3>
+        <h3>Feedback</h3>
         <textarea
           rows={6}
           cols={40}
-          placeholder="Enter your comment here..."
+          placeholder="Enter your feedback here..."
+          value={feedback}
+          onChange={(e) => setFeedback(e.target.value)}
         ></textarea>
       </div>
-      <button>Submit</button>
+      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 };
