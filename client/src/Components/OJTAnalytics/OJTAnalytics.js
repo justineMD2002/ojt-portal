@@ -1,5 +1,8 @@
 import React from "react";
+import { Chart, registerables } from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
+
+Chart.register(...registerables);
 
 const OJTAnalytics = () => {
   const lineData = {
@@ -90,7 +93,7 @@ const OJTAnalytics = () => {
                 Select Skills
               </option>
               {skillFilter.map((skill, i) => (
-                <option value="">{skill}</option>
+                <option key={i} value="">{skill}</option>
               ))}
             </select>
             <select name="" id="">
@@ -98,15 +101,14 @@ const OJTAnalytics = () => {
                 Select Domain
               </option>
               {domainFilter.map((skill, i) => (
-                <option value="">{skill}</option>
+                <option key={i} value="">{skill}</option>
               ))}
             </select>
             <div className="date-time-container">
-              {/* this is for selecting the time range */}
               <div>
                 <label htmlFor="">From</label>
                 <input type="datetime-local" id="datetime" name="datetime" />
-              </div>{" "}
+              </div>
               <div>
                 <label htmlFor="">To</label>
                 <input type="datetime-local" id="datetime" name="datetime" />
@@ -117,18 +119,15 @@ const OJTAnalytics = () => {
                 Trend Direction
               </option>
               {trendDirectionFilter.map((skill, i) => (
-                <option value="">{skill}</option>
+                <option key={i} value="">{skill}</option>
               ))}
             </select>
           </div>
-
           <button>Apply Filters</button>
         </div>
       </div>
-
       <div className="data-table container">
         <h4>Data Table</h4>
-
         <table>
           <thead>
             <tr>
@@ -140,7 +139,7 @@ const OJTAnalytics = () => {
           </thead>
           <tbody>
             {dataTable.map((data, i) => (
-              <tr>
+              <tr key={i}>
                 <td>{data.skill}</td>
                 <td>{data.domain}</td>
                 <td>{data.trendDirection}</td>
