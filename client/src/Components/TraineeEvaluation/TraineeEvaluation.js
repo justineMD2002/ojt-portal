@@ -11,6 +11,7 @@ const TraineeEvaluation = () => {
   const [trainees, setTrainees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openFeedback, setOpenFeedback] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,54 +46,47 @@ const TraineeEvaluation = () => {
     <div className="TraineeEvaluation">
       <h1>Trainee Evaluation</h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th className="trainees-count">Trainees</th>
-            <th></th>
-            <th></th>
-            <th className="filter-department">Filter by Department</th>
-          </tr>
-        </thead>
-        <tbody>
-          {loading ? (
-            <tr>
-              <td colSpan="4">Loading...</td>
-            </tr>
-          ) : (
-            trainees.map((item, index) => (
-              <tr key={index}>
-                <td>
-                  <FontAwesomeIcon
-                    icon={faUserCircle}
-                    style={{ fontSize: "30px", marginRight: "-100px" }}
-                  />
-                </td>
-                <td>
-                  <div>
-                    <div className="item-name">
-                      {item.user.firstname} {item.user.lastname}
-                    </div>
-                    <div className="item-position">{item.user.email}</div>
-                  </div>
-                </td>
-                <td>
-                  <div>
-                    <div>{item.degreeProgram}</div>
-                    <div className="item-ojtHrs">
-                      Student ID: {item.studentid}
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <button onClick={handleChange} student={item}>Evaluate Trainee</button>
-                  {openFeedback && <InternEvalFeedbackForm student={item}/>}
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+      {loading ? (
+        <td colSpan="4">Loading...</td>
+      ) : (
+        <ul>
+          {trainees.map((item, index) => (
+            <li
+              key={index}
+              style={{ display: openFeedback != null ? "block" : "grid" }}
+            >
+              <div
+                className={`user`}
+                style={{ display: openFeedback != null && "none" }}
+              >
+                <FontAwesomeIcon icon={faUserCircle} className="icon" />
+
+                <div>
+                  <p className="item-name">
+                    {item.user.firstname} {item.user.lastname}
+                  </p>
+                  <p className="item-position">{item.user.email}</p>
+                </div>
+              </div>
+
+              <div
+                className="student-id-container"
+                style={{ display: openFeedback != null && "none" }}
+              >
+                <p>{item.degreeProgram}</p>
+                <p className="item-ojtHrs">Student ID: {item.studentid}</p>
+              </div>
+
+              <div style={{ display: openFeedback != null && "none" }}>
+                <button onClick={handleChange} student={item}>
+                  Evaluate Trainee
+                </button>
+              </div>
+              {openFeedback && <InternEvalFeedbackForm student={item} />}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
