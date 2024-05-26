@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../UserManagement/AuthContext";
 import {
   faHouse,
@@ -12,8 +12,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HamburgerNavigation = ({ isOpen, setOpenHamburgerNav }) => {
+  const navigate = useNavigate();
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const { authUser } = useAuth();
+  const { authUser, isLoggedIn, setIsLoggedIn, setAuthUser } = useAuth();
+
   const [navigated, setNavigated] = useState(false);
   const studentLinks = [
     {
@@ -62,6 +64,13 @@ const HamburgerNavigation = ({ isOpen, setOpenHamburgerNav }) => {
     setOpenHamburgerNav(false);
   };
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setIsLoggedIn(null);
+    setAuthUser(null);
+    navigate("/");
+  };
+
   const links =
     authUser && authUser.accountType === "ROLE_STUDENT"
       ? studentLinks
@@ -96,6 +105,15 @@ const HamburgerNavigation = ({ isOpen, setOpenHamburgerNav }) => {
             <li className={currentPageIndex === i && "active"}>{link.name}</li>
           </Link>
         ))}
+        <Link
+          onClick={(e) => {
+            handleLogout(e);
+          }}
+          to={"/"}
+          className="mlogout"
+        >
+          <p>Logout</p>
+        </Link>
       </ul>
 
       <ul className="icon-container">

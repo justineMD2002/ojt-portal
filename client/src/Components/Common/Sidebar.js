@@ -93,7 +93,7 @@ const Sidebar = ({ userRole }) => {
             <FontAwesomeIcon icon={faFile} />
           </Link>
         </li>
-        <li>
+        <li onClick={() => setCurrentPageIndex(3)}>
           <Link to="/logbook">
             <FontAwesomeIcon icon={faBookOpen} />
           </Link>
