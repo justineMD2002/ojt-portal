@@ -10,12 +10,16 @@
 
   a {
     text-decoration: none;
+    color: white;
   }
 
   ul.clicked-option {
     li {
       padding: 15px 0;
       color: white;
+    }
+    p {
+      margin-top: 30px;
     }
   }
 
@@ -48,7 +52,7 @@
   .header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 
     p {
       color: white;
