@@ -81,8 +81,8 @@ const TraineeEvaluation = () => {
                   </div>
                 </td>
                 <td>
-                  <button onChange={handleChange}>Evaluate Trainee</button>
-                  {openFeedback && <InternEvalFeedbackForm />}
+                  <button onClick={handleChange} student={item}>Evaluate Trainee</button>
+                  {openFeedback && <InternEvalFeedbackForm student={item}/>}
                 </td>
               </tr>
             ))

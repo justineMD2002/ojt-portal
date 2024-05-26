@@ -1,9 +1,10 @@
 import React from "react";
 
-const InternEvalFeedbackForm = () => {
+const InternEvalFeedbackForm = (props) => {
+
   const attendance = ["Excellent", "Very Good", "Good", "Poor"];
   const communication = ["Excellent", "Very Good", "Good", "Poor"];
-  const qualOfWork = ["Excellent", "Very Good", "Good", "Poor"];
+  const qualOfWork = ["Excellent", "Very Good", "Good", "Po yor"];
   const probSolving = ["Excellent", "Very Good", "Good", "Poor"];
 
   return (

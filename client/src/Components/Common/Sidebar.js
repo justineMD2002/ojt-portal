@@ -46,10 +46,6 @@ const Sidebar = ({ userRole }) => {
       name: "OJT Analytics",
     },
     {
-      goto: "/logbookSubmissions",
-      name: "View Logbook Submissions",
-    },
-    {
       goto: "/submitted-logbook",
       name: "View Logbook Submissions",
     },
