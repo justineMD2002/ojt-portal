@@ -1,4 +1,4 @@
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .Sidebar {
     display: none;
   }
@@ -16,4 +16,34 @@
   .Footer {
     display: none;
   }
+
+  .Dashboard {
+    h3 {
+      font-size: 1rem;
+    }
+    .student-info {
+      //   display: block !important;
+      font-size: 0.9rem;
+    }
+
+    .ojt-hrs-tracking {
+      table {
+        td,
+        th,
+        tr {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .progress-wrapper {
+      display: block !important;
+
+      .progress-container {
+        margin-bottom: 15px;
+      }
+    }
+  }
 }
+
+@import "./HamburgerNavigation.scss";
