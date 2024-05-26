@@ -11,7 +11,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({ userRole }) => {
-  const [currentPageIndex, setCurrentPageIndex] = useState(0); 
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const { authUser } = useAuth();
   const studentLinks = [
     {
@@ -34,6 +34,10 @@ const Sidebar = ({ userRole }) => {
 
   const supervisorLinks = [
     {
+      goto: "/intern-monitoring",
+      name: "Intern Monitoring",
+    },
+    {
       goto: "/task-monitoring",
       name: "Task Monitoring",
     },
@@ -55,10 +59,15 @@ const Sidebar = ({ userRole }) => {
     },
   ];
 
-  const links = authUser && authUser.accountType === "ROLE_STUDENT" ? studentLinks : supervisorLinks;
+  const links =
+    authUser && authUser.accountType === "ROLE_STUDENT"
+      ? studentLinks
+      : supervisorLinks;
 
   useEffect(() => {
-    setCurrentPageIndex(links.findIndex((link) => link.goto === window.location.pathname));
+    setCurrentPageIndex(
+      links.findIndex((link) => link.goto === window.location.pathname)
+    );
   }, [links]);
 
   return (
@@ -92,11 +101,15 @@ const Sidebar = ({ userRole }) => {
       </ul>
 
       <ul className="clicked-option">
-        {links.map((link, i) => (
-          <Link to={link.goto} onClick={() => setCurrentPageIndex(i)} key={i}>
-            <li className={currentPageIndex === i && "active"}>{link.name}</li>
-          </Link>
-        ))}
+        {links.map((link, i) => {
+          return (
+            <Link to={link.goto} onClick={() => setCurrentPageIndex(i)} key={i}>
+              <li className={currentPageIndex === i && "active"}>
+                {link.name}
+              </li>
+            </Link>
+          );
+        })}
       </ul>
     </div>
   );

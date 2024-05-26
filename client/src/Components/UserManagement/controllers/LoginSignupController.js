@@ -42,9 +42,12 @@ const LoginSignupController = () => {
         if (response.data.accountType === "ROLE_STUDENT") {
           navigate("/student-info");
         } else {
-          navigate("/task-monitoring");
+          navigate("/intern-monitoring");
         }
-      } else if (response.data !== "ERROR: User does not exist") {
+      } else if (
+        response.data ===
+        "ERROR: Account is still pending verification. Check email for the account activation code."
+      ) {
         navigate("/activate-account", {
           state: { email: user.email },
         });

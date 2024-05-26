@@ -7,18 +7,26 @@ export function useAuth() {
 }
 
 export function AuthProvider(props) { 
-  const [authUser, setAuthUserState] = useState(null);
-  const [isLoggedIn, setIsLoggedInState] = useState(null);
-
-  useEffect(() => {
-    const storedAuthUser = JSON.parse(localStorage.getItem('authUser'));
-    const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-
-    if (storedAuthUser && storedIsLoggedIn) {
-      setAuthUserState(storedAuthUser);
-      setIsLoggedInState(storedIsLoggedIn);
+  const [authUser, setAuthUserState] = useState(
+    () => {
+      const savedAuthUser = localStorage.getItem('authUser');
+      return savedAuthUser ? JSON.parse(savedAuthUser) : null;
     }
-  }, []);
+  );
+  const [isLoggedIn, setIsLoggedInState] = useState(() => {
+    const savedLoginState = localStorage.getItem("isLoggedIn");
+    return savedLoginState ? JSON.parse(savedLoginState) : null;
+  });
+
+  // useEffect(() => {
+  //   const storedAuthUser = JSON.parse(localStorage.getItem('authUser'));
+  //   const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+  //   if (storedAuthUser && storedIsLoggedIn) {
+  //     setAuthUserState(storedAuthUser);
+  //     setIsLoggedInState(storedIsLoggedIn);
+  //   }
+  // }, []);
 
   const setAuthUser = (userData) => {
     localStorage.setItem('authUser', JSON.stringify(userData));

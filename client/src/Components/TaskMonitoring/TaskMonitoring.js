@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TaskCard from "./TaskCard";
+import { useAuth } from "../UserManagement/AuthContext";
 
 const TaskMonitoring = () => {
+  const { authUser } = useAuth();
+
+  useEffect(() => {
+    console.log("here", authUser);
+  }, []);
+
   const tasks = [
     {
       thumbnail:
