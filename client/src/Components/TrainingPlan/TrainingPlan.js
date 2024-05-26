@@ -1,65 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../UserManagement/AuthContext";
 
 const TrainingPlan = () => {
-    const data = [
-        {
-            header: "Day1: ",
-            content: [
-                "Introduction to the company policies",
-                "Meet the team members",
-                "Review training schedule"
-            ],
-            rsrc: "Company Handbook"
-        },
-        {
-            header: "Day1: ",
-            content: [
-                "Introduction to the company policies",
-                "Meet the team members",
-                "Review training schedule"
-            ],
-            rsrc: "Company Handbook"
-        },
-        {
-            header: "Day1: ",
-            content: [
-                "Introduction to the company policies",
-                "Meet the team members",
-                "Review training schedule"
-            ],
-            rsrc: "Company Handbook"
-        },
-        {
-            header: "Day1: ",
-            content: [
-                "Introduction to the company policies",
-                "Meet the team members",
-                "Review training schedule"
-            ],
-            rsrc: "Company Handbook"
-        }
-    ]
-  return (
-    <div className="TrainingPlan">
-        <h1>Training Plan</h1>
-        {/* <ul className="data"> */}
+    const [plans, setPlans] = useState([]);
+    const { authUser } = useAuth();
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            "https://ojt-portal-backend2.azurewebsites.net/get-student-trainingplans",
             {
-                data.map((item, i) => (
-                    <li className="data">
-                        <h2>{item.header}</h2>
-                        <p>Today's Tasks</p>
-                        <ul>
-                            {item.content.map((item2, i) => (
-                                <li>{item2}</li>
-                            ))}
-                        </ul>
-                    </li>
-                ))
+              params: {
+                studentEmail: authUser.userInfo.email,
+              },
+              headers: {
+                Authorization: `Bearer ${authUser.accessToken}`,
+              },
             }
-        {/* </ul> */}
-        <button>Upload Logbook</button>
-    </div>
-  );
-};
-
-export default TrainingPlan;
+          );
+          console.log(response.data);
+          setPlans(response.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+  
+    return (
+        <div className="TrainingPlan">
+          <h1>Training Plan</h1>
+          {plans.map((item) => (
+            <div key={item.trainingplanid} className="data">
+              <h2>
+                {item.trainingplanid}: {item.description}
+              </h2>
+              <p>Tasks: </p>
+              <ul>
+                {item.tasks.map((task) => (
+                  <li key={task.taskId}>
+                    <div>Task ID: {task.taskId}</div>
+                    <div>Title: {task.title}</div>
+                    <div>Description: {task.description}</div>
+                    <div>Objective: {task.objective}</div>
+                    <p>Skills: </p>
+                    <ul>
+                      {task.skills.map((skill) => (
+                        <li key={skill.skillId}>
+                          {skill.skillName} - {skill.domain}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <button>Upload Logbook</button>
+        </div>
+      );
+    };
+  
+  export default TrainingPlan;
