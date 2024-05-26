@@ -93,7 +93,9 @@ const OJTAnalytics = () => {
                 Select Skills
               </option>
               {skillFilter.map((skill, i) => (
-                <option key={i} value="">{skill}</option>
+                <option key={i} value="">
+                  {skill}
+                </option>
               ))}
             </select>
             <select name="" id="">
@@ -101,7 +103,9 @@ const OJTAnalytics = () => {
                 Select Domain
               </option>
               {domainFilter.map((skill, i) => (
-                <option key={i} value="">{skill}</option>
+                <option key={i} value="">
+                  {skill}
+                </option>
               ))}
             </select>
             <div className="date-time-container">
@@ -119,7 +123,9 @@ const OJTAnalytics = () => {
                 Trend Direction
               </option>
               {trendDirectionFilter.map((skill, i) => (
-                <option key={i} value="">{skill}</option>
+                <option key={i} value="">
+                  {skill}
+                </option>
               ))}
             </select>
           </div>

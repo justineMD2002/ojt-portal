@@ -49,6 +49,29 @@
       }
     }
   }
+
+  .OJTAnalytics {
+    .chart-container {
+      display: block;
+    }
+
+    .select-container {
+      select {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
+    button {
+      padding: 10px !important;
+    }
+
+    .select-container,
+    .filters,
+    .date-time-container {
+      display: block !important;
+    }
+  }
 }
 
 @import "./HamburgerNavigation.scss";
