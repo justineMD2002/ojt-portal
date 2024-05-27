@@ -61,10 +61,13 @@ const SubmittedInfo = () => {
         response = await rejectEntry(selectedEntry.entryId, actionFeedback);
       }
       console.log('Response:', response.data);
+      alert(response.data);
     } catch (error) {
       console.error('Error:', error);
+      alert('An error occured. Please try again.');
     } finally {
       setActionPopupVisible(false);
+      window.location.reload();
     }
   };
 
@@ -118,23 +121,29 @@ const SubmittedInfo = () => {
   const renderEntry = (entry, statusColor) => (
     <ul className="submitted-info" key={entry.entryId}>
       <li className="list-item-style">
-        <div className="colored-square-style" style={{ backgroundColor: statusColor }}></div>
-        <div>{entry.activities}</div>
-        {statusColor === '#660000' && (
-          <>
-            <button className="rectangle-button-style" onClick={() => handleApproveRejectClick('Approve', entry)}>Approve</button>
-            <button className="rectangle-button-style" onClick={() => handleApproveRejectClick('Reject', entry)}>Reject</button>
-          </>
-        )}
-        {statusColor !== '#660000' && (
-          <button className="rec-button-style" onClick={() => handleViewFeedbackClick(entry.remarks)}>View Feedback</button>
-        )}
-        <div>{entry.ojtrecord.student.user.firstname} {entry.ojtrecord.student.user.lastname} </div>
-        <div><FontAwesomeIcon className="icon icon-style" icon={faUserCircle} /></div>
+        <div className="left-section">
+          <div className="colored-square-style" style={{ backgroundColor: statusColor }}></div>
+          <div className="entry-activities">{entry.activities}</div>
+        </div>
+        <div className="middle-section">
+          {statusColor === '#660000' && (
+            <>
+              <button className="rectangle-button-style" onClick={() => handleApproveRejectClick('Approve', entry)}>Approve</button>
+              <button className="rectangle-button-style" onClick={() => handleApproveRejectClick('Reject', entry)}>Reject</button>
+            </>
+          )}
+          {statusColor !== '#660000' && (
+            <button className="rec-button-style" onClick={() => handleViewFeedbackClick(entry.remarks)}>View Feedback</button>
+          )}
+        </div>
+        <div className="right-section">
+          <div className="name">{entry.ojtrecord.student.user.firstname} {entry.ojtrecord.student.user.lastname}</div>
+          <div><FontAwesomeIcon className="icon icon-style" icon={faUserCircle} /></div>
+        </div>
       </li>
     </ul>
   );
-
+  
   if (loading) {
     return <div>Loading...</div>;
   }
