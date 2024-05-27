@@ -1,6 +1,6 @@
 // controllers/LoginSignupController.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import qs from "qs";
 import { useAuth } from "../AuthContext";
@@ -15,10 +15,16 @@ const LoginSignupController = () => {
   const [signIn, toggle] = useState(true);
   const navigate = useNavigate();
   const [userType, setUserType] = useState(null);
-  const { isLoggedIn, setIsLoggedIn, setAuthUser } = useAuth();
+  const { authUser, isLoggedIn, setIsLoggedIn, setAuthUser } = useAuth();
   const [user, setUser] = useState(initialUserState);
   const [student, setStudent] = useState(initialStudentState);
   const [supervisor, setSupervisor] = useState(initialSupervisorState);
+
+  if (isLoggedIn) {
+    if (authUser.accountType === "ROLE_STUDENT")
+      return <Navigate to="/student-info" replace />;
+    else return <Navigate to="/intern-monitoring" replace />;
+  }
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -38,7 +44,6 @@ const LoginSignupController = () => {
       );
       if (response.data.accessToken) {
         setIsLoggedIn(true);
-        console.log("Login successful", isLoggedIn);
         setAuthUser(response.data);
         if (response.data.accountType === "ROLE_STUDENT") {
           navigate("/student-info");

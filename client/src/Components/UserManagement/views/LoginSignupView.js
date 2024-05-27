@@ -59,7 +59,7 @@ const LoginSignupView = ({
             value={user.password}
           />
           <Components.Anchor href="#">Forgot your password?</Components.Anchor>
-          {isLoggedIn != null && (
+          {isLoggedIn === false && (
             <p style={{ color: "red" }}>
               Login failed. Please check your credentials.
             </p>
