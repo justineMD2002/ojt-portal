@@ -20,12 +20,6 @@ const LoginSignupController = () => {
   const [student, setStudent] = useState(initialStudentState);
   const [supervisor, setSupervisor] = useState(initialSupervisorState);
 
-  if (isLoggedIn) {
-    if (authUser.accountType === "ROLE_STUDENT")
-      return <Navigate to="/student-info" replace />;
-    else return <Navigate to="/intern-monitoring" replace />;
-  }
-
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -44,6 +38,7 @@ const LoginSignupController = () => {
       );
       if (response.data.accessToken) {
         setIsLoggedIn(true);
+        console.log(isLoggedIn);
         setAuthUser(response.data);
         if (response.data.accountType === "ROLE_STUDENT") {
           navigate("/student-info");

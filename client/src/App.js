@@ -33,63 +33,32 @@ const App = () => {
           <main>
             <Routes>
               <Route path="/" element={<LoginSignupController />} />
-              <Route
-                path="/student-info"
-                element={<ProtectedRoute element={Dashboard} />}
-              />
-              <Route
-                path="/logbook"
-                element={<ProtectedRoute element={LogbookForm} />}
-              />
-              <Route
-                path="/view-logbook"
-                element={<ProtectedRoute element={LogbookContents} />}
-              />
-              <Route
-                path="/logbookSubmissions"
-                element={<ProtectedRoute element={StudentProgress} />}
-              />
-              <Route
-                path="/task-monitoring"
-                element={<ProtectedRoute element={TaskMonitoring} />}
-              />
+              <Route path="/student-info" element={<Dashboard />} />
+              <Route path="/logbook" element={<LogbookForm />} />
+              <Route path="/view-logbook" element={<LogbookContents />} />
+              <Route path="/task-monitoring" element={<TaskMonitoring />} />
+              <Route path="/logbookSubmissions" element={<StudentProgress />} />
               <Route
                 path="/submitted-logbook"
-                element={<ProtectedRoute element={SubmittedLogbooks} />}
+                element={<SubmittedLogbooks />}
               />
-              <Route
-                path="/ojt-analytics"
-                element={<ProtectedRoute element={OJTAnalytics} />}
-              />
+              <Route path="/ojt-analytics" element={<OJTAnalytics />} />
               <Route
                 path="/trainee-evaluation"
-                element={<ProtectedRoute element={TraineeEvaluation} />}
+                element={<TraineeEvaluation />}
               />
               <Route
                 path="/interneval-feedbackform"
-                element={<ProtectedRoute element={InternEvalFeedbackForm} />}
+                element={<InternEvalFeedbackForm />}
               />
-              <Route
-                path="/logbook-entries"
-                element={<ProtectedRoute element={LogbookEntries} />}
-              />
-              <Route
-                path="/training-plan"
-                element={<ProtectedRoute element={TrainingPlan} />}
-              />
-              <Route
-                path="/activate-account"
-                element={<ProtectedRoute element={ActivateAccount} />}
-              />
+              <Route path="/logbook-entries" element={<LogbookEntries />} />
+              <Route path="/training-plan" element={<TrainingPlan />} />
+              <Route path="/activate-account" element={<ActivateAccount />} />
               <Route
                 path="/intern-monitoring"
-                element={
-                  <ProtectedRoute
-                    element={InternMonitoringController}
-                    replace
-                  />
-                }
+                element={<InternMonitoringController />}
               />
+              <Route />
               <Route
                 path="*"
                 element={
