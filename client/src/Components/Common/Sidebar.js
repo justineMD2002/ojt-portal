@@ -41,10 +41,10 @@ const Sidebar = ({ userRole }) => {
       goto: "/task-monitoring",
       name: "Task Monitoring",
     },
-    {
-      goto: "/ojt-analytics",
-      name: "OJT Analytics",
-    },
+    // {
+    //   goto: "/ojt-analytics",
+    //   name: "OJT Analytics",
+    // },
     {
       goto: "/submitted-logbook",
       name: "View Logbook Submissions",

@@ -61,12 +61,16 @@ const SubmittedInfo = () => {
         response = await rejectEntry(selectedEntry.entryId, actionFeedback);
       }
       console.log('Response:', response.data);
+      alert(response.data); 
     } catch (error) {
       console.error('Error:', error);
+      alert('An error occurred. Please try again.');
     } finally {
       setActionPopupVisible(false);
+      window.location.reload(); 
     }
   };
+  
 
   const approveEntry = async (entryId, remarks) => {
     const formData = new FormData();
