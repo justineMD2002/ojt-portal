@@ -1,4 +1,4 @@
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .Sidebar {
     display: none;
   }
@@ -16,4 +16,81 @@
   .Footer {
     display: none;
   }
+
+  h1,
+  h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .Dashboard {
+    h3 {
+      font-size: 1rem;
+    }
+    .student-info {
+      //   display: block !important;
+      font-size: 0.9rem;
+    }
+
+    .ojt-hrs-tracking {
+      table {
+        td,
+        th,
+        tr {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .progress-wrapper {
+      display: block !important;
+
+      .progress-container {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  .TaskMonitoring {
+    .TaskCard-container {
+      display: block;
+
+      .TaskCard {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .OJTAnalytics {
+    .chart-container {
+      display: block;
+    }
+
+    .select-container {
+      select {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
+    button {
+      padding: 10px !important;
+    }
+
+    .select-container,
+    .filters,
+    .date-time-container {
+      display: block !important;
+    }
+  }
+
+  .TrainingPlan {
+    .task-list {
+      display: block !important;
+      .task {
+        margin-bottom: 15px;
+      }
+    }
+  }
 }
+
+@import "./HamburgerNavigation.scss";

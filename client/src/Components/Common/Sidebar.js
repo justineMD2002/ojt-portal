@@ -41,14 +41,10 @@ const Sidebar = ({ userRole }) => {
       goto: "/task-monitoring",
       name: "Task Monitoring",
     },
-    {
-      goto: "/ojt-analytics",
-      name: "OJT Analytics",
-    },
-    {
-      goto: "/logbookSubmissions",
-      name: "View Logbook Submissions",
-    },
+    // {
+    //   goto: "/ojt-analytics",
+    //   name: "OJT Analytics",
+    // },
     {
       goto: "/submitted-logbook",
       name: "View Logbook Submissions",
@@ -73,8 +69,8 @@ const Sidebar = ({ userRole }) => {
   return (
     <div className="Sidebar">
       <ul className="icon-container">
-        <li>
-          <Link to="/">
+        <li onClick={() => setCurrentPageIndex(0)}>
+          <Link to="/student-info">
             <FontAwesomeIcon icon={faHouse} />
           </Link>
         </li>
@@ -93,7 +89,7 @@ const Sidebar = ({ userRole }) => {
             <FontAwesomeIcon icon={faFile} />
           </Link>
         </li>
-        <li>
+        <li onClick={() => setCurrentPageIndex(3)}>
           <Link to="/logbook">
             <FontAwesomeIcon icon={faBookOpen} />
           </Link>

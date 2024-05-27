@@ -1,13 +1,62 @@
-.data {
+.TrainingPlan {
+  h4 {
+    margin-bottom: 10px;
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: 100;
+  }
+  h2 {
+    font-weight: 500;
+  }
+  .data {
     padding: 10px;
     box-shadow: 0 5px 0 0 #f1f1f1;
-    margin-bottom: 20px;
-}
+    margin-top: 20px;
+    margin-bottom: 10px;
 
-button {
+    .skills-txt {
+      font-weight: bold;
+      margin-top: 10px;
+      color: #5e5e5e;
+    }
+
+    .task-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    ul {
+      margin-bottom: 10px;
+
+      .task {
+        padding: 10px;
+        box-shadow: 0 0 5px 0 #ebebeb;
+
+        .id {
+          font-size: 0.9rem;
+          font-weight: bold;
+        }
+
+        .title {
+          font-size: 1.5rem;
+        }
+
+        p {
+          padding: 2px 0;
+        }
+      }
+      .task:hover {
+        background-color: #fafafa;
+      }
+    }
+  }
+
+  button {
     margin-top: 20px;
     background-color: $strong-yellow;
     padding: 10px;
     border: none;
     border-radius: 5px;
+  }
 }

@@ -1,12 +1,23 @@
-import React, { useEffect } from "react";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import { faUserCircle, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../UserManagement/AuthContext";
+import useWindowSize from "../CustomHooks/UseWindowHook";
+
+import HamburgerNavigation from "../ResponsiveUI/HamburgerNavigation";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { width } = useWindowSize();
   const { authUser, isLoggedIn, setIsLoggedIn, setAuthUser } = useAuth();
+
+  const [openHamburgerNav, setOpenHamburgerNav] = useState(false);
+
+  const handleHamburgerNavigation = () => {
+    console.log(openHamburgerNav);
+    setOpenHamburgerNav(true);
+  };
 
   useEffect(() => {
     console.log("Is User Logged In:", isLoggedIn);
@@ -22,7 +33,11 @@ const Header = () => {
 
   return (
     <header className="Header">
-      <p className="logo">OJT Management Portal</p>
+      {width >= 768 ? (
+        <p className="logo">OJT Management Portal</p>
+      ) : (
+        <FontAwesomeIcon icon={faBars} onClick={handleHamburgerNavigation} />
+      )}
       <div className="head-side">
         <p className="user">
           Welcome,{" "}
@@ -43,6 +58,13 @@ const Header = () => {
           <p>Logout</p>
         </Link>
       </div>
+
+      {openHamburgerNav && (
+        <HamburgerNavigation
+          isOpen={openHamburgerNav}
+          setOpenHamburgerNav={setOpenHamburgerNav}
+        />
+      )}
     </header>
   );
 };

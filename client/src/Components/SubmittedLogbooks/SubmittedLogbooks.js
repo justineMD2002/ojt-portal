@@ -1,5 +1,5 @@
 import React from "react";
-import StudentInfo from "./SubmittedInfo";
+import SubmittedInfo from "./SubmittedInfo";
 
 const SubmittedLogbooks = () => {
   // holds the components for the Logbook
@@ -7,7 +7,7 @@ const SubmittedLogbooks = () => {
     <div className="SubmittedLogbooks">
       {/* student info */}
       <h1>Submitted Logbooks</h1>
-      <StudentInfo />
+      <SubmittedInfo />
       
     </div>
   );

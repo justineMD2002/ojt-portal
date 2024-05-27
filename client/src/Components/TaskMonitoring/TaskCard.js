@@ -1,17 +1,23 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useAuth } from "../UserManagement/AuthContext";
 
 const TaskCard = ({
   thumbnail,
   title,
-  details,
-  trainingPlan,
-  users,
-  completionProgress,
+  description,
+  startDate,
+  endDate,
+  tasks,
+  trainingPlanID,
 }) => {
   const [isDetailPopupVisible, setDetailPopupVisibility] = useState(false);
   const [isCreateTaskPopupVisible, setCreateTaskPopupVisibility] = useState(false);
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [taskObjective, setTaskObjective] = useState("");
   const [skills, setSkills] = useState([{ skillName: "", domain: "" }]);
-
+  const {authUser} = useAuth();
   const toggleDetailPopup = () => {
     setDetailPopupVisibility(!isDetailPopupVisible);
   };
@@ -38,31 +44,68 @@ const TaskCard = ({
     setSkills(newSkills);
   };
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "title") {
+      setTaskTitle(value);
+    } else if (name === "description") {
+      setTaskDescription(value);
+    } else if (name === "objective") {
+      setTaskObjective(value);
+    }
+  };
+
+  const handleCreateTask = async () => {
+    try {
+      const requestBody = {
+        trainingPlanID: trainingPlanID,
+        task: {
+          title: taskTitle,
+          description: taskDescription,
+          objective: taskObjective,
+        },
+        skills: skills,
+      };
+
+      const response = await axios.post(
+        "https://ojt-portal-backend2.azurewebsites.net/supervisor/add-task",
+        requestBody,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authUser.accessToken}`,
+          },
+        }
+      );
+      alert(response.data);
+      console.log(response.data);
+      setDetailPopupVisibility(false);
+      setCreateTaskPopupVisibility(false);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error creating task:", error);
+    }
+  };
+
   return (
     <div className="TaskCard">
       <img className="thumbnail" src={thumbnail} alt="" />
       <h4>{title}</h4>
-      <p>{details}</p>
-      <p>{trainingPlan}</p>
+      <p>{description}</p>
+      <p>Start Date: {startDate}</p>
+      <p>End Date: {endDate}</p>
 
-      <div className="img-container">
-        {users.map((user, i) => (
-          <img key={i} src={user.img} alt="" />
-        ))}
-      </div>
       <div className="btn">
         <button onClick={toggleDetailPopup}>View Details</button>
-        <p>{completionProgress}% complete</p>
       </div>
 
       {isDetailPopupVisible && (
         <div className="popup">
           <div className="popup-inner">
             <h2>Training Plan Details</h2>
-            <p>Training Plan 1: random</p>
-            <p>Task 1: random</p>
-            <p>Task 2: random</p>
-            <p>Task 3: random</p>
+            {tasks.map((task, index) => (
+              <p key={index}>Task {index + 1}: {task.title}</p>
+            ))}
             <button onClick={toggleCreateTaskPopup}>Create Task</button>
             <button onClick={toggleDetailPopup}>Close</button>
           </div>
@@ -74,16 +117,38 @@ const TaskCard = ({
           <div className="popup-inner">
             <h2>Create Task</h2>
             <label>Title:</label>
-            <input type="text" name="title" />
+            <input
+              type="text"
+              name="title"
+              value={taskTitle}
+              onChange={handleInputChange}
+            />
             <label>Description:</label>
-            <textarea name="description"></textarea>
+            <textarea
+              name="description"
+              value={taskDescription}
+              onChange={handleInputChange}
+            ></textarea>
             <label>Objective:</label>
-            <input type="text" name="objective" />
+            <input
+              type="text"
+              name="objective"
+              value={taskObjective}
+              onChange={handleInputChange}
+            />
+            {/* Skills */}
             <div className="skills-header">
               <h3 className="skills-title">Skills</h3>
               <div className="skill-buttons">
-                <button className="add-skill-btn" onClick={addSkill}>+</button>
-                <button className="remove-skill-btn" onClick={() => removeSkill(skills.length - 1)}>-</button>
+                <button className="add-skill-btn" onClick={addSkill}>
+                  +
+                </button>
+                <button
+                  className="remove-skill-btn"
+                  onClick={() => removeSkill(skills.length - 1)}
+                >
+                  -
+                </button>
               </div>
             </div>
             {skills.map((skill, index) => (
@@ -105,6 +170,7 @@ const TaskCard = ({
               </div>
             ))}
             <div className="popup-actions">
+              <button onClick={handleCreateTask}>Create Task</button>
               <button onClick={toggleCreateTaskPopup}>Close</button>
             </div>
           </div>
