@@ -38,7 +38,7 @@ const LoginSignupController = () => {
       );
       if (response.data.accessToken) {
         setIsLoggedIn(true);
-        console.log(isLoggedIn);
+        console.log(isLoggedIn)
         setAuthUser(response.data);
         if (response.data.accountType === "ROLE_STUDENT") {
           navigate("/student-info");

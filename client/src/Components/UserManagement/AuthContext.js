@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from "react"
 
 const AuthContext = React.createContext();
 
@@ -36,11 +36,19 @@ export function AuthProvider(props) {
     setIsLoggedInState(loggedIn);
   };
 
+  
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setIsLoggedIn(null);
+    setAuthUser(null);
+  };
+
   const value = {
     authUser,
     setAuthUser,
     isLoggedIn,
     setIsLoggedIn,
+    handleLogout
   };
 
   return (

@@ -18,6 +18,7 @@ const AddInternModalView = ({
               name="studentEmail"
               onChange={handleInputChange}
               value={designation.studentEmail}
+              required
             />
           </label>
           <label>
@@ -27,6 +28,7 @@ const AddInternModalView = ({
               name="ojtHours"
               onChange={handleInputChange}
               value={designation.ojtHours}
+              required
             />
           </label>
           <label>
@@ -36,6 +38,7 @@ const AddInternModalView = ({
               name="designation"
               onChange={handleInputChange}
               value={designation.designation}
+              required
             />
           </label>
           <label>
@@ -45,6 +48,7 @@ const AddInternModalView = ({
               name="department"
               onChange={handleInputChange}
               value={designation.department}
+              required
             />
           </label>
 

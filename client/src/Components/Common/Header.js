@@ -8,10 +8,9 @@ import useWindowSize from "../CustomHooks/UseWindowHook";
 import HamburgerNavigation from "../ResponsiveUI/HamburgerNavigation";
 
 const Header = () => {
-  const navigate = useNavigate();
   const { width } = useWindowSize();
-  const { authUser, isLoggedIn, setIsLoggedIn, setAuthUser } = useAuth();
-
+  const { authUser, isLoggedIn, handleLogout } = useAuth();
+  const navigate = useNavigate();
   const [openHamburgerNav, setOpenHamburgerNav] = useState(false);
 
   const handleHamburgerNavigation = () => {
@@ -23,13 +22,6 @@ const Header = () => {
     console.log("Is User Logged In:", isLoggedIn);
     console.log("Auth User Data:", authUser);
   }, [isLoggedIn, authUser]);
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    setIsLoggedIn(null);
-    setAuthUser(null);
-    navigate("/");
-  };
 
   return (
     <header className="Header">
@@ -51,6 +43,7 @@ const Header = () => {
         <Link
           onClick={(e) => {
             handleLogout(e);
+            navigate("/");
           }}
           to={"/"}
           className="logout"
