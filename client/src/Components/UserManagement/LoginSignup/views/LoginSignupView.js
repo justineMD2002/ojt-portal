@@ -1,5 +1,5 @@
 import React from "react";
-import * as Components from "../Components";
+import * as Components from "../../Components";
 import { StudentController } from "../controllers/StudentController";
 import { SupervisorController } from "../controllers/SupervisorController";
 import { DropdownUserTypeController } from "../controllers/DropdownUserTypeController";

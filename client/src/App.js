@@ -16,7 +16,7 @@ import InternEvalFeedbackForm from "./Components/InternEvalFeedbackForm/InternEv
 import LogbookEntries from "./Components/LogbookEntries/LogbookEntries";
 import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
 import { AuthProvider } from "./Components/UserManagement/AuthContext";
-import LoginSignupController from "./Components/UserManagement/controllers/LoginSignupController";
+import LoginSignupController from "./Components/UserManagement/LoginSignup/controllers/LoginSignupController";
 import InternMonitoringController from "./Components/InternMonitoring/controllers/InternMonitoringController";
 import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
 

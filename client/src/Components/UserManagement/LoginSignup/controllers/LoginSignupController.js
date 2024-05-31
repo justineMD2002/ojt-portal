@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import qs from "qs";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../../AuthContext";
 import LoginSignupView from "../views/LoginSignupView";
 import { UserLoginModel } from "../models/UserLoginModel";
 import { StudentModel } from "../models/StudentModel";

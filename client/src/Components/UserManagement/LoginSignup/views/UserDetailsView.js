@@ -1,4 +1,4 @@
-import * as Components from "../Components";
+import * as Components from "../../Components";
 
 export const StudentView = ({ student, handleChange }) => (
   <div>
