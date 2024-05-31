@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import qs from "qs";
@@ -16,15 +16,22 @@ const LoginSignupController = () => {
   const [user, setUser] = useState(UserLoginModel);
   const [student, setStudent] = useState(StudentModel);
   const [supervisor, setSupervisor] = useState(SupervisorModel);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const handleOpenModal = () => {
+    setOpenModal(!openModal);
+  }
+
+  useEffect(() => {
+    console.log("userinfo:", user);
+  }, [user]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    console.log("userinfo:", user);
     console.log("herelogin");
     try {
       const response = await axios.post(
@@ -77,6 +84,7 @@ const LoginSignupController = () => {
       );
 
       console.log(response.data);
+      console.log(student);
       if (response.data === 1) {
         setUser({ email: student.email, password: student.password });
       } else {
@@ -140,6 +148,8 @@ const LoginSignupController = () => {
       setStudent={setStudent}
       supervisor={supervisor}
       setSupervisor={setSupervisor}
+      handleOpenModal={handleOpenModal}
+      openModal={openModal}
     />
   );
 };

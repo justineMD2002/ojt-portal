@@ -3,6 +3,7 @@ import * as Components from "../../Components";
 import { StudentController } from "../controllers/StudentController";
 import { SupervisorController } from "../controllers/SupervisorController";
 import { DropdownUserTypeController } from "../controllers/DropdownUserTypeController";
+import ForgotPasswordEmailModalController from "../../ForgotPassword/controller/ForgotPasswordEmailModalController";
 
 const LoginSignupView = ({
   signIn,
@@ -18,17 +19,16 @@ const LoginSignupView = ({
   setStudent,
   supervisor,
   setSupervisor,
+  handleOpenModal,
+  openModal,
 }) => (
   <div className="login-signup-wrapper">
+    {openModal && (
+      <ForgotPasswordEmailModalController handleOpenModal={handleOpenModal} />
+    )}
     <Components.Container>
       <Components.SignUpContainer signingIn={signIn}>
-        <Components.Form
-          onSubmit={async (e) => {
-            await handleSignup(e);
-            setTimeout(() => {}, 3000);
-            await handleLogin(e);
-          }}
-        >
+        <Components.Form onSubmit={handleSignup}>
           <Components.Title>Create Account</Components.Title>
           {!userType && (
             <DropdownUserTypeController setUserType={setUserType} />
@@ -64,7 +64,9 @@ const LoginSignupView = ({
             onChange={handleChange}
             value={user.password}
           />
-          <Components.Anchor href="#">Forgot your password?</Components.Anchor>
+          <Components.Anchor href="#" onClick={handleOpenModal}>
+            Forgot your password?
+          </Components.Anchor>
           {isLoggedIn === false && (
             <p style={{ color: "red" }}>
               Login failed. Please check your credentials.
