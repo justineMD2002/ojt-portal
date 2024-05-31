@@ -1,19 +1,8 @@
+import React from 'react'
+import { Link } from 'react-router-dom';
+import ClipLoader from 'react-spinners/ClipLoader';
 
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../UserManagement/AuthContext";
-import ClipLoader from "react-spinners/ClipLoader";
-import { LogbookEntriesModel } from "./model/LogbookEntriesModel";
-
-const LogbookEntries = () => {
-  const { authUser } = useAuth();
-  const [logbookEntries, setLogbookEntries] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    LogbookEntriesModel()(authUser, setLogbookEntries, setLoading);
-  }, [authUser]);
-
+const LogbookEntriesView = ({loading, logbookEntries}) => {
   return (
     <div className="LogbookEntries">
       <h1>Logbook Entries</h1>
@@ -68,6 +57,6 @@ const LogbookEntries = () => {
       )}
     </div>
   );
-};
+}
 
-export default LogbookEntries;
+export default LogbookEntriesView

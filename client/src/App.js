@@ -13,13 +13,13 @@ import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks"
 import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
 import TraineeEvaluation from "./Components/TraineeEvaluation/TraineeEvaluation";
 import InternEvalFeedbackForm from "./Components/InternEvalFeedbackForm/InternEvalFeedbackForm";
-import LogbookEntries from "./Components/LogbookEntries/LogbookEntries";
 import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
 import { AuthProvider } from "./Components/UserManagement/AuthContext";
 import LoginSignupController from "./Components/UserManagement/LoginSignup/controllers/LoginSignupController";
 import InternMonitoringController from "./Components/InternMonitoring/controllers/InternMonitoringController";
 import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
 import ForgotPasswordController from "./Components/UserManagement/ForgotPassword/controller/ForgotPasswordController";
+import LogbookEntriesController from "./Components/LogbookEntries/controller/LogbookEntriesController";
 
 const App = () => {
   return (
@@ -33,7 +33,10 @@ const App = () => {
           <main>
             <Routes>
               <Route path="/" element={<LoginSignupController />} />
-              <Route path="/forgot-password" element={<ForgotPasswordController />} />
+              <Route
+                path="/forgot-password"
+                element={<ForgotPasswordController />}
+              />
               <Route path="/student-info" element={<Dashboard />} />
               <Route path="/logbook" element={<LogbookForm />} />
               <Route path="/view-logbook" element={<LogbookContents />} />
@@ -52,7 +55,10 @@ const App = () => {
                 path="/interneval-feedbackform"
                 element={<InternEvalFeedbackForm />}
               />
-              <Route path="/logbook-entries" element={<LogbookEntries />} />
+              <Route
+                path="/logbook-entries"
+                element={<LogbookEntriesController />}
+              />
               <Route path="/training-plan" element={<TrainingPlan />} />
               <Route
                 path="/activate-account"
