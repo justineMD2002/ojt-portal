@@ -24,19 +24,19 @@ const InternEvalFeedbackForm = (props) => {
   const handleSubmit = async () => {
     const averageGrade = calculateAverageGrade();
     const formData = new FormData();
-    formData.append('grade', averageGrade);
-    formData.append('feedback', feedback);
-    formData.append('studentEmail', props.student.email);
+    formData.append("grade", averageGrade);
+    formData.append("feedback", feedback);
+    formData.append("studentEmail", props.student.email);
 
     try {
       const response = await axios.post(
-        "https://ojt-portal-backend2.azurewebsites.net/supervisor/evaluate-intern",
+        "https://ojt-backend.azurewebsites.net/supervisor/evaluate-intern",
         formData,
         {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            "Content-Type": "application/x-www-form-urlencoded",
             Authorization: `Bearer ${authUser.accessToken}`,
-          }
+          },
         }
       );
       console.log(response.data);
@@ -44,7 +44,7 @@ const InternEvalFeedbackForm = (props) => {
         alert(`${response.data}`);
       } else {
         alert(`${response.data}`);
-        props.onClose(); 
+        props.onClose();
       }
     } catch (error) {
       console.error("Error submitting evaluation:", error);

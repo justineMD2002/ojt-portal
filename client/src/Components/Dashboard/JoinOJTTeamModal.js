@@ -19,7 +19,7 @@ const JoinOJTTeamModal = ({
   const handleJoinTeam = async () => {
     try {
       const response = await axios.put(
-        "https://ojt-portal-backend2.azurewebsites.net/student/join-team",
+        "https://ojt-backend.azurewebsites.net/student/join-team",
         qs.stringify({ teamCode: teamCode }),
         {
           headers: {
@@ -35,7 +35,6 @@ const JoinOJTTeamModal = ({
       } else {
         setError(true);
       }
-      
     } catch (error) {
       alert("Invalid Team Code");
       console.log(error);

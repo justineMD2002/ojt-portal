@@ -18,7 +18,7 @@ const InternMonitoringController = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "https://ojt-portal-backend2.azurewebsites.net/get-ojt-records",
+        "https://ojt-backend.azurewebsites.net/get-ojt-records",
         {
           params: {
             studentEmail: "all",

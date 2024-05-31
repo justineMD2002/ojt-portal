@@ -18,7 +18,7 @@ const InternDesignationController = ({ handleOpenModal, accessToken }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://ojt-portal-backend2.azurewebsites.net/supervisor/add-intern",
+        "https://ojt-backend.azurewebsites.net/supervisor/add-intern",
         qs.stringify(designation),
         {
           headers: {

@@ -12,12 +12,13 @@ const TaskCard = ({
   trainingPlanID,
 }) => {
   const [isDetailPopupVisible, setDetailPopupVisibility] = useState(false);
-  const [isCreateTaskPopupVisible, setCreateTaskPopupVisibility] = useState(false);
+  const [isCreateTaskPopupVisible, setCreateTaskPopupVisibility] =
+    useState(false);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskObjective, setTaskObjective] = useState("");
   const [skills, setSkills] = useState([{ skillName: "", domain: "" }]);
-  const {authUser} = useAuth();
+  const { authUser } = useAuth();
   const toggleDetailPopup = () => {
     setDetailPopupVisibility(!isDetailPopupVisible);
   };
@@ -68,7 +69,7 @@ const TaskCard = ({
       };
 
       const response = await axios.post(
-        "https://ojt-portal-backend2.azurewebsites.net/supervisor/add-task",
+        "https://ojt-backend.azurewebsites.net/supervisor/add-task",
         requestBody,
         {
           headers: {
@@ -104,7 +105,9 @@ const TaskCard = ({
           <div className="popup-inner">
             <h2>Training Plan Details</h2>
             {tasks.map((task, index) => (
-              <p key={index}>Task {index + 1}: {task.title}</p>
+              <p key={index}>
+                Task {index + 1}: {task.title}
+              </p>
             ))}
             <button onClick={toggleCreateTaskPopup}>Create Task</button>
             <button onClick={toggleDetailPopup}>Close</button>

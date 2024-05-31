@@ -13,7 +13,7 @@ const LogbookEntries = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://ojt-portal-backend2.azurewebsites.net/student/get-all-entries",
+        "https://ojt-backend.azurewebsites.net/student/get-all-entries",
         {
           params: {
             email: authUser.userInfo.email,

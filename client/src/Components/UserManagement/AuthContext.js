@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext } from "react";
 
 const AuthContext = React.createContext();
 
@@ -16,16 +16,6 @@ export function AuthProvider(props) {
     return JSON.parse(savedLoginState);
   });
 
-  // useEffect(() => {
-  //   const storedAuthUser = JSON.parse(localStorage.getItem('authUser'));
-  //   const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-
-  //   if (storedAuthUser && storedIsLoggedIn) {
-  //     setAuthUserState(storedAuthUser);
-  //     setIsLoggedInState(storedIsLoggedIn);
-  //   }
-  // }, []);
-
   const setAuthUser = (userData) => {
     localStorage.setItem("authUser", JSON.stringify(userData));
     setAuthUserState(userData);
@@ -36,7 +26,6 @@ export function AuthProvider(props) {
     setIsLoggedInState(loggedIn);
   };
 
-  
   const handleLogout = (e) => {
     e.preventDefault();
     setIsLoggedIn(null);
@@ -48,7 +37,7 @@ export function AuthProvider(props) {
     setAuthUser,
     isLoggedIn,
     setIsLoggedIn,
-    handleLogout
+    handleLogout,
   };
 
   return (

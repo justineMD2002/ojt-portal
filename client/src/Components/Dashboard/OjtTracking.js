@@ -1,32 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../UserManagement/AuthContext";
-import axios from 'axios';
+import axios from "axios";
 
 const OjtTRacking = () => {
   const { authUser } = useAuth();
   const [ojtEntries, setOjtEntries] = useState([]);
 
   useEffect(() => {
-    const fetchOjtRecord = async() => {
+    const fetchOjtRecord = async () => {
       if (authUser && authUser.accessToken) {
         try {
-          const response = await axios.get('https://ojt-portal-backend2.azurewebsites.net/student/get-all-entries',{
-            params: {
-              email: authUser.userInfo.email
-            },
-            headers: {
-              Authorization: `Bearer ${authUser.accessToken}`
+          const response = await axios.get(
+            "https://ojt-backend.azurewebsites.net/student/get-all-entries",
+            {
+              params: {
+                email: authUser.userInfo.email,
+              },
+              headers: {
+                Authorization: `Bearer ${authUser.accessToken}`,
+              },
             }
-          });
-          console.log('Response from API:', response.data);
-          setOjtEntries(response.data); 
+          );
+          console.log("Response from API:", response.data);
+          setOjtEntries(response.data);
         } catch (error) {
-          console.error('Error fetching logbook:', error);
+          console.error("Error fetching logbook:", error);
         }
       }
-    }
+    };
     fetchOjtRecord();
-  },[authUser]); 
+  }, [authUser]);
 
   const handleOnClick = () => {
     window.location.href = "/logbook-entries";
@@ -37,7 +40,12 @@ const OjtTRacking = () => {
       <div className="title-container">
         <h3>OJT Hours Tracking</h3>
         <h3>
-          Total Rendered Hours: <span>{authUser && authUser.ojtRecord ? authUser.ojtRecord.renderedHrs : "Guest"}</span>{" "}
+          Total Rendered Hours:{" "}
+          <span>
+            {authUser && authUser.ojtRecord
+              ? authUser.ojtRecord.renderedHrs
+              : "Guest"}
+          </span>{" "}
         </h3>
       </div>
       <table>
@@ -50,7 +58,7 @@ const OjtTRacking = () => {
           </tr>
         </thead>
         <tbody>
-          {ojtEntries.map(entry => (
+          {ojtEntries.map((entry) => (
             <tr key={entry.entryId}>
               <td>{entry.entryId}</td>
               <td>{entry.totalHrs}</td>

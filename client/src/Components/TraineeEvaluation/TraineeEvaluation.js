@@ -15,7 +15,7 @@ const TraineeEvaluation = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://ojt-portal-backend2.azurewebsites.net/company/get-all-students",
+          "https://ojt-backend.azurewebsites.net/company/get-all-students",
           {
             params: {
               companyName: authUser.company_name,

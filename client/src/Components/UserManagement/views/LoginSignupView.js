@@ -22,7 +22,13 @@ const LoginSignupView = ({
   <div className="login-signup-wrapper">
     <Components.Container>
       <Components.SignUpContainer signingIn={signIn}>
-        <Components.Form onSubmit={handleSignup}>
+        <Components.Form
+          onSubmit={async (e) => {
+            await handleSignup(e);
+            setTimeout(() => {}, 3000);
+            await handleLogin(e);
+          }}
+        >
           <Components.Title>Create Account</Components.Title>
           {!userType && (
             <DropdownUserTypeController setUserType={setUserType} />

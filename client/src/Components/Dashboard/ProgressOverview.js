@@ -11,19 +11,22 @@ const ProgressOverview = () => {
     const getLogbookCount = async () => {
       if (authUser && authUser.accessToken && authUser.ojtRecord) {
         try {
-          const response = await axios.get('https://ojt-portal-backend2.azurewebsites.net/student/get-all-entries', {
-            params: {
-              email: authUser.userInfo.email
-            },
-            headers: {
-              Authorization: `Bearer ${authUser.accessToken}`
+          const response = await axios.get(
+            "https://ojt-backend.azurewebsites.net/student/get-all-entries",
+            {
+              params: {
+                email: authUser.userInfo.email,
+              },
+              headers: {
+                Authorization: `Bearer ${authUser.accessToken}`,
+              },
             }
-          });
+          );
           const approvedCount = response.data.reduce((count, entry) => {
-            return entry.status === 'APPROVED' ? count + 1 : count;
+            return entry.status === "APPROVED" ? count + 1 : count;
           }, 0);
           const pendingCount = response.data.reduce((count, entry) => {
-            return entry.status === 'PENDING' ? count + 1 : count;
+            return entry.status === "PENDING" ? count + 1 : count;
           }, 0);
           const totalEntries = response.data.length;
           const percentage = Math.ceil((approvedCount / totalEntries) * 100);
@@ -31,10 +34,10 @@ const ProgressOverview = () => {
           setApprovalPercentage(percentage);
           setPendingPercentage(pPercentage);
         } catch (error) {
-          console.error('Error fetching logbook:', error);
+          console.error("Error fetching logbook:", error);
         }
       }
-    }
+    };
     getLogbookCount();
   }, [authUser]);
 
@@ -44,7 +47,12 @@ const ProgressOverview = () => {
       <div className="progress-wrapper">
         <div className="progress-container">
           {authUser && authUser.ojtRecord && (
-            <CircularProgress percentage={Math.ceil((authUser.ojtRecord.renderedHrs / authUser.ojtRecord.ojtHours) * 100)} />
+            <CircularProgress
+              percentage={Math.ceil(
+                (authUser.ojtRecord.renderedHrs / authUser.ojtRecord.ojtHours) *
+                  100
+              )}
+            />
           )}
           <p className="description">OJT Hours</p>
         </div>

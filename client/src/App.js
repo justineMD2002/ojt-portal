@@ -16,10 +16,9 @@ import InternEvalFeedbackForm from "./Components/InternEvalFeedbackForm/InternEv
 import LogbookEntries from "./Components/LogbookEntries/LogbookEntries";
 import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
 import { AuthProvider } from "./Components/UserManagement/AuthContext";
-import ActivateAccount from "./Components/UserManagement/ActivateAccount";
 import LoginSignupController from "./Components/UserManagement/controllers/LoginSignupController";
 import InternMonitoringController from "./Components/InternMonitoring/controllers/InternMonitoringController";
-import ProtectedRoute from "./Components/ProtectedRoutes/ProtectedRoute";
+import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
 
 const App = () => {
   return (
@@ -53,7 +52,10 @@ const App = () => {
               />
               <Route path="/logbook-entries" element={<LogbookEntries />} />
               <Route path="/training-plan" element={<TrainingPlan />} />
-              <Route path="/activate-account" element={<ActivateAccount />} />
+              <Route
+                path="/activate-account"
+                element={<ActivateAccountController />}
+              />
               <Route
                 path="/intern-monitoring"
                 element={<InternMonitoringController />}

@@ -10,7 +10,7 @@ const TrainingPlan = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://ojt-portal-backend2.azurewebsites.net/get-student-trainingplans",
+          "https://ojt-backend.azurewebsites.net/get-student-trainingplans",
           {
             params: {
               studentEmail: authUser.userInfo.email,

@@ -1,24 +1,21 @@
-// controllers/LoginSignupController.js
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import qs from "qs";
 import { useAuth } from "../AuthContext";
 import LoginSignupView from "../views/LoginSignupView";
-import {
-  initialUserState,
-  initialStudentState,
-  initialSupervisorState,
-} from "../models/UserModels";
+import { UserLoginModel } from "../models/UserLoginModel";
+import { StudentModel } from "../models/StudentModel";
+import { SupervisorModel } from "../models/SupervisorModel";
 
 const LoginSignupController = () => {
   const [signIn, toggle] = useState(true);
   const navigate = useNavigate();
   const [userType, setUserType] = useState(null);
-  const { authUser, isLoggedIn, setIsLoggedIn, setAuthUser } = useAuth();
-  const [user, setUser] = useState(initialUserState);
-  const [student, setStudent] = useState(initialStudentState);
-  const [supervisor, setSupervisor] = useState(initialSupervisorState);
+  const { isLoggedIn, setIsLoggedIn, setAuthUser } = useAuth();
+  const [user, setUser] = useState(UserLoginModel);
+  const [student, setStudent] = useState(StudentModel);
+  const [supervisor, setSupervisor] = useState(SupervisorModel);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -26,9 +23,12 @@ const LoginSignupController = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    console.log("userinfo:", user);
+    console.log("herelogin");
     try {
       const response = await axios.post(
-        "https://ojt-portal-backend2.azurewebsites.net/auth/login",
+        "https://ojt-backend.azurewebsites.net/auth/login",
         qs.stringify(user),
         {
           headers: {
@@ -36,9 +36,11 @@ const LoginSignupController = () => {
           },
         }
       );
+
+      console.log("response:", response.data);
       if (response.data.accessToken) {
+        console.log("here1login");
         setIsLoggedIn(true);
-        console.log(isLoggedIn)
         setAuthUser(response.data);
         if (response.data.accountType === "ROLE_STUDENT") {
           navigate("/student-info");
@@ -64,9 +66,8 @@ const LoginSignupController = () => {
   const handleSignupStudent = async (e) => {
     e.preventDefault();
     try {
-      console.log("Student info:", student);
       const response = await axios.post(
-        "https://ojt-portal-backend2.azurewebsites.net/student/register",
+        "https://ojt-backend.azurewebsites.net/student/register",
         qs.stringify(student),
         {
           headers: {
@@ -74,8 +75,10 @@ const LoginSignupController = () => {
           },
         }
       );
+
+      console.log(response.data);
       if (response.data === 1) {
-        alert("Registration Successful. Please log in.");
+        setUser({ email: student.email, password: student.password });
       } else {
         alert("Registration failed");
       }
@@ -89,7 +92,7 @@ const LoginSignupController = () => {
     try {
       console.log("Supervisor info:", supervisor);
       const response = await axios.post(
-        "https://ojt-portal-backend2.azurewebsites.net/supervisor/register",
+        "https://ojt-backend.azurewebsites.net/supervisor/register",
         qs.stringify(supervisor),
         {
           headers: {
@@ -97,8 +100,9 @@ const LoginSignupController = () => {
           },
         }
       );
+
       if (response.data === 1) {
-        alert("Registration Successful. Please log in.");
+        setUser({ email: supervisor.email, password: supervisor.password });
       } else {
         console.log("Registration failed");
       }

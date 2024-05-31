@@ -14,7 +14,7 @@ const StudentProgress = () => {
     try {
       console.log("Student ID:", studentID);
       const response = await axios.get(
-        "https://ojt-portal-backend2.azurewebsites.net/student/get-ojt-record",
+        "https://ojt-backend.azurewebsites.net/student/get-ojt-record",
         {
           params: {
             studentNo: studentID,
@@ -32,7 +32,7 @@ const StudentProgress = () => {
   const studentLogbookEntries = async () => {
     try {
       const response = await axios.get(
-        "https://ojt-portal-backend2.azurewebsites.net/student/get-all-entries",
+        "https://ojt-backend.azurewebsites.net/student/get-all-entries",
         {
           params: {
             recordNo: recordNo,
