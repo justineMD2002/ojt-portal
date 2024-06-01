@@ -19,7 +19,11 @@ import { AuthProvider } from "./Components/UserManagement/AuthContext";
 import LoginSignupController from "./Components/UserManagement/LoginSignup/controllers/LoginSignupController";
 import InternMonitoringController from "./Components/InternMonitoring/controllers/InternMonitoringController";
 import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
-
+import StudentDetails from "./Components/StudentsMonitoring/StudentsDetails";
+import Users from "./Components/AdminComponents/Users";
+import Companies from "./Components/AdminComponents/Companies";
+import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
+import StudentData from "./Components/InstructorComponents/StudentData";
 const App = () => {
   return (
     <AuthProvider>
@@ -41,7 +45,14 @@ const App = () => {
                 path="/submitted-logbook"
                 element={<SubmittedLogbooks />}
               />
+              <Route path="/users" element={<Users />} />
+              <Route path="/companies" element={<Companies />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
+              <Route path="/student-data" element={<StudentData />} />
+
               <Route path="/ojt-analytics" element={<OJTAnalytics />} />
+              <Route path="/student-monitoring" element={<StudentDetails />} />
               <Route
                 path="/trainee-evaluation"
                 element={<TraineeEvaluation />}

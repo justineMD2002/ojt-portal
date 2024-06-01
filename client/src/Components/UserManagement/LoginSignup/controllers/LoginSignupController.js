@@ -44,6 +44,12 @@ const LoginSignupController = () => {
         setAuthUser(response.data);
         if (response.data.accountType === "ROLE_STUDENT") {
           navigate("/student-info");
+        } else if(response.data.userInfo.accountType === "ROLE_CHAIR") {
+          navigate("/student-monitoring");
+        } else if(response.data.userInfo.accountType === "ROLE_ADMIN") {
+          navigate("/admin-dashboard");
+        } else if(response.data.userInfo.accountType === "ROLE_INSTRUCTOR") {
+          navigate("/student-data");
         } else {
           navigate("/intern-monitoring");
         }

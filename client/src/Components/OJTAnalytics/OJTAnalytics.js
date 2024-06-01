@@ -1,10 +1,40 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Chart, registerables } from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
+import axios from "axios";
+import { useAuth } from "../UserManagement/AuthContext";
 
 Chart.register(...registerables);
 
 const OJTAnalytics = () => {
+  const { authUser } = useAuth();
+  const [result, setResult] = useState();
+  const [analytics, setAnalytics] = useState(null);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await axios.get(
+          "https://ojt-backend.azurewebsites.net/get-student-proficiency",
+          {
+            params: {
+              studentEmail: "all"
+            },
+            headers: {
+              Authorization: `Bearer ${authUser.accessToken}`,
+            },
+          }
+        );
+        setResult(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchStudents();
+  }, [authUser])
+
+
   const lineData = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
