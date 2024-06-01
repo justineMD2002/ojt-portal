@@ -103,13 +103,13 @@ const TaskCard = ({
       {isDetailPopupVisible && (
         <div className="popup">
           <div className="popup-inner">
-            <h2>Training Plan Details</h2>
+            <h2 style={{marginBottom: '10px'}}>Training Plan Details</h2>
             {tasks.map((task, index) => (
               <p key={index}>
                 Task {index + 1}: {task.title}
               </p>
             ))}
-            <button onClick={toggleCreateTaskPopup}>Create Task</button>
+            <button style={{marginTop: '10px', marginBottom: '10px'}} onClick={toggleCreateTaskPopup}>Create Task</button>
             <button onClick={toggleDetailPopup}>Close</button>
           </div>
         </div>
