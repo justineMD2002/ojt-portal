@@ -64,7 +64,7 @@ const TraineeEvaluation = () => {
           {trainees.map((item, index) => (
             <li
               key={index}
-              style={{ display: openFeedback[index] ? "block" : "grid" }}
+              style={{ display: openFeedback[index] ? "block" : "flex" }}
             >
               <div
                 className={`user`}
@@ -73,10 +73,10 @@ const TraineeEvaluation = () => {
                 <FontAwesomeIcon icon={faUserCircle} className="icon" />
 
                 <div>
-                  <p className="item-name">
+                  <p>
                     {item.user.firstname} {item.user.lastname}
                   </p>
-                  <p className="item-position">{item.user.email}</p>
+                  <p>{item.user.email}</p>
                 </div>
               </div>
 
@@ -85,7 +85,7 @@ const TraineeEvaluation = () => {
                 style={{ display: openFeedback[index] && "none" }}
               >
                 <p>{item.degreeProgram}</p>
-                <p className="item-ojtHrs">Student ID: {item.studentid}</p>
+                <p>Student ID: {item.studentid}</p>
               </div>
 
               <div style={{ display: openFeedback[index] && "none" }}>

@@ -9,26 +9,37 @@ const AddInternModalView = ({
   return (
     <div className="overlay">
       <div className="modal-container">
+        <div className="close">
+          <button onClick={handleOpenModal}>X</button>
+        </div>
         <h2>Add Intern</h2>
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleAddIntern(e);
+            handleOpenModal();
+          }}
+        >
           <label>
             Email:
             <input
-              type="text"
+              type="email"
               name="studentEmail"
               onChange={handleInputChange}
               value={designation.studentEmail}
               required
+              placeholder="Enter email"
             />
           </label>
           <label>
             OJT Hours:
             <input
-              type="text"
+              type="number"
               name="ojtHours"
               onChange={handleInputChange}
               value={designation.ojtHours}
               required
+              placeholder="Enter OJT hours"
             />
           </label>
           <label>
@@ -39,6 +50,7 @@ const AddInternModalView = ({
               onChange={handleInputChange}
               value={designation.designation}
               required
+              placeholder="Enter designation"
             />
           </label>
           <label>
@@ -49,23 +61,12 @@ const AddInternModalView = ({
               onChange={handleInputChange}
               value={designation.department}
               required
+              placeholder="Enter department"
             />
           </label>
 
-          <button
-            type="submit"
-            onClick={(e) => {
-              handleAddIntern(e);
-              handleOpenModal();
-            }}
-          >
-            Invite Intern
-          </button>
+          <button type="submit">Invite Intern</button>
         </form>
-
-        <div className="close">
-          <button onClick={handleOpenModal}>X</button>
-        </div>
       </div>
     </div>
   );

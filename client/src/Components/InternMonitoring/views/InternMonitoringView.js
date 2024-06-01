@@ -7,12 +7,14 @@ const InternMonitoringView = ({
   handleOpenModal,
   accessToken,
   getOJTRecords,
-  loading
+  loading,
 }) => {
   return (
-    <div>
+    <div className="intern-monitoring-view">
       <h2>Interns</h2>
-      <button onClick={handleOpenModal}>Invite an Intern</button>
+      <button className="invite-button" onClick={handleOpenModal}>
+        Invite an Intern
+      </button>
 
       {openModal && (
         <InternDesignationController
@@ -22,46 +24,41 @@ const InternMonitoringView = ({
       )}
 
       {loading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "50vh",
-          }}
-        >
+        <div className="loader-container">
           <ClipLoader loading={loading} size={150} />
         </div>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Intern ID</th>
-              <th>Intern Name</th>
-              <th>Degree Program</th>
-              <th>Designation</th>
-              <th>Department</th>
-              <th>Total Rendered Hours</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {getOJTRecords.map((record) => (
-              <tr key={record.recordNo}>
-                <td>{record.student.studentid}</td>
-                <td>
-                  {record.student.user.firstname +
-                    " " +
-                    record.student.user.lastname}
-                </td>
-                <td>{record.student.degreeProgram}</td>
-                <td>{record.designation}</td>
-                <td>{record.department}</td>
-                <td>{record.renderedHours}</td>
+        <div className="table-container">
+          <table className="responsive-table">
+            <thead>
+              <tr>
+                <th>Intern ID</th>
+                <th>Intern Name</th>
+                <th>Degree Program</th>
+                <th>Designation</th>
+                <th>Department</th>
+                <th>Total Rendered Hours</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {getOJTRecords.map((record) => (
+                <tr key={record.recordNo}>
+                  <td data-label="ID">{record.student.studentid}</td>
+                  <td data-label="Name">
+                    {record.student.user.firstname +
+                      " " +
+                      record.student.user.lastname}
+                  </td>
+                  <td data-label="Degree">{record.student.degreeProgram}</td>
+                  <td data-label="Dsgntn">{record.designation}</td>
+                  <td data-label="Dprtmnt">{record.department}</td>
+                  <td data-label="TRH">{record.renderedHours}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
