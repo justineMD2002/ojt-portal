@@ -95,6 +95,7 @@ const TraineeEvaluation = () => {
               </div>
               {openFeedback[index] && (
                 <InternEvalFeedbackForm
+                  type="trainee"
                   student={item.user}
                   onClose={() => handleCloseFeedback(index)}
                 />
