@@ -11,11 +11,16 @@ import {
   TableHead,
   TableBody,
   Button,
+  TableContainer,
+  Paper,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle
 } from '@mui/material';
 import { KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
 import axios from 'axios';
 import { useAuth } from '../UserManagement/AuthContext';
-import TableContainer from '@mui/material/TableContainer';
 import InternEvalFeedbackForm from "../InternEvalFeedbackForm/InternEvalFeedbackForm";
 
 function Row({ row }) {
@@ -49,71 +54,85 @@ function Row({ row }) {
     fetchRow();
   }, [open, row.student.user.email, authUser.accessToken]);
 
+  const handleFormOpen = () => {
+    setFormOpen(true);
+  };
+
+  const handleFormClose = () => {
+    setFormOpen(false);
+  };
+
   return (
     <React.Fragment>
-      {!formOpen ? (
-        <TableRow>
-          <TableCell>
-            <IconButton
-              aria-label="expand row"
-              size="small"
-              onClick={() => setOpen(!open)}
-            >
-              {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-            </IconButton>
-          </TableCell>
-          <TableCell>{row.student.studentid}</TableCell>
-          <TableCell align="right">{`${row.student.user.firstname} ${row.student.user.lastname}`}</TableCell>
-          <TableCell align="right">{row.student.degreeProgram}</TableCell>
-          <TableCell align="right">{row.company.companyName}</TableCell>
-          <TableCell align="right">{row.department}</TableCell>
-          <TableCell align="right">{row.designation}</TableCell>
-          <TableCell align="right">{row.renderedHours.toFixed(2)}</TableCell>
-          <TableCell align="right">
-            <Button variant="outlined" onClick={() => setFormOpen(true)}>Evaluate Student</Button>
-          </TableCell>
-        </TableRow>
-      ) : null}
-      {!formOpen && (
-        <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <Box sx={{ margin: 1 }}>
-                <Typography variant="h6" gutterBottom component="div">
-                  Details
-                </Typography>
-                <Table size="small" aria-label="details">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Time In</TableCell>
-                      <TableCell>Time Out</TableCell>
-                      <TableCell>Total Hours</TableCell>
-                      <TableCell align="right">Activities</TableCell>
-                      <TableCell align="right">Tasks (Task Description Concatenated) </TableCell>
-                      <TableCell align="right">Skills (Task Description Concatenated (SkillName: domain)) </TableCell>
-                      <TableCell align="right">Status</TableCell>
+      <TableRow className="student-row">
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+          </IconButton>
+        </TableCell>
+        <TableCell data-label="Student ID">{row.student.studentid}</TableCell>
+        <TableCell data-label="Student Name" align="right">{`${row.student.user.firstname} ${row.student.user.lastname}`}</TableCell>
+        <TableCell data-label="Degree Program" align="right">{row.student.degreeProgram}</TableCell>
+        <TableCell data-label="Company Name" align="right">{row.company.companyName}</TableCell>
+        <TableCell data-label="Department" align="right">{row.department}</TableCell>
+        <TableCell data-label="Designation" align="right">{row.designation}</TableCell>
+        <TableCell data-label="Total Rendered Hours" align="right">{row.renderedHours.toFixed(2)}</TableCell>
+        <TableCell align="right">
+          <Button variant="contained" style={{ backgroundColor: '#ffd633', color: 'black' }} onClick={handleFormOpen}>Evaluate Student</Button>
+        </TableCell>
+      </TableRow>
+
+      <TableRow>
+        <TableCell style={{ paddingLeft: '20px' ,paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Typography variant="h6" style={{textAlign: 'left'}} gutterBottom component="div">
+                Details
+              </Typography>
+              <Table size="small" aria-label="details">
+                <TableHead style={{marginLeft: '-10px'}}>
+                  <TableRow className='student-row'>
+                    <TableCell>Time In</TableCell>
+                    <TableCell>Time Out</TableCell>
+                    <TableCell>Total Hours</TableCell>
+                    <TableCell align="right">Activities</TableCell>
+                    <TableCell align="right">Tasks (Task Description Concatenated)</TableCell>
+                    <TableCell align="right">Skills (Task Description Concatenated (SkillName: domain))</TableCell>
+                    <TableCell align="right">Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {entries.map((entry, index) => (
+                    <TableRow key={index}>
+                      <TableCell data-label="Time In">{entry.timeIn}</TableCell>
+                      <TableCell data-label="Time Out">{entry.timeOut}</TableCell>
+                      <TableCell data-label="Total Hours">{entry.totalHrs.toFixed(2)}</TableCell>
+                      <TableCell data-label="Activities" align="right">{entry.activities}</TableCell>
+                      <TableCell data-label="Tasks" align="right">{entry.tasks.map(task => task.description).join(', ')}</TableCell>
+                      <TableCell data-label="Skills" align="right">{entry.tasks.flatMap(task => task.skills.map(skill => `${skill.skillName}: ${skill.domain}`)).join(', ')}</TableCell>
+                      <TableCell data-label="Status" align="right">{entry.status}</TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {entries.map((entry, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{entry.timeIn}</TableCell>
-                        <TableCell>{entry.timeOut}</TableCell>
-                        <TableCell>{entry.totalHrs.toFixed(2)}</TableCell>
-                        <TableCell align="right">{entry.activities}</TableCell>
-                        <TableCell align="right">{entry.tasks.map(task => task.description).join(', ')}</TableCell>
-                        <TableCell align="right">{entry.tasks.flatMap(task => task.skills.map(skill => `${skill.skillName}: ${skill.domain}`)).join(', ')}</TableCell>
-                        <TableCell align="right">{entry.status}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Box>
-            </Collapse>
-          </TableCell>
-        </TableRow>
-      )}
-      {formOpen && <InternEvalFeedbackForm student={row.student} type="student" />}
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+
+      <Dialog open={formOpen} onClose={handleFormClose} fullWidth maxWidth="md">
+        <DialogTitle>Evaluate Student</DialogTitle>
+        <DialogContent>
+          <InternEvalFeedbackForm student={row.student} type="student" />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleFormClose} style={{ backgroundColor: '#ffd633', color: 'black'}}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 }
@@ -150,9 +169,12 @@ export default function StudentData() {
   }, [authUser]);
 
   return (
-    <div>
-      <TableContainer>
-        <Table aria-label="collapsible table">
+    <div className="student-data">
+      <h2>
+        Instructor Dashboard
+      </h2>
+      <TableContainer component={Paper} className="table-container">
+        <Table className="responsive-table" aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell />
@@ -163,6 +185,7 @@ export default function StudentData() {
               <TableCell align="right">Department</TableCell>
               <TableCell align="right">Designation</TableCell>
               <TableCell align="right">Total Rendered Hours</TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
