@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import OjtTRacking from "./OjtTracking";
-import StudentInfo from "./StudentInfo";
-import ProgressOverview from "./ProgressOverview";
+import React, { useEffect, useState } from "react";
+import StudentInfo from "./StudentInfo/StudentInfo";
 import { useAuth } from "../UserManagement/AuthContext";
-import JoinOJTTeamModal from "./JoinOJTTeamModal";
+import JoinOJTTeamModalController from "./JoinOJTModal/controller/JoinOJTModalController";
+import ProgressOverviewController from "./ProgressOverview/controller/ProgressOverviewController";
+import OJTTrackingController from "./OJTTracking/controller/OJTTrackingController";
 
 const Dashboard = () => {
   const { authUser, handleLogout } = useAuth();
@@ -12,11 +12,13 @@ const Dashboard = () => {
       authUser.ojtRecord.status === "ONGOING"
   );
 
+  useEffect(() => {}, [isOfficialIntern]);
+
   return (
     <div className="Dashboard">
       {console.log("isOfficialIntern: ", isOfficialIntern)}
       {!isOfficialIntern && (
-        <JoinOJTTeamModal
+        <JoinOJTTeamModalController
           handleLogout={handleLogout}
           accessToken={authUser.accessToken}
           setIsOfficialIntern={setIsOfficialIntern}
@@ -25,9 +27,9 @@ const Dashboard = () => {
       {/* student info */}
       <StudentInfo authUser={authUser} />
       {/* ojt tracking */}
-      <OjtTRacking />
+      <OJTTrackingController authUser={authUser} />
       {/* progress overview */}
-      <ProgressOverview />
+      <ProgressOverviewController authUser={authUser} />
     </div>
   );
 };

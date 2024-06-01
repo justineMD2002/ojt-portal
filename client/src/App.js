@@ -19,6 +19,7 @@ import { AuthProvider } from "./Components/UserManagement/AuthContext";
 import LoginSignupController from "./Components/UserManagement/LoginSignup/controllers/LoginSignupController";
 import InternMonitoringController from "./Components/InternMonitoring/controllers/InternMonitoringController";
 import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
+import ForgotPasswordController from "./Components/UserManagement/ForgotPassword/controller/ForgotPasswordController";
 import StudentDetails from "./Components/StudentsMonitoring/StudentsDetails";
 import Users from "./Components/AdminComponents/Users";
 import Companies from "./Components/AdminComponents/Companies";
@@ -36,6 +37,7 @@ const App = () => {
           <main>
             <Routes>
               <Route path="/" element={<LoginSignupController />} />
+              <Route path="/forgot-password" element={<ForgotPasswordController />} />
               <Route path="/student-info" element={<Dashboard />} />
               <Route path="/logbook" element={<LogbookForm />} />
               <Route path="/view-logbook" element={<LogbookContents />} />
