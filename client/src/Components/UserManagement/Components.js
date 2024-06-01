@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export const Container = styled.div`
   background-color: #fff;
   border-radius: 10px;
@@ -62,6 +63,12 @@ export const Input = styled.input`
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 10px 12px;
+    width: 145px;
+    font-size: 12px;
+  }
 `;
 
 export const Button = styled.button`
@@ -80,6 +87,12 @@ export const Button = styled.button`
   }
   &:focus {
     outline: none;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 12px;
+    width: 100px;
+    font-size: 12px;
   }
 `;
 
@@ -137,6 +150,7 @@ export const OverlayPanel = styled.div`
   width: 50%;
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
+  
 `;
 
 export const LeftOverlayPanel = styled(OverlayPanel)`
