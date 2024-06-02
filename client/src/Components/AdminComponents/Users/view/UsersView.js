@@ -12,6 +12,8 @@ const UsersView = ({
   formData,
   handleInputChange,
   renderFormFields,
+  handleActivate,
+  handleRestrict
 }) => {
   return (
     <div>
@@ -26,6 +28,7 @@ const UsersView = ({
             <th>Account Type</th>
             <th>User Status</th>
             <th>Email</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -35,8 +38,12 @@ const UsersView = ({
               <td>{user.firstname}</td>
               <td>{user.lastname}</td>
               <td>{user.accountType}</td>
-              <td>{user.userStatus}</td>
-              <td>{user.email}</td>
+              <td>{user.userStatus}</td>                                    
+              <td>{user.email}</td> 
+              <td>
+                <button onClick={() => handleActivate(user.email)} style={{ marginBottom: "5px" }}>Activate</button>
+                <button onClick={() => handleRestrict(user.email)} style={{ marginTop: "5px" }}>Restrict</button>
+              </td>
             </tr>
           ))}
         </tbody>
