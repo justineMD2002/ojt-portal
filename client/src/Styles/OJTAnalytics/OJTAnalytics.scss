@@ -2,19 +2,22 @@
   .container {
     box-shadow: 0 0 3px 0 #e1e1e1;
   }
-  .chart-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  
+  .chart-container {  
+    display: flex;
     gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
 
     .chart {
-      padding: 15px 10px;
+      flex: 1;
+      padding: 15px;
       box-shadow: 0 0 5px 0 #e1e1e1;
+      border-radius: 5px;
     }
   }
 
   .data-table {
-    margin-top: 20px;
     padding: 10px;
 
     h4 {
@@ -27,38 +30,31 @@
 
       td,
       th {
-        padding: 5px;
+        padding: 8px;
+        border-bottom: 1px solid #e1e1e1;
       }
     }
   }
 
   .filter-options {
-    margin-top: 20px;
     padding: 10px;
-    // box-shadow: 0 0 3px 0 #cecece;
+
+    h4 {
+      margin-bottom: 20px;
+    }
 
     .filters {
-      margin-top: 10px;
       display: flex;
-      // background-color: red;
-      justify-content: space-between;
-
-      button {
-        background-color: $strong-yellow;
-        border: none;
-        outline: none;
-        padding: 0 15px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+      flex-direction: column;
+      gap: 15px;
 
       .select-container {
         display: flex;
+        flex-direction: column;
+        gap: 10px; 
 
-        select,
-        input {
-          padding: 5px;
-          margin-right: 5px;
+        select {
+          padding: 8px;
           cursor: pointer;
           border: none;
           outline: none;
@@ -66,12 +62,38 @@
         }
 
         .date-time-container {
-          label {
-            margin-left: 10px;
-            margin-right: 5px;
-          }
           display: flex;
+          gap: 20px; 
+          
+          div {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+
+            label {
+              font-weight: bold;
+            }
+
+            input {
+              padding: 8px;
+              cursor: pointer;
+              border: none;
+              outline: none;
+              box-shadow: 0 0 3px 0 #cecece;
+              flex: 1; 
+            }
+          }
         }
+      }
+
+      button {
+        align-self: flex-start; 
+        background-color: $strong-yellow;
+        border: none;
+        outline: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
       }
     }
   }

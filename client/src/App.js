@@ -27,6 +27,7 @@ import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
 import StudentData from "./Components/InstructorComponents/StudentData";
 import OJTRecords from "./Components/AdminComponents/OJTRecords";
 import TrainingPlansTable from "./Components/AdminComponents/TrainingPlansTable";
+
 const App = () => {
   return (
     <AuthProvider>
