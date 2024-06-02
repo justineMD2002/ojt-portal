@@ -25,6 +25,8 @@ import Users from "./Components/AdminComponents/Users";
 import Companies from "./Components/AdminComponents/Companies";
 import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
 import StudentData from "./Components/InstructorComponents/StudentData";
+import OJTRecords from "./Components/AdminComponents/OJTRecords";
+import TrainingPlansTable from "./Components/AdminComponents/TrainingPlansTable";
 const App = () => {
   return (
     <AuthProvider>
@@ -47,6 +49,8 @@ const App = () => {
                 path="/submitted-logbook"
                 element={<SubmittedLogbooks />}
               />
+              <Route path="/tp-table" element={<TrainingPlansTable/>} />
+              <Route path="/ojt-records" element={<OJTRecords/>} />
               <Route path="/users" element={<Users />} />
               <Route path="/companies" element={<Companies />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />

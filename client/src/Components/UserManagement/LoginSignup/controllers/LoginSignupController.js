@@ -54,8 +54,8 @@ const LoginSignupController = () => {
         } else if(response.data.userInfo.accountType === "ROLE_CHAIR") {
           navigate("/student-monitoring");
         } else if(response.data.userInfo.accountType === "ROLE_ADMIN") {
-          navigate("/admin-dashboard");
-        } else if(response.data.userInfo.accountType === "ROLE_INSTRUCTOR") {
+          navigate("/users");
+        } else if(response.data.userInfo.accountType === "ROLE_INSTRUCTOR") { 
           navigate("/student-data");
         } else {
           navigate("/intern-monitoring");
