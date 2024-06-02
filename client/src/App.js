@@ -27,6 +27,7 @@ import TrainingPlansTable from "./Components/AdminComponents/TrainingPlansTable"
 import CompaniesController from "./Components/AdminComponents/Companies/controller/CompaniesController";
 import UsersController from "./Components/AdminComponents/Users/controller/UsersController";
 import OJTRecordsController from "./Components/AdminComponents/OJTRecords/controller/OJTRecordsController";
+
 const App = () => {
   return (
     <AuthProvider>

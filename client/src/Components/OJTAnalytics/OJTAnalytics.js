@@ -1,165 +1,97 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import { Chart, registerables } from "chart.js";
-import { Line, Bar } from "react-chartjs-2";
 import axios from "axios";
 import { useAuth } from "../UserManagement/AuthContext";
+import VerticalBarChart from "./VerticalBarChart";
+import LineChart from "./LineChart.js";
+import { Line } from "react-chartjs-2";
 
 Chart.register(...registerables);
 
 const OJTAnalytics = () => {
+  const skillFilter = ["NoSQL", "Spring Frameworks", "Python", "Django", 
+                        "C#", "PostgreSQL", "MySQL", "C++", "Oracle Java", 
+                        "Javascript", "Spring Boot", "API"];
+
+  const [selectedSkill, setSelectedSkill] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [apiData, setApiData] = useState(null); 
   const { authUser } = useAuth();
-  const [result, setResult] = useState();
-  const [analytics, setAnalytics] = useState(null);
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const response = await axios.get(
-          "https://ojt-backend.azurewebsites.net/get-student-proficiency",
-          {
-            params: {
-              studentEmail: "all"
-            },
-            headers: {
-              Authorization: `Bearer ${authUser.accessToken}`,
-            },
-          }
-        );
-        setResult(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+  const handleSkillChange = (e) => {
+    setSelectedSkill(e.target.value);
+  };
+
+  const handleFromDateChange = (e) => {
+    setFromDate(e.target.value);
+  };
+
+  const handleToDateChange = (e) => {
+    setToDate(e.target.value);
+  };
+
+  const handleClick = async () => {
+    const formData = new FormData();
+    formData.append("skill", selectedSkill);
+    formData.append("startDate", fromDate);
+    formData.append("endDate", toDate);
+
+    try {
+      const response = await axios.post(
+        "https://ojt-backend.azurewebsites.net/get-skill-trend-report",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Response:", response.data);
+      setApiData(response.data); 
+    } catch (error) {
+      console.error("Error:", error);
     }
-    fetchStudents();
-  }, [authUser])
-
-
-  const lineData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: "rgba(75,192,192,1)",
-        backgroundColor: "rgba(75,192,192,0.4)",
-        yAxisID: "y-axis-1",
-      },
-      {
-        label: "Dataset 2",
-        data: [28, 48, 40, 19, 86, 27, 90],
-        fill: false,
-        borderColor: "rgba(255,99,132,1)",
-        backgroundColor: "rgba(255,99,132,0.4)",
-        yAxisID: "y-axis-2",
-      },
-    ],
   };
-
-  const barData = {
-    labels: [
-      "Strategic Leadership Skill",
-      "Enterprise Political Commitment",
-      "Monitoring and Benchmarking",
-      "Work Distribution",
-      "Management of Workers",
-      "Creativity",
-      "Marketing ",
-    ],
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: [44, 20, 18, 18, 17, 14, 14],
-        backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const skillFilter = ["skill1", "skill2", "skill3"];
-  const domainFilter = ["domain1", "domain2", "domain3"];
-  const trendDirectionFilter = ["trend1", "trend2", "trend3"];
-
-  const dataTable = [
-    {
-      skill: "SkillA",
-      domain: "Data Analytics",
-      trendDirection: "Upward",
-      prediction: "Continous Improvement",
-    },
-    {
-      skill: "SkillB",
-      domain: "Machine Learning",
-      trendDirection: "Upward",
-      prediction: "Continous Improvement",
-    },
-    {
-      skill: "SkillC",
-      domain: "Data Analytics",
-      trendDirection: "Upward",
-      prediction: "Continous Improvement",
-    },
-  ];
 
   return (
     <div className="OJTAnalytics">
       <h3>Skill Graph Trend</h3>
       <div className="chart-container">
         <div className="chart">
-          <Line data={lineData} />
+          <VerticalBarChart />
         </div>
         <div className="chart">
-          <Bar data={barData} />
+          <LineChart />
         </div>
       </div>
       <div className="filter-options container">
         <h4>Filter Options</h4>
         <div className="filters">
           <div className="select-container">
-            <select name="" id="">
+            <select name="skill" value={selectedSkill} onChange={handleSkillChange}>
               <option value="" disabled selected>
                 Select Skills
               </option>
               {skillFilter.map((skill, i) => (
-                <option key={i} value="">
-                  {skill}
-                </option>
-              ))}
-            </select>
-            <select name="" id="">
-              <option value="" disabled selected>
-                Select Domain
-              </option>
-              {domainFilter.map((skill, i) => (
-                <option key={i} value="">
+                <option key={i} value={skill}>
                   {skill}
                 </option>
               ))}
             </select>
             <div className="date-time-container">
               <div>
-                <label htmlFor="">From</label>
-                <input type="datetime-local" id="datetime" name="datetime" />
+                <label htmlFor="fromDate">From</label>
+                <input type="date" id="fromDate" name="fromDate" onChange={handleFromDateChange} />
               </div>
               <div>
-                <label htmlFor="">To</label>
-                <input type="datetime-local" id="datetime" name="datetime" />
+                <label htmlFor="toDate">To</label>
+                <input type="date" id="toDate" name="toDate" onChange={handleToDateChange} />
               </div>
             </div>
-            <select name="" id="">
-              <option value="" disabled selected>
-                Trend Direction
-              </option>
-              {trendDirectionFilter.map((skill, i) => (
-                <option key={i} value="">
-                  {skill}
-                </option>
-              ))}
-            </select>
           </div>
-          <button>Apply Filters</button>
+          <button onClick={handleClick}>Apply Filters</button>
         </div>
       </div>
       <div className="data-table container">
@@ -167,21 +99,36 @@ const OJTAnalytics = () => {
         <table>
           <thead>
             <tr>
-              <th>Skill Name</th>
-              <th>Domain</th>
-              <th>Trend Direction</th>
-              <th>Prediction</th>
+              <th>Skill</th>
+              <th>Trend</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Avg Demand Change</th>
             </tr>
           </thead>
           <tbody>
-            {dataTable.map((data, i) => (
-              <tr key={i}>
-                <td>{data.skill}</td>
-                <td>{data.domain}</td>
-                <td>{data.trendDirection}</td>
-                <td>{data.prediction}</td>
+            {apiData ? (
+              <>
+                <tr>
+                  <td>{apiData.skill}</td>
+                  <td>{apiData.trend}</td>
+                  <td>{apiData.startDate}</td>
+                  <td>{apiData.endDate}</td>
+                  <td>{apiData.avg_demand_change}</td>
+                </tr>
+                {apiData.yearly_data.map((data, i) => (
+                  <tr key={i}>
+                    <td colSpan="5">
+                      Year: {data.year}, Skill Frequency: {data.skillFrequency}, Demand Change: {data.demandChange}
+                    </td>
+                  </tr>
+                ))}
+              </>
+            ) : (
+              <tr>
+                <td colSpan="5">No data available</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
