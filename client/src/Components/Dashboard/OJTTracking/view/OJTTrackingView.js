@@ -9,7 +9,7 @@ const OJTTrackingView = ({ authUser, ojtEntries, handleOnClick }) => {
           Total Rendered Hours:{" "}
           <span>
             {authUser && authUser.ojtRecord
-              ? authUser.ojtRecord.renderedHrs
+              ? authUser.ojtRecord.renderedHrs.toFixed(2)
               : "Guest"}
           </span>{" "}
         </h3>
