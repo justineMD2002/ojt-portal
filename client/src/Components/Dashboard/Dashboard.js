@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import StudentInfo from "./StudentInfo/StudentInfo";
 import { useAuth } from "../UserManagement/AuthContext";
 import JoinOJTTeamModalController from "./JoinOJTModal/controller/JoinOJTModalController";
@@ -12,11 +12,10 @@ const Dashboard = () => {
       authUser.ojtRecord.status === "ONGOING"
   );
 
-  useEffect(() => {}, [isOfficialIntern]);
-
   return (
     <div className="Dashboard">
       {console.log("isOfficialIntern: ", isOfficialIntern)}
+      {console.log(authUser)}
       {!isOfficialIntern && (
         <JoinOJTTeamModalController
           handleLogout={handleLogout}

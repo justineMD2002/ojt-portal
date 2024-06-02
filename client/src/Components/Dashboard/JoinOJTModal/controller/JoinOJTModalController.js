@@ -42,6 +42,7 @@ const JoinOJTModalController = ({
       console.log(error);
     }
   };
+  
   return (
     <JoinOJTModalView
       teamCode={teamCode}

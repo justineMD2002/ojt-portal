@@ -24,7 +24,7 @@ const LoginSignupController = () => {
 
   const handleOpenModal = () => {
     setOpenModal(!openModal);
-  }
+  };
 
   useEffect(() => {
     console.log("userinfo:", user);
@@ -32,7 +32,6 @@ const LoginSignupController = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("herelogin");
     try {
       const response = await axios.post(
         "https://ojt-backend.azurewebsites.net/auth/login",
@@ -46,7 +45,6 @@ const LoginSignupController = () => {
 
       console.log("response:", response.data);
       if (response.data.accessToken) {
-        console.log("here1login");
         setIsLoggedIn(true);
         setAuthUser(response.data);
         if (response.data.accountType === "ROLE_STUDENT") {
@@ -89,10 +87,10 @@ const LoginSignupController = () => {
         }
       );
 
-      console.log(response.data);
-      console.log(student);
       if (response.data === 1) {
-        setUser({ email: student.email, password: student.password });
+        navigate("/activate-account", {
+          state: { email: student.email },
+        });
       } else {
         alert("Registration failed");
       }
@@ -116,7 +114,9 @@ const LoginSignupController = () => {
       );
 
       if (response.data === 1) {
-        setUser({ email: supervisor.email, password: supervisor.password });
+        navigate("/activate-account", {
+          state: { email: supervisor.email },
+        });
       } else {
         console.log("Registration failed");
       }
