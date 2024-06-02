@@ -1,78 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../UserManagement/AuthContext';
-import axios from 'axios';
-import qs from 'qs';
-import ReusableForm from './ReusableForm';
+import React from 'react'
+import ReusableForm from '../../ReusableForm';
 
-const Companies = () => {
-  const { authUser } = useAuth();
-  const [companies, setCompanies] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    company_name: '',
-    contactNo: '',
-    email: '',
-    address: '',
-  });
-
-  useEffect(() => {
-    const fetchCompanies = async () => {
-      try {
-        const response = await axios.get(
-          "https://ojt-backend.azurewebsites.net/company/get-all-companies",
-          {
-            headers: {
-              Authorization: `Bearer ${authUser.accessToken}`,
-            },
-          }
-        );
-        console.log(response.data);
-        setCompanies(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    } 
-    fetchCompanies();
-  }, [authUser.accessToken]);
-
-  const handleClick = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post(
-        "https://ojt-backend.azurewebsites.net/company/add",
-        qs.stringify(formData),
-        {
-          headers: {
-            Authorization: `Bearer ${authUser.accessToken}`,
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        } 
-      );
-      window.location.reload();
-      setShowModal(false);
-      alert("Company added successfully");
-    } catch (error) {
-      console.error("Error:", error);
-      setShowModal(false);
-      alert("Failed to add company");
-    }
-  };
-
+const CompaniesView = ({handleClick, companies, showModal, handleCloseModal, handleSubmit, formData, handleInputChange}) => {
   return (
     <div>
       <h1>Company List</h1>
@@ -83,7 +12,7 @@ const Companies = () => {
             <th>Company ID</th>
             <th>Company Name</th>
             <th>Contact Number</th>
-            <th>Email</th> 
+            <th>Email</th>
             <th>Location</th>
           </tr>
         </thead>
@@ -153,6 +82,6 @@ const Companies = () => {
       </ReusableForm>
     </div>
   );
-};
+}
 
-export default Companies;
+export default CompaniesView

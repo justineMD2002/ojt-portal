@@ -21,12 +21,12 @@ import ActivateAccountController from "./Components/UserManagement/ActivateAccou
 import ForgotPasswordController from "./Components/UserManagement/ForgotPassword/controller/ForgotPasswordController";
 import LogbookEntriesController from "./Components/LogbookEntries/controller/LogbookEntriesController";
 import StudentDetails from "./Components/StudentsMonitoring/StudentsDetails";
-import Users from "./Components/AdminComponents/Users";
-import Companies from "./Components/AdminComponents/Companies";
 import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
 import StudentData from "./Components/InstructorComponents/StudentData";
-import OJTRecords from "./Components/AdminComponents/OJTRecords";
 import TrainingPlansTable from "./Components/AdminComponents/TrainingPlansTable";
+import CompaniesController from "./Components/AdminComponents/Companies/controller/CompaniesController";
+import UsersController from "./Components/AdminComponents/Users/controller/UsersController";
+import OJTRecordsController from "./Components/AdminComponents/OJTRecords/controller/OJTRecordsController";
 const App = () => {
   return (
     <AuthProvider>
@@ -52,10 +52,10 @@ const App = () => {
                 path="/submitted-logbook"
                 element={<SubmittedLogbooks />}
               />
-              <Route path="/tp-table" element={<TrainingPlansTable/>} />
-              <Route path="/ojt-records" element={<OJTRecords/>} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/companies" element={<Companies />} />
+              <Route path="/tp-table" element={<TrainingPlansTable />} />
+              <Route path="/ojt-records" element={<OJTRecordsController />} />
+              <Route path="/users" element={<UsersController />} />
+              <Route path="/companies" element={<CompaniesController />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
               <Route path="/student-data" element={<StudentData />} />
