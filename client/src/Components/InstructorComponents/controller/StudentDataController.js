@@ -6,7 +6,6 @@ import StudentDataView from "../view/StudentDataView";
 const OJTRecordsController = () => {
   const { authUser } = useAuth();
   const [students, setStudents] = useState([]);
-  const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -20,22 +19,7 @@ const OJTRecordsController = () => {
     fetchStudents();
   }, [authUser]);
 
-  const handleFormOpen = () => {
-    setFormOpen(true);
-  };
-
-  const handleFormClose = () => {
-    setFormOpen(false);
-  };
-
-  return (
-    <StudentDataView
-      students={students}
-      formOpen={formOpen}
-      handleFormOpen={handleFormOpen}
-      handleFormClose={handleFormClose}
-    />
-  );
+  return <StudentDataView students={students} />;
 };
 
 export default OJTRecordsController;

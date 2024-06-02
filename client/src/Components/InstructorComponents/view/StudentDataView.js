@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Row from "./Row";
 
-const StudentDataView = ({ students, formOpen, handleFormOpen, handleFormClose }) => {
+const StudentDataView = ({ students }) => {
   return (
     <div className="student-data">
       <h2>Instructor Dashboard</h2>
@@ -32,13 +32,7 @@ const StudentDataView = ({ students, formOpen, handleFormOpen, handleFormClose }
           </TableHead>
           <TableBody>
             {students.map((student, index) => (
-              <Row
-                key={index}
-                row={student}
-                formOpen={formOpen}
-                handleFormOpen={handleFormOpen}
-                handleFormClose={handleFormClose}
-              />
+              <Row key={index} row={student} />
             ))}
           </TableBody>
         </Table>

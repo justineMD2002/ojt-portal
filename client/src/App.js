@@ -12,7 +12,6 @@ import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
 import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
 import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
 import TraineeEvaluation from "./Components/TraineeEvaluation/TraineeEvaluation";
-import InternEvalFeedbackForm from "./Components/InternEvalFeedbackForm/InternEvalFeedbackForm";
 import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
 import { AuthProvider } from "./Components/UserManagement/AuthContext";
 import LoginSignupController from "./Components/UserManagement/LoginSignup/controllers/LoginSignupController";
@@ -27,7 +26,11 @@ import TrainingPlansTable from "./Components/AdminComponents/TrainingPlansTable"
 import CompaniesController from "./Components/AdminComponents/Companies/controller/CompaniesController";
 import UsersController from "./Components/AdminComponents/Users/controller/UsersController";
 import OJTRecordsController from "./Components/AdminComponents/OJTRecords/controller/OJTRecordsController";
+<<<<<<< Updated upstream
 
+=======
+import InternEvalFeedbackFormController from "./Components/InternEvalFeedbackForm/controller/InternEvalFeedbackFormController";
+>>>>>>> Stashed changes
 const App = () => {
   return (
     <AuthProvider>
@@ -69,7 +72,7 @@ const App = () => {
               />
               <Route
                 path="/interneval-feedbackform"
-                element={<InternEvalFeedbackForm />}
+                element={<InternEvalFeedbackFormController />}
               />
               <Route
                 path="/logbook-entries"

@@ -19,12 +19,13 @@ import {
 import { KeyboardArrowUp, KeyboardArrowDown } from "@mui/icons-material";
 import { getStudentOJTRecords } from "../model/StudentDataModel";
 import { useAuth } from "../../UserManagement/AuthContext";
-import InternEvalFeedbackForm from "../../InternEvalFeedbackForm/InternEvalFeedbackForm";
+import InternEvalFeedbackFormController from "../../InternEvalFeedbackForm/controller/InternEvalFeedbackFormController";
 
-const Row = ({ row, formOpen, handleFormOpen, handleFormClose }) => {
+const Row = ({ row }) => {
   const [open, setOpen] = useState(false);
   const [entries, setEntries] = useState([]);
   const { authUser } = useAuth();
+  const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -42,6 +43,14 @@ const Row = ({ row, formOpen, handleFormOpen, handleFormClose }) => {
     };
     fetchEntries();
   }, [open, row.student.user.email, authUser.accessToken]);
+
+  const handleFormOpen = () => {
+    setFormOpen(true);
+  };
+
+  const handleFormClose = () => {
+    setFormOpen(false);
+  };
 
   return (
     <React.Fragment>
@@ -78,7 +87,7 @@ const Row = ({ row, formOpen, handleFormOpen, handleFormClose }) => {
         <TableCell align="right">
           <Button
             variant="contained"
-            style={{ backgroundColor: "#ffd633", color: "black" }}
+            style={{ backgroundColor: "#ffd633", color: "black", zIndex: 1 }}
             onClick={handleFormOpen}
           >
             Evaluate Student
@@ -157,7 +166,11 @@ const Row = ({ row, formOpen, handleFormOpen, handleFormClose }) => {
       <Dialog open={formOpen} onClose={handleFormClose} fullWidth maxWidth="md">
         <DialogTitle>Evaluate Student</DialogTitle>
         <DialogContent>
-          <InternEvalFeedbackForm student={row.student} type="student" />
+          <InternEvalFeedbackFormController
+            student={row.student}
+            type="student"
+            onClose={handleFormClose}
+          />
         </DialogContent>
         <DialogActions>
           <Button
