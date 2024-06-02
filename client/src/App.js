@@ -6,7 +6,6 @@ import Footer from "./Components/Common/Footer";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StudentProgress from "./Components/StudentProgress/StudentProgress";
-import LogbookForm from "./Components/LogbookSubmission/LogbookForm";
 import LogbookContents from "./Components/ViewLogbook/LogbookContents";
 import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
 import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
@@ -26,11 +25,9 @@ import TrainingPlansTable from "./Components/AdminComponents/TrainingPlansTable"
 import CompaniesController from "./Components/AdminComponents/Companies/controller/CompaniesController";
 import UsersController from "./Components/AdminComponents/Users/controller/UsersController";
 import OJTRecordsController from "./Components/AdminComponents/OJTRecords/controller/OJTRecordsController";
-<<<<<<< Updated upstream
-
-=======
 import InternEvalFeedbackFormController from "./Components/InternEvalFeedbackForm/controller/InternEvalFeedbackFormController";
->>>>>>> Stashed changes
+import LogbookFormController from "./Components/LogbookSubmission/LogbookForm/controller/LogbookFormController";
+
 const App = () => {
   return (
     <AuthProvider>
@@ -48,7 +45,7 @@ const App = () => {
                 element={<ForgotPasswordController />}
               />
               <Route path="/student-info" element={<Dashboard />} />
-              <Route path="/logbook" element={<LogbookForm />} />
+              <Route path="/logbook" element={<LogbookFormController />} />
               <Route path="/view-logbook" element={<LogbookContents />} />
               <Route path="/task-monitoring" element={<TaskMonitoring />} />
               <Route path="/logbookSubmissions" element={<StudentProgress />} />
