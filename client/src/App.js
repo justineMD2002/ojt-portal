@@ -22,7 +22,7 @@ import ForgotPasswordController from "./Components/UserManagement/ForgotPassword
 import LogbookEntriesController from "./Components/LogbookEntries/controller/LogbookEntriesController";
 import StudentDetails from "./Components/StudentsMonitoring/StudentsDetails";
 import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
-import StudentData from "./Components/InstructorComponents/StudentData";
+import StudentDataController from "./Components/InstructorComponents/controller/StudentDataController";
 import TrainingPlansTable from "./Components/AdminComponents/TrainingPlansTable";
 import CompaniesController from "./Components/AdminComponents/Companies/controller/CompaniesController";
 import UsersController from "./Components/AdminComponents/Users/controller/UsersController";
@@ -58,7 +58,7 @@ const App = () => {
               <Route path="/companies" element={<CompaniesController />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
-              <Route path="/student-data" element={<StudentData />} />
+              <Route path="/student-data" element={<StudentDataController />} />
 
               <Route path="/ojt-analytics" element={<OJTAnalytics />} />
               <Route path="/student-monitoring" element={<StudentDetails />} />
