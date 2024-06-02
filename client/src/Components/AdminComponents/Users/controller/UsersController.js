@@ -116,6 +116,58 @@ const UsersController = () => {
     }
   };
 
+  const handleActivate = async(email) => {
+    try {
+      const formData = new FormData();
+      formData.append("email", email);
+
+      const response = await axios.put(
+        "https://ojt-backend.azurewebsites.net/admin/activate-user",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if(response.data == 1) {
+        alert("User has been restricted");
+      } else {
+        alert("An error occurred");
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error("Error:", error);
+    } 
+  };
+
+  const  handleRestrict = async(email) => {
+    try {
+      const formData = new FormData();
+      formData.append("email", email);
+
+      const response = await axios.put(
+        "https://ojt-backend.azurewebsites.net/admin/restrict-user",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if(response.data == 1) {
+        alert("User has been restricted");
+      } else {
+        alert("An error occurred");
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <UsersView
       handleClickCreateUser={handleClickCreateUser}
@@ -128,8 +180,10 @@ const UsersController = () => {
       formData={formData}
       handleInputChange={handleInputChange}
       renderFormFields={renderFormFields}
+      handleActivate={handleActivate}
+      handleRestrict={handleRestrict}
     />
   );
-};
+}; 
 
 export default UsersController;

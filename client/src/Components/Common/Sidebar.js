@@ -68,10 +68,6 @@ const Sidebar = ({ userRole }) => {
 
   const adminLinks = [
     {
-      goto: "/admin-dashboard",
-      name: "Admin Dashboard",
-    },
-    {
       goto: "/users",
       name: "Users",
     },
