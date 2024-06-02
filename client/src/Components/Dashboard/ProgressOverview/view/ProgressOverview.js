@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import ProgressOverviewController from '../controller/ProgressOverviewController';
-import CircularProgress from '../../CircularProgress';
+import React from "react";
+import CircularProgress from "../../CircularProgress";
 
-const ProgressOverview = ({authUser}) => {
-  const [approvalPercentage, setApprovalPercentage] = useState(0);
-  const [pendingPercentage, setPendingPercentage] = useState(0);
-
-  useEffect(() => {
-    ProgressOverviewController()(authUser, setApprovalPercentage, setPendingPercentage);
-  }, [authUser]);
-
+const ProgressOverview = ({
+  authUser,
+  approvalPercentage,
+  pendingPercentage,
+}) => {
   return (
     <section className="ProgressOverview">
       <h3>Progress Overview</h3>
@@ -36,6 +32,6 @@ const ProgressOverview = ({authUser}) => {
       </div>
     </section>
   );
-}
+};
 
-export default ProgressOverview
+export default ProgressOverview;
