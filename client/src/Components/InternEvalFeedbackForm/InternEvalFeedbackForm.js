@@ -21,6 +21,36 @@ const InternEvalFeedbackForm = (props) => {
     }));
   };
 
+  const handleSubmitStudent = async () => {
+    const averageGrade = calculateAverageGrade();
+    const formData = new FormData();
+    formData.append("grade", averageGrade);
+    formData.append("feedback", feedback);
+    formData.append("studentEmail", props.student.email);
+
+    try {
+      const response = await axios.post(
+        "https://ojt-backend.azurewebsites.net/instructor/evaluate-intern",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${authUser.accessToken}`,
+          },
+        }
+      );
+      console.log(response.data);
+      if (/^ERROR/.test(response.data)) {
+        alert(`${response.data}`);
+      } else {
+        alert(`${response.data}`);
+        props.onClose();
+      }
+    } catch (error) {
+      console.error("Error submitting evaluation:", error);
+    }
+  };
+
   const handleSubmit = async () => {
     const averageGrade = calculateAverageGrade();
     const formData = new FormData();
@@ -87,13 +117,24 @@ const InternEvalFeedbackForm = (props) => {
             alt="Profile"
             className="profile-pic"
           />
-          <div className="intern-details">
-            <div>ID: {props.student.uid}</div>
-            <div>
-              {props.student.firstname} {props.student.lastname}
-            </div>
-            <div>Email: {props.student.email}</div>
-          </div>
+            {props.type === "trainee" && (
+              <div className="intern-details">
+                <div>ID: {props.student.uid}</div>
+                <div>
+                  {props.student.firstname} {props.student.lastname}
+                </div>
+                <div>Email: {props.student.email}</div>
+              </div>
+            )}
+            {props.type === "student" && (
+              <div className="intern-details">
+                <div>ID: {props.student.studentid}</div>
+                <div>
+                  {props.student.user.firstname} {props.student.user.lastname}
+                </div>
+                <div>Email: {props.student.user.email}</div>
+              </div>
+            )}
         </div>
       </div>
       <div className="evaluation container">
@@ -182,7 +223,7 @@ const InternEvalFeedbackForm = (props) => {
           onChange={(e) => setFeedback(e.target.value)}
         ></textarea>
       </div>
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={props.type === "trainee" ? handleSubmit : handleSubmitStudent}>Submit</button>
     </div>
   );
 };

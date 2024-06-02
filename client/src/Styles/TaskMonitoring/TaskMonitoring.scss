@@ -1,9 +1,11 @@
 .TaskMonitoring {
   .title {
     color: black;
+    margin-bottom: 10px;
   }
+  
   button {
-    background: $strong-yellow;
+    background: #f1c40f; // Assuming $strong-yellow translates to this color
     border: none;
     border-radius: 5px;
     padding: 5px 20px;
@@ -16,20 +18,26 @@
     justify-content: space-between;
     margin-top: 30px;
     margin-bottom: 15px;
+    flex-wrap: wrap; // Allow flex items to wrap on smaller screens
   }
   .training-plan {
     padding: 10px;
     box-shadow: 0 0 5px 0 #e9e9e9;
     border-radius: 10px;
+    margin-bottom: 20px;
     li {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 5px 0;
+      flex-wrap: wrap; // Allow flex items to wrap on smaller screens
 
       .btn-container {
         display: flex;
+        align-items: center;
+        margin-top: 10px;
         button {
-          margin-left: 10px;
+          margin-right: 10px;
         }
       }
     }
@@ -37,17 +45,25 @@
 
   .TaskCard-container {
     display: flex;
+    flex-wrap: wrap; // Allow cards to wrap on smaller screens
+    gap: 20px;
     margin-top: 20px;
+
     .TaskCard {
-      width: 100%;
+      flex: 1 1 calc(50% - 20px); // Adjust card size for smaller screens
       padding: 10px;
       box-shadow: 0 0 5px 0 #f1f1f1;
       border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
 
       .btn {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
+        margin-top: 10px;
 
         button {
           padding: 5px 20px;
@@ -56,83 +72,133 @@
 
       .thumbnail {
         width: 100%;
-      }
-
-      .img-container {
-        display: flex;
-        margin: 10px 0;
-        img {
-          width: 15%;
-          border-radius: 5px;
-        }
-
-        img:nth-child(2) {
-          margin: 0 10px;
-        }
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 10px;
       }
     }
+  }
 
-    .TaskCard:nth-child(2) {
-      margin: 0 10px;
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .popup-inner {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90%; // Limit the height of the popup
+    overflow-y: auto; // Allow scrolling if content overflows
+  }
+
+  .skills-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .skills-title {
+    color: black;
+  }
+
+  .skill-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .skill-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .skill-container input {
+    flex: 1;
+  }
+
+  .add-skill-btn,
+  .remove-skill-btn {
+    background: #f1c40f;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    outline: none;
+    width: 40px;
+  }
+
+  .popup-actions {
+    margin-top: 20px; // Adjusted margin
+    display: flex;
+    justify-content: space-between; // Ensure buttons are spread out
+    gap: 10px; // Add gap between buttons
+  }
+
+  @media (max-width: 768px) {
+    .training-plan-title {
+      flex-direction: column;
+      align-items: flex-start;
     }
 
-    .popup {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .TaskCard-container {
+      flex-direction: column;
+    }
+
+    .TaskCard {
       width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .popup-inner {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      text-align: left;
-      width: 50%;
+      padding: 20px;
     }
-    
-    .skills-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
+  }
+
+  @media (max-width: 480px) {
+    .popup-inner {
+      margin-top: 50px;
+      padding: 20px;
+      width: 90%;
+      max-height: 90%; // Limit the height of the popup
+      overflow-y: auto; // Allow scrolling if content overflows
     }
-    
-    .skills-title {
-      color: black; /* Set Skills header color to black */
-    }
-    
-    .skill-buttons {
-      display: flex;
-      gap: 10px;
-    }
-    
+
     .skill-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      flex-direction: column;
     }
-    
-    .skill-container input {
-      flex: 1;
+
+    .btn-container {
+      flex-direction: column;
+      align-items: flex-start;
+
+      button {
+        margin-left: 0;
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
     }
-    
-    .add-skill-btn,
-    .remove-skill-btn {
-      background: #f1c40f; /* Assuming $strong-yellow translates to this color */
-      border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-      outline: none;
-      width: 40px;
+
+    .popup-actions {
+      flex-direction: column; // Stack buttons vertically
+      align-items: stretch; // Stretch buttons to fit container width
+      button {
+        width: 100%; // Ensure buttons take full width
+      }
     }
   }
 }

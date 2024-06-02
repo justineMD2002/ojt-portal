@@ -133,6 +133,7 @@ const SubmittedInfo = () => {
               <button
                 className="rectangle-button-style"
                 onClick={() => handleApproveRejectClick("Approve", entry)}
+                style={{marginRight: '15px'}}
               >
                 Approve
               </button>

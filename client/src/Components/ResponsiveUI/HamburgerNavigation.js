@@ -38,16 +38,12 @@ const HamburgerNavigation = ({ isOpen, setOpenHamburgerNav }) => {
 
   const supervisorLinks = [
     {
+      goto: "/intern-monitoring",
+      name: "Intern Monitoring",
+    },
+    {
       goto: "/task-monitoring",
       name: "Task Monitoring",
-    },
-    {
-      goto: "/ojt-analytics",
-      name: "OJT Analytics",
-    },
-    {
-      goto: "/logbookSubmissions",
-      name: "View Logbook Submissions",
     },
     {
       goto: "/submitted-logbook",
@@ -56,6 +52,32 @@ const HamburgerNavigation = ({ isOpen, setOpenHamburgerNav }) => {
     {
       goto: "/trainee-evaluation",
       name: "Evaluate Trainee",
+    },
+  ];
+
+  const deanLinks = [
+    {
+      goto: "/admin-dashboard",
+      name: "Admin Dashboard",
+    },
+    {
+      goto: "/student-monitoring",
+      name: "Student Monitoring",
+    },
+    {
+      goto: "/ojt-analytics",
+      name: "OJT Analytics",
+    }
+  ];
+
+  const adminLinks = [
+    {
+      goto: "/users",
+      name: "Users",
+    },
+    {
+      goto: "/companies",
+      name: "Companies",
     },
   ];
 
@@ -71,10 +93,16 @@ const HamburgerNavigation = ({ isOpen, setOpenHamburgerNav }) => {
     navigate("/");
   };
 
-  const links =
-    authUser && authUser.accountType === "ROLE_STUDENT"
-      ? studentLinks
-      : supervisorLinks;
+  const links = 
+  authUser && authUser.accountType === "ROLE_STUDENT"
+    ? studentLinks
+    : authUser && authUser.accountType === "ROLE_SUPERVISOR"
+    ? supervisorLinks
+    : authUser && authUser.userInfo.accountType === "ROLE_CHAIR"
+    ? deanLinks
+    : authUser && authUser.userInfo.accountType === "ROLE_ADMIN"
+    ? adminLinks
+    : [];
 
   useEffect(() => {
     setCurrentPageIndex(

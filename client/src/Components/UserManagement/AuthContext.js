@@ -10,12 +10,12 @@ export function AuthProvider(props) {
   const [authUser, setAuthUserState] = useState(() => {
     const savedAuthUser = localStorage.getItem("authUser");
     return savedAuthUser ? JSON.parse(savedAuthUser) : null;
-  });
+  }); 
   const [isLoggedIn, setIsLoggedInState] = useState(() => {
     const savedLoginState = localStorage.getItem("isLoggedIn");
     return JSON.parse(savedLoginState);
   });
-
+  
   const setAuthUser = (userData) => {
     localStorage.setItem("authUser", JSON.stringify(userData));
     setAuthUserState(userData);

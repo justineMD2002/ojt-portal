@@ -187,8 +187,8 @@ const TaskMonitoring = () => {
         onRequestClose={() => setIsModalOpen(false)}
         style={{
           content: {
-            width: "50%", // Adjust the width as needed
-            height: "60%", // Adjust the height as needed
+            width: "75%", // Adjust the width as needed
+            height: "75%", // Adjust the height as needed
             margin: "auto",
             padding: "20px",
             background: "#fff",
@@ -246,7 +246,7 @@ const TaskMonitoring = () => {
               required
             />
           </label>
-          <button type="submit">Create</button>
+          <button style={{marginBottom: '10px'}} type="submit">Create</button>
         </form>
         <button onClick={() => setIsModalOpen(false)}>Close</button>
       </Modal>

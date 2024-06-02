@@ -20,7 +20,13 @@ import InternMonitoringController from "./Components/InternMonitoring/controller
 import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
 import ForgotPasswordController from "./Components/UserManagement/ForgotPassword/controller/ForgotPasswordController";
 import LogbookEntriesController from "./Components/LogbookEntries/controller/LogbookEntriesController";
-
+import StudentDetails from "./Components/StudentsMonitoring/StudentsDetails";
+import Users from "./Components/AdminComponents/Users";
+import Companies from "./Components/AdminComponents/Companies";
+import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
+import StudentData from "./Components/InstructorComponents/StudentData";
+import OJTRecords from "./Components/AdminComponents/OJTRecords";
+import TrainingPlansTable from "./Components/AdminComponents/TrainingPlansTable";
 const App = () => {
   return (
     <AuthProvider>
@@ -46,7 +52,16 @@ const App = () => {
                 path="/submitted-logbook"
                 element={<SubmittedLogbooks />}
               />
+              <Route path="/tp-table" element={<TrainingPlansTable/>} />
+              <Route path="/ojt-records" element={<OJTRecords/>} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/companies" element={<Companies />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
+              <Route path="/student-data" element={<StudentData />} />
+
               <Route path="/ojt-analytics" element={<OJTAnalytics />} />
+              <Route path="/student-monitoring" element={<StudentDetails />} />
               <Route
                 path="/trainee-evaluation"
                 element={<TraineeEvaluation />}
