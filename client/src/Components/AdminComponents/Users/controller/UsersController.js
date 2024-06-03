@@ -157,7 +157,7 @@ const UsersController = () => {
           },
         }
       );
-      if(response.data == 1) {
+      if(response.data === 1) {
         alert("User has been restricted");
       } else {
         alert("An error occurred");

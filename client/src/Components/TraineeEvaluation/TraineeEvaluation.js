@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../UserManagement/AuthContext";
 import axios from "axios";
-import InternEvalFeedbackForm from "../InternEvalFeedbackForm/InternEvalFeedbackForm";
+import InternEvalFeedbackFormController from "../InternEvalFeedbackForm/controller/InternEvalFeedbackFormController";
 
 const TraineeEvaluation = () => {
   const { authUser } = useAuth();
@@ -94,7 +94,7 @@ const TraineeEvaluation = () => {
                 </button>
               </div>
               {openFeedback[index] && (
-                <InternEvalFeedbackForm
+                <InternEvalFeedbackFormController
                   type="trainee"
                   student={item.user}
                   onClose={() => handleCloseFeedback(index)}
