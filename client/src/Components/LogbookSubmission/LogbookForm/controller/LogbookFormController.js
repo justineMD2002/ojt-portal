@@ -51,6 +51,7 @@ const LogbookFormController = () => {
           },
         }
       );
+      alert("Logbook entry added successfully");
       console.log("Response:", response.data);
     } catch (error) {
       console.error("Error:", error);
