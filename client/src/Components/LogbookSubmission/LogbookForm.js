@@ -47,8 +47,13 @@ const LogbookForm = () => {
         timeOut: `${formData.date}T${formData.timeOut}`,
         activities: formData.activities,
       },
-      taskIDs: formData.task ? [formData.task] : [],
-      skills: formData.skills,
+      taskIDs: [formData.task],
+      skills: [
+        {
+          skill_name: formData.skill.skill,
+          domain: formData.skill.domain,
+        },
+      ],
     };
     console.log(body);
     try {
@@ -65,7 +70,7 @@ const LogbookForm = () => {
     } catch (error) {
       console.error("Error:", error);
     }
-  };  
+  };
 
   return (
     <div>

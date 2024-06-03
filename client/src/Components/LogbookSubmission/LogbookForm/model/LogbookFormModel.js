@@ -9,9 +9,9 @@ export const LogbookFormModel = {
     date: getCurrentDate(),
     timeIn: "",
     timeOut: "",
-    skill: "",
-    domain: "",
+    skills: [], 
     task: "",
     activities: "",
   },
 };
+

@@ -14,8 +14,12 @@ const LogbookFormController = () => {
   };
 
   const handleSkillChange = (selectedSkill) => {
-    setFormData((prevState) => ({ ...prevState, skill: selectedSkill }));
+    setFormData((prevState) => ({
+      ...prevState,
+      skills: [...prevState.skills, selectedSkill],
+    }));
   };
+  
 
   const handleTaskChange = (selectedTask) => {
     setFormData((prevState) => ({ ...prevState, task: selectedTask }));
@@ -29,13 +33,11 @@ const LogbookFormController = () => {
         timeOut: `${formData.date}T${formData.timeOut}`,
         activities: formData.activities,
       },
-      taskIDs: [formData.task],
-      skills: [
-        {
-          skill_name: formData.skill.skill,
-          domain: formData.skill.domain,
-        },
-      ],
+      taskIDs: formData.task ? [formData.task] : [],
+      skills: formData.skills.map(skill => ({
+        skill_name: skill.skill,
+        domain: skill.domain,
+      })),
     };
     console.log(body);
     try {
@@ -53,7 +55,7 @@ const LogbookFormController = () => {
     } catch (error) {
       console.error("Error:", error);
     }
-  };
+  };  
 
   return (
     <LogbookFormView
