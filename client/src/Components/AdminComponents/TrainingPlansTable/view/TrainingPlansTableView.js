@@ -1,33 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../UserManagement/AuthContext';
-import axios from 'axios';
+import React from "react";
 
-const TrainingPlansTable = () => {
-    const {authUser} = useAuth();
-    const [data, setData] = useState([]);
-    
-    useEffect(() => {
-        const fetchData =  async() => {
-            try {
-                const response = await axios.get(
-                  "https://ojt-backend.azurewebsites.net/get-training-plans",
-                  {
-                    params: {
-                      studentEmail: "all",
-                    },
-                    headers: {
-                      Authorization: `Bearer ${authUser.accessToken}`,
-                    },
-                  }
-                );
-                setData(response.data);
-              } catch (error) {
-                console.log(error);
-              }
-        }
-        fetchData();
-    },[authUser]);
-
+const TrainingPlansTableView = ({ data }) => {
   return (
     <div className="container">
       <h1>Training Plans</h1>
@@ -118,4 +91,4 @@ const TrainingPlansTable = () => {
   );
 };
 
-export default TrainingPlansTable;
+export default TrainingPlansTableView;

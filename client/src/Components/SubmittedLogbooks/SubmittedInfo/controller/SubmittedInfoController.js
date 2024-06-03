@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../../../UserManagement/AuthContext";
+import { SubmittedInfoModel } from "../model/SubmittedInfoModel";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAuth } from "../UserManagement/AuthContext";
 import axios from "axios";
+import SubmittedInfoView from "../view/SubmittedInfoView";
 
-const SubmittedInfo = () => {
+const SubmittedInfoController = () => {
   const [isFeedbackPopupVisible, setFeedbackPopupVisible] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [isActionPopupVisible, setActionPopupVisible] = useState(false);
@@ -16,29 +18,19 @@ const SubmittedInfo = () => {
   const [selectedEntry, setSelectedEntry] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchLogbookData = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get(
-          "https://ojt-backend.azurewebsites.net/supervisor/get-logbooks",
-          {
-            params: {
-              supervisorEmail: authUser.userInfo.email,
-            },
-            headers: {
-              Authorization: `Bearer ${authUser.accessToken}`,
-            },
-          }
-        );
-        console.log(response.data);
-        setEntries(response.data);
-        setLoading(false);
+        const data = SubmittedInfoModel(authUser);
+        setEntries(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error(error);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    fetchLogbookData();
   }, [authUser]);
 
   const handleViewFeedbackClick = (message) => {
@@ -133,7 +125,7 @@ const SubmittedInfo = () => {
               <button
                 className="rectangle-button-style"
                 onClick={() => handleApproveRejectClick("Approve", entry)}
-                style={{marginRight: '15px'}}
+                style={{ marginRight: "15px" }}
               >
                 Approve
               </button>
@@ -172,59 +164,20 @@ const SubmittedInfo = () => {
   }
 
   return (
-    <section className="submitted-info-wrapper">
-      <div className="rectangle-style">
-        <h1 style={{ marginBottom: "2%" }}>Pending Approval</h1>
-        {entries
-          .filter((entry) => entry.status === "PENDING")
-          .map((entry) => renderEntry(entry, "#660000"))}
-      </div>
-
-      <div className="rectangle-style">
-        <h1 style={{ marginBottom: "2%" }}>Approved</h1>
-        {entries
-          .filter((entry) => entry.status === "APPROVED")
-          .map((entry) => renderEntry(entry, "#286E34"))}
-      </div>
-
-      <div className="rectangle-style">
-        <h1 style={{ marginBottom: "2%" }}>Rejected</h1>
-        {entries
-          .filter((entry) => entry.status === "REJECTED")
-          .map((entry) => renderEntry(entry, "#FF4A4A"))}
-      </div>
-
-      {isFeedbackPopupVisible && (
-        <div className="modal-overlay" onClick={closeFeedbackModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2 className="modal-header">Feedback</h2>
-            <p>{feedbackMessage}</p>
-            <button className="close-button" onClick={closeFeedbackModal}>
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-
-      {isActionPopupVisible && (
-        <div className="modal-overlay" onClick={closeActionModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2 className="modal-header">{actionType}</h2>
-            <label style={{ fontSize: "18px" }}>
-              Feedback:
-              <textarea
-                value={actionFeedback}
-                onChange={handleFeedbackChange}
-              />
-            </label>
-            <button className="close-button" onClick={handleActionSubmit}>
-              Submit
-            </button>
-          </div>
-        </div>
-      )}
-    </section>
+    <SubmittedInfoView
+      entries={entries}
+      renderEntry={renderEntry}
+      isFeedbackPopupVisible={isFeedbackPopupVisible}
+      closeFeedbackModal={closeFeedbackModal}
+      feedbackMessage={feedbackMessage}
+      isActionPopupVisible={isActionPopupVisible}
+      closeActionModal={closeActionModal}
+      actionType={actionType}
+      actionFeedback={actionFeedback}
+      handleFeedbackChange={handleFeedbackChange}
+      handleActionSubmit={handleActionSubmit}
+    />
   );
 };
 
-export default SubmittedInfo;
+export default SubmittedInfoController;

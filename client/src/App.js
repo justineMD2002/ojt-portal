@@ -5,7 +5,6 @@ import Sidebar from "./Components/Common/Sidebar";
 import Footer from "./Components/Common/Footer";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import StudentProgress from "./Components/StudentProgress/StudentProgress";
 import LogbookContents from "./Components/ViewLogbook/LogbookContents";
 import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
 import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
@@ -18,15 +17,15 @@ import InternMonitoringController from "./Components/InternMonitoring/controller
 import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
 import ForgotPasswordController from "./Components/UserManagement/ForgotPassword/controller/ForgotPasswordController";
 import LogbookEntriesController from "./Components/LogbookEntries/controller/LogbookEntriesController";
-import StudentDetails from "./Components/StudentsMonitoring/StudentsDetails";
 import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
 import StudentDataController from "./Components/InstructorComponents/controller/StudentDataController";
-import TrainingPlansTable from "./Components/AdminComponents/TrainingPlansTable";
 import CompaniesController from "./Components/AdminComponents/Companies/controller/CompaniesController";
 import UsersController from "./Components/AdminComponents/Users/controller/UsersController";
 import OJTRecordsController from "./Components/AdminComponents/OJTRecords/controller/OJTRecordsController";
 import InternEvalFeedbackFormController from "./Components/InternEvalFeedbackForm/controller/InternEvalFeedbackFormController";
 import LogbookFormController from "./Components/LogbookSubmission/LogbookForm/controller/LogbookFormController";
+import StudentsDetailsController from "./Components/StudentsMonitoring/controller/StudentsDetailsController";
+import TrainingPlansTableController from "./Components/AdminComponents/TrainingPlansTable/controller/TrainingPlansTableController";
 
 const App = () => {
   return (
@@ -48,12 +47,11 @@ const App = () => {
               <Route path="/logbook" element={<LogbookFormController />} />
               <Route path="/view-logbook" element={<LogbookContents />} />
               <Route path="/task-monitoring" element={<TaskMonitoring />} />
-              <Route path="/logbookSubmissions" element={<StudentProgress />} />
               <Route
                 path="/submitted-logbook"
                 element={<SubmittedLogbooks />}
               />
-              <Route path="/tp-table" element={<TrainingPlansTable />} />
+              <Route path="/tp-table" element={<TrainingPlansTableController />} />
               <Route path="/ojt-records" element={<OJTRecordsController />} />
               <Route path="/users" element={<UsersController />} />
               <Route path="/companies" element={<CompaniesController />} />
@@ -62,7 +60,7 @@ const App = () => {
               <Route path="/student-data" element={<StudentDataController />} />
 
               <Route path="/ojt-analytics" element={<OJTAnalytics />} />
-              <Route path="/student-monitoring" element={<StudentDetails />} />
+              <Route path="/student-monitoring" element={<StudentsDetailsController />} />
               <Route
                 path="/trainee-evaluation"
                 element={<TraineeEvaluation />}

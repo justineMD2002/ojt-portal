@@ -26,7 +26,13 @@ const DropdownTaskController = (props) => {
     props.setTask(event.target.value);
   };
 
-  return <DropdownTaskView taskMenu={taskMenu} handleTaskChange={handleTaskChange} selectedTask={selectedTask} />;
+  return (
+    <DropdownTaskView
+      taskMenu={taskMenu}
+      handleTaskChange={handleTaskChange}
+      selectedTask={selectedTask}
+    />
+  );
 };
 
 export default DropdownTaskController;
