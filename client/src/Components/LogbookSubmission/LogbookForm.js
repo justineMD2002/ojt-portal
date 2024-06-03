@@ -16,11 +16,11 @@ const LogbookForm = () => {
     date: getCurrentDate(),
     timeIn: "",
     timeOut: "",
-    skill: "",
-    domain: "",
+    skills: [],
     task: "",
     activities: "",
   });
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,8 +28,12 @@ const LogbookForm = () => {
   };
 
   const handleSkillChange = (selectedSkill) => {
-    setFormData((prevState) => ({ ...prevState, skill: selectedSkill }));
+    setFormData((prevState) => ({
+      ...prevState,
+      skills: [...prevState.skills, selectedSkill],
+    }));
   };
+  
 
   const handleTaskChange = (selectedTask) => {
     setFormData((prevState) => ({ ...prevState, task: selectedTask }));
@@ -43,13 +47,8 @@ const LogbookForm = () => {
         timeOut: `${formData.date}T${formData.timeOut}`,
         activities: formData.activities,
       },
-      taskIDs: [formData.task],
-      skills: [
-        {
-          skill_name: formData.skill.skill,
-          domain: formData.skill.domain,
-        },
-      ],
+      taskIDs: formData.task ? [formData.task] : [],
+      skills: formData.skills,
     };
     console.log(body);
     try {
@@ -66,7 +65,7 @@ const LogbookForm = () => {
     } catch (error) {
       console.error("Error:", error);
     }
-  };
+  };  
 
   return (
     <div>
