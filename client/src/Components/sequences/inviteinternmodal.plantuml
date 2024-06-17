@@ -1,0 +1,34 @@
+@startuml  add_intern_modal_sequence_diagram
+actor Supervisor
+
+participant InternDesignationController
+participant AddInternModalView
+participant Api
+participant InternMonitoringView
+
+Supervisor -> InternDesignationController : render()
+activate InternDesignationController
+InternDesignationController -> AddInternModalView : render()
+activate AddInternModalView
+
+alt Supervisor clicks "X"
+    Supervisor -> AddInternModalView : onClick()
+    AddInternModalView -> InternMonitoringView : handleOpenModal()
+    activate InternMonitoringView
+else Supervisor fills out form
+    Supervisor -> AddInternModalView : onChange()
+    AddInternModalView -> InternDesignationController : handleInputChange(e)
+    InternDesignationController -> AddInternModalView : setDesignation(designation)
+    Supervisor -> AddInternModalView : onClick()
+    AddInternModalView -> Api : axios.post("/add-intern")
+    activate Api
+    Api --> InternDesignationController : response.data
+    deactivate Api
+    InternDesignationController -> AddInternModalView : handleOpenModal()
+    deactivate InternDesignationController
+    AddInternModalView -> InternMonitoringView : render()
+    deactivate AddInternModalView
+    deactivate InternMonitoringView
+end
+
+@enduml

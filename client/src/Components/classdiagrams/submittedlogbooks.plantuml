@@ -1,0 +1,71 @@
+@startuml submitted logbooks
+skinparam classAttributeIconSize 0
+
+class SubmittedInfoController <<controller>> {
+  - isFeedbackPopupVisible: boolean
+  - feedbackMessage: string
+  - isActionPopupVisible: boolean
+  - actionFeedback: string
+  - actionType: string
+  - authUser: object
+  - entries: array
+  - loading: boolean
+  - selectedEntry: object
+  + setIsFeedbackPopupVisible(isVisible: boolean): void
+  + setFeedbackMessage(message: string): void
+  + setIsActionPopupVisible(isVisible: boolean): void
+  + setActionFeedback(feedback: string): void
+  + setActionType(type: string): void
+  + setAuthUser(user: object): void
+  + setEntries(data: array): void
+  + setLoading(loading: boolean): void
+  + setSelectedEntry(selectedEntry: object): void
+  + fetchLogbookData(): Promise<void>
+  + handleViewFeedbackClick(message: string): void
+  + handleApproveRejectClick(type: string, entry: object): void
+  + handleActionSubmit(): Promise<void>
+  + approveEntry(entryId: string, remarks: string): Promise<void>
+  + rejectEntry(entryId: string, remarks: string): Promise<void>
+  + handleFeedbackChange(e: Event): void
+  + closeFeedbackModal(): void
+  + closeActionModal(): void
+  + renderEntry(entry: object, statusColor: string):  void
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setAuthUser(userData: object): void
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+class SubmittedInfoView <<view>> {
+  - entries: array
+  - renderEntry: function
+  - isFeedbackPopupVisible: boolean
+  - closeFeedbackModal: function
+  - feedbackMessage: string
+  - isActionPopupVisible: boolean
+  - closeActionModal: function
+  - actionType: string
+  - actionFeedback: string
+  - handleFeedbackChange: function
+  - handleActionSubmit: function
+}
+
+class SubmittedInfoModel <<model>> {
+  + getLogbookSupervisor(): Promise<array>
+}
+
+
+class SubmittedLogbooks {
+  
+}
+
+SubmittedInfoController -up-> AuthContext: Uses
+SubmittedInfoController -right-> SubmittedInfoView: Renders
+SubmittedInfoController --> SubmittedInfoModel: Uses
+SubmittedLogbooks -down-> SubmittedInfoController: Renders
+
+@enduml

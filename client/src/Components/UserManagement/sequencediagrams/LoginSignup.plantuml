@@ -1,0 +1,88 @@
+@startuml loginsignup sequence diagram
+actor User
+
+participant "Router" as Router
+participant LoginSignupController
+participant AuthContext
+participant LoginSignupView
+participant Api
+participant DropdownUserTypeController
+participant DropdownUserTypeView
+participant StudentController
+participant SupervisorController
+participant UserDetailsView
+
+User -> Router: navigate("/")
+activate Router
+Router -> LoginSignupController: render()
+activate LoginSignupController
+LoginSignupController -> AuthContext: useAuth
+activate AuthContext
+AuthContext --> LoginSignupController: isLoggedIn, setIsLoggedIn(), setAuthUser()
+LoginSignupController -> LoginSignupView: render()
+activate LoginSignupView
+
+alt User clicks "Sign Up"
+        
+        LoginSignupView -> DropdownUserTypeController: render()
+        activate DropdownUserTypeController
+
+        User -> DropdownUserTypeView: onChange()
+        activate DropdownUserTypeView
+        DropdownUserTypeView -> DropdownUserTypeController: handleChange(e)
+        DropdownUserTypeController -> LoginSignupController: setUserType(type)
+        deactivate DropdownUserTypeView
+        deactivate DropdownUserTypeController
+        LoginSignupController -> LoginSignupView: render()
+        
+    alt userType === "Student"
+        LoginSignupView -> StudentController: render()
+        activate StudentController
+        User -> UserDetailsView: onChange()
+        activate UserDetailsView
+        UserDetailsView -> StudentController: handleChange(e)
+        StudentController -> LoginSignupController: setStudent(updatedStudent)
+        deactivate StudentController
+        User -> LoginSignupView: onClick()
+        LoginSignupView -> LoginSignupController: handleSignupStudent(e)
+    else userType === "Supervisor"
+        LoginSignupView -> SupervisorController: render()
+        activate SupervisorController
+        User -> UserDetailsView: onChange()
+        UserDetailsView -> SupervisorController: handleChange(e)
+        deactivate UserDetailsView
+        SupervisorController -> LoginSignupController: setSupervisor(updatedSupervisor)
+        deactivate SupervisorController
+        User -> LoginSignupView: onClick()
+        LoginSignupView -> LoginSignupController: handleSignupSupervisor(e)
+    end
+    LoginSignupController -> Api: axios.post("/register")
+    activate Api
+    Api --> LoginSignupController: response.data
+    alt Signup successful
+        LoginSignupController -> Router: navigate("/activate-account")
+    else Signup failed
+        LoginSignupController -> User: alert(error)
+    end
+else User logs in
+    User -> LoginSignupView: onClick()
+    LoginSignupView -> LoginSignupController: handleLogin(e)
+    LoginSignupController -> Api: axios.post("/login")
+    Api --> LoginSignupController: response.data
+    deactivate Api
+    alt Login successful
+        LoginSignupController -> AuthContext: setIsLoggedIn(true), setAuthUser(response.data)
+        LoginSignupController -> Router: navigate(role_dashboard)
+    else Account activation required
+        LoginSignupController -> Router: navigate("/activate-account")
+        deactivate Router
+    else Login failed
+        LoginSignupController -> AuthContext: setIsLoggedIn(false)
+        deactivate AuthContext
+        LoginSignupController -> LoginSignupView: render()
+        deactivate LoginSignupController
+        deactivate LoginSignupView
+    end
+end
+
+@enduml

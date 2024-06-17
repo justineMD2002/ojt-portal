@@ -1,0 +1,193 @@
+@startuml usermanagement
+skinparam classAttributeIconSize 0
+
+class LoginSignupController <<controller>> {
+  - signIn: boolean
+  - userType: string
+  - user: UserLoginModel
+  - student: StudentModel
+  - supervisor: SupervisorModel
+  - openModal: boolean
+  - isLoggedIn: boolean
+  - authUser: object
+  + handleChange(e: Event): void
+  + handleOpenModal(): void
+  + handleLogin(e: Event): void
+  + handleSignupStudent(e: Event): void
+  + handleSignupSupervisor(e: Event): void
+  + getSignupHandler(): function
+  + setUserType(userType: string): void
+  + setUser(user: UserLoginModel): void
+  + setStudent(student: StudentModel): void
+  + setSupervisor(supervisor: SupervisorModel): void
+  + setIsLoggedIn(isLoggedIn: boolean): void
+  + setAuthUser(authUser: object): void
+}
+
+class LoginSignupView <<view>> {
+  - signIn: boolean
+  - toggle: function
+  - userType: string
+  - setUserType: function
+  - user: UserLoginModel
+  - handleChange: function
+  - handleLogin: function
+  - handleSignup: function
+  - isLoggedIn: boolean
+  - student: StudentModel
+  - setStudent: function
+  - supervisor: SupervisorModel
+  - setSupervisor: function
+  - handleOpenModal: function
+  - openModal: boolean
+}
+
+class UserLoginModel <<model>> {
+  + email: string
+  + password: string
+}
+
+class SupervisorModel <<model>> {
+  + email: string
+  + firstname: string
+  + lastname: string
+  + company_name: string
+  + company_email: string
+  + company_contactNo: string
+  + company_location: string
+  + position: string
+  + password: string
+}
+
+class StudentModel <<model>> {
+  + studentID: string
+  + firstname: string
+  + lastname: string
+  + email: string
+  + password: string
+  + degreeProgram: string
+}
+
+class AuthContext {
+  + isLoggedIn: boolean
+  + authUser: object
+  + setIsLoggedIn(value: boolean): void
+  + setAuthUser(user: object): void
+  + handleLogout(e: Event): void
+}
+
+class DropdownUserTypeController <<controller>> {
+  - setUserType: function
+  + handleChange(event: Event): void
+}
+
+class DropdownUserTypeView <<view>> {
+  - handleChange: function
+}
+
+class StudentController <<controller>> {
+  - student: StudentModel
+  - setStudent: function
+  + handleChange(e: Event): void
+}
+
+class StudentView <<view>> {
+  - student: StudentModel
+  - handleChange: function
+}
+
+class SupervisorController <<controller>> {
+  - supervisor: SupervisorModel
+  - setSupervisor: function
+  + handleChange(e: Event): void
+}
+
+class SupervisorView <<view>> {
+  - supervisor: SupervisorModel
+  - handleChange: function
+}
+
+LoginSignupController -right-> LoginSignupView: Renders
+LoginSignupController -down-> UserLoginModel: Uses
+LoginSignupController -down-> StudentModel: Uses
+LoginSignupController -down-> SupervisorModel: Uses
+LoginSignupController -left-> useAuth: Uses
+LoginSignupView -right-> DropdownUserTypeController: Renders
+DropdownUserTypeController -right-> DropdownUserTypeView: Renders
+LoginSignupView -down-> StudentController: Renders
+StudentController -right-> StudentView: Renders
+LoginSignupView -up-> SupervisorController: Renders
+SupervisorController -right-> SupervisorView: Renders
+
+class ActivateAccountController <<controller>> {
+  - activationCode: string
+  - hasError: boolean
+  + email: string
+  + handleActivationCodeChange(e: Event): void
+  + activateAccount(e: Event): void
+  + setActivationCode(activationCode: string): void
+  + setHasError(hasError: boolean): void
+}
+
+class ActivateAccountView <<view>> {
+  - activationCode: string
+  - handleActivationCodeChange: function
+  - activateAccount: function
+  - hasError: boolean
+}
+
+class ActivateAccountModel <<model>> {
+  + ActivateAccountModel: object
+}
+
+LoginSignupController -down-> ActivateAccountController: Navigates
+ActivateAccountController -down-> ActivateAccountView: Renders
+ActivateAccountController -down-> ActivateAccountModel: Uses
+
+
+class ForgotPasswordEmailModalView <<view>> {
+  - handleOpenModal: function
+  - handleChange: function
+  - sendEmailConfirmation: function
+  - email: string
+}
+
+class ForgotPasswordEmailModalController <<controller>> {
+  - email: string
+  + setEmail(email: string): void
+  + handleChange(e: Event): void
+  + sendEmailConfirmation(e: Event): Promise<void>
+}
+
+LoginSignupView --> ForgotPasswordEmailModalController: Renders
+ForgotPasswordEmailModalController -down-> ForgotPasswordEmailModalView: Renders
+
+
+class ForgotPasswordController <<controller>> {
+  - email: string
+  - forgotPassword: object
+  - matchPassword: boolean
+  - hasError: boolean
+  + handleChange(e: Event): void
+  + resetPassword(e: Event): void
+  + setHasError(value: boolean): void
+  + setMatchPassword(value: boolean): void
+}
+
+class ForgotPasswordView <<view>> {
+  - handleChange: function
+  - forgotPassword: object
+  - hasError: boolean
+  - matchPassword: boolean
+  - resetPassword: function
+  - setMatchPassword: function
+}
+
+class ForgotPasswordModel <<model>> {
+  + ForgotPasswordModel: object
+}
+
+ForgotPasswordEmailModalController -down-> ForgotPasswordController: Navigates
+ForgotPasswordController --> ForgotPasswordView: Renders
+ForgotPasswordController --> ForgotPasswordModel: Uses
+@enduml

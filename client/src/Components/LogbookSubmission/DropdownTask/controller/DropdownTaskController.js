@@ -6,9 +6,12 @@ import DropdownTaskView from "../view/DropdownTaskView";
 const DropdownTaskController = (props) => {
   const { authUser } = useAuth();
   const [taskMenu, setTaskMenu] = useState([]);
-  const [selectedTask, setSelectedTask] = useState("");
+  const [selectedTask, setSelectedTask] = useState(
+    props.value ? props.value.taskId : ""
+  );
 
   useEffect(() => {
+    props.value ? props.setTask(selectedTask) : props.setTask("");
     const fetchOjtRecord = async () => {
       try {
         const data = await DropdownDomainModel(authUser);

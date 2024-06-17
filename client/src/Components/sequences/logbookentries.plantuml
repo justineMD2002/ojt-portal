@@ -1,0 +1,43 @@
+@startuml LogbookEntriesSequenceDiagram
+
+actor Student as User
+participant Router
+participant LogbookEntriesController
+participant AuthContext
+participant LogbookEntriesModel
+participant LogbookEntriesView
+participant Api
+participant ViewLogbookController
+
+User -> Router: navigate("/logbook-entries")
+activate Router
+Router -> LogbookEntriesController: render()
+
+activate LogbookEntriesController
+LogbookEntriesController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> LogbookEntriesController: authUser
+deactivate AuthContext
+
+LogbookEntriesController -> LogbookEntriesModel: LogbookEntriesModel()
+activate LogbookEntriesModel
+LogbookEntriesModel -> Api: axios.get("/get-all-entries")
+activate Api
+Api --> LogbookEntriesModel: response.data
+deactivate Api
+LogbookEntriesModel -> LogbookEntriesController: setLogbookEntries(response.data)
+deactivate LogbookEntriesModel
+
+LogbookEntriesController -> LogbookEntriesView: render()
+deactivate LogbookEntriesController
+activate LogbookEntriesView
+
+User -> LogbookEntriesView: onClick()
+LogbookEntriesView --> Router: navigate("/view-logbook")
+deactivate LogbookEntriesView
+Router -> ViewLogbookController: render()
+deactivate Router
+activate ViewLogbookController
+deactivate ViewLogbookController
+
+@enduml

@@ -1,0 +1,34 @@
+@startuml training_plans_sequence_diagram
+
+actor Admin as User
+participant "Router" as Router
+participant TrainingPlansTableController
+participant AuthContext
+participant TrainingPlansTableModel
+participant TrainingPlansTableView
+participant Api
+
+User -> Router: navigate("/training-plans")
+activate Router
+Router --> TrainingPlansTableController: render()
+deactivate Router
+activate TrainingPlansTableController
+TrainingPlansTableController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> TrainingPlansTableController: authUser
+deactivate AuthContext
+
+TrainingPlansTableController -> TrainingPlansTableModel: getTrainingPlans()
+activate TrainingPlansTableModel
+TrainingPlansTableModel -> Api: axios.get("/get-training-plans")
+activate Api
+Api --> TrainingPlansTableModel: response.data
+deactivate Api
+TrainingPlansTableModel -> TrainingPlansTableController: setData(data)
+deactivate TrainingPlansTableModel
+
+TrainingPlansTableController -> TrainingPlansTableView: render()
+deactivate TrainingPlansTableController
+activate TrainingPlansTableView
+
+@enduml

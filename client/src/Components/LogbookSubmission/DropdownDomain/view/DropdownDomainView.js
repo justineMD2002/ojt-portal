@@ -6,16 +6,33 @@ const DropdownDomainView = ({
   taskMenu,
   showTextInput,
   handleTextInputChange,
+  domain,
 }) => {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <FormControl sx={{ minWidth: 120 }}>
         <Select
           onChange={handleChange}
+          defaultValue={
+            domain && !showTextInput
+              ? taskMenu.find(
+                  (task) =>
+                    task.domain === domain[domain.length - 1].domain &&
+                    task.skill === domain[domain.length - 1].skillName
+                )
+                ? `${domain[domain.length - 1].domain}: ${
+                    domain[domain.length - 1].skillName
+                  }`
+                : "Others"
+              : ""
+          }
           displayEmpty
           inputProps={{ "aria-label": "Without label" }}
           sx={{ height: "40px" }}
         >
+          <MenuItem value="" disabled>
+            Select a domain
+          </MenuItem>
           {taskMenu.map((task) => (
             <MenuItem key={task.domain} value={`${task.domain}: ${task.skill}`}>
               {`${task.domain}: ${task.skill}`}
@@ -29,6 +46,7 @@ const DropdownDomainView = ({
           <input
             type="text"
             name="domain"
+            defaultValue={domain && domain[0].domain}
             onChange={handleTextInputChange}
             placeholder="Enter domain"
             style={{ height: "40px", marginLeft: "8px", flex: 1 }}
@@ -36,6 +54,7 @@ const DropdownDomainView = ({
           <input
             type="text"
             name="skill"
+            defaultValue={domain && domain[0].skillName}
             onChange={handleTextInputChange}
             placeholder="Enter skill"
             style={{ height: "40px", marginLeft: "8px", flex: 1 }}

@@ -1,0 +1,58 @@
+@startuml companies_sequence_diagram
+
+actor Admin as User
+participant "Router" as Router
+participant CompaniesController
+participant AuthContext
+participant CompaniesModel
+participant CompaniesView
+participant Api
+
+User -> Router: navigate("/companies")
+activate Router
+Router --> CompaniesController: render()
+deactivate Router
+activate CompaniesController
+CompaniesController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> CompaniesController: authUser
+deactivate AuthContext
+
+CompaniesController -> CompaniesModel: getAllCompanies(accessToken)
+activate CompaniesModel
+CompaniesModel -> Api: axios.get("/get-companies")
+activate Api
+Api --> CompaniesModel: response.data
+CompaniesModel -> CompaniesController: setCompanies(companies)
+deactivate CompaniesModel
+activate CompaniesView
+CompaniesController -> CompaniesView: render()
+
+User -> CompaniesView: onClick()
+CompaniesView -> CompaniesController: handleClick()
+CompaniesController -> CompaniesView: setShowModal(true)
+
+User -> CompaniesView: onChange()
+CompaniesView -> CompaniesController: handleInputChange(e)
+CompaniesController -> CompaniesView: setFormData(updatedFormData)
+
+User -> CompaniesView: onClick()
+CompaniesView -> CompaniesController: handleSubmit()
+CompaniesController -> Api: axios.post("/company/add")
+Api --> CompaniesController: response.data
+deactivate Api
+
+alt Company added successfully
+    CompaniesController -> CompaniesView: setShowModal(false)
+    CompaniesController -> User: alert("Company added successfully")
+    CompaniesController -> Router: window.location.reload()
+else Company addition failed
+    CompaniesController -> CompaniesView: setShowModal(false)
+    deactivate CompaniesView
+    CompaniesController -> User: alert("Failed to add company")
+    deactivate CompaniesController  
+end
+
+
+
+@enduml

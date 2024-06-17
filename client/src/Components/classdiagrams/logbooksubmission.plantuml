@@ -1,0 +1,40 @@
+@startuml logbook submission
+skinparam classAttributeIconSize 0
+
+class LogbookFormController <<controller>> {
+  - authUser: object
+  - formData: object
+  + setFormData(formData: object): void
+  + handleChange(e: Event): void
+  + handleSkillChange(selectedSkill: any): void
+  + handleTaskChange(selectedTask: any): void
+  + handleSubmit(e: Event): Promise<void>
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setAuthUser(userData: object): void
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+class LogbookFormView <<view>> {
+  - formData: object
+  - handleChange: function
+  - handleSkillChange: function
+  - handleTaskChange: function
+  - handleSubmit: function
+  - authUser: object
+}
+
+class LogbookFormModel <<model>> {
+  + LogbookFormModel(): object
+  + getCurrentDate(): string
+} 
+
+LogbookFormController -up-> AuthContext: Uses
+LogbookFormController -right-> LogbookFormView: Renders
+LogbookFormController -down-> LogbookFormModel: Uses
+
+@enduml

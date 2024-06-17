@@ -1,0 +1,57 @@
+@startuml LogbookSubmissionSequenceDiagram
+
+actor Intern as User
+participant Router
+participant LogbookFormController
+participant AuthContext
+participant Api
+participant LogbookFormView
+participant DropdownDomainController
+participant DropdownTaskController
+
+User -> Router: navigate("/logbook")
+activate Router
+Router -> LogbookFormController: render()
+deactivate Router
+
+activate LogbookFormController
+LogbookFormController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> LogbookFormController: authUser
+deactivate AuthContext
+LogbookFormController -> LogbookFormView: render()
+activate LogbookFormView
+
+User -> LogbookFormView: onChange()
+LogbookFormView -> LogbookFormController: handleChange()
+LogbookFormController -> LogbookFormView: setFormData(formData)
+
+LogbookFormView -> DropdownDomainController: render()
+activate DropdownDomainController
+DropdownDomainController -> LogbookFormView: handleSkillChange()
+deactivate DropdownDomainController
+LogbookFormView -> LogbookFormController: setFormData(formData)
+
+LogbookFormView -> DropdownTaskController: render()
+activate DropdownTaskController
+DropdownTaskController -> LogbookFormView: handleTaskChange()
+deactivate DropdownTaskController
+LogbookFormView -> LogbookFormController: setFormData(formData)
+
+User -> LogbookFormView: onSubmit()
+LogbookFormView -> LogbookFormController: handleSubmit()
+LogbookFormController -> Api: axios.post("/add-logbook-entry")
+activate Api
+Api --> LogbookFormController: response.data
+
+alt ERROR
+    LogbookFormController -> User: alert("Logbook entry submission failed")
+else Successful
+    LogbookFormController -> User: alert("Logbook entry submission successful");
+end
+
+deactivate Api
+LogbookFormController -> LogbookFormView: render()
+deactivate LogbookFormController
+
+@enduml

@@ -4,7 +4,6 @@ import axios from "axios";
 import { useAuth } from "../UserManagement/AuthContext";
 import VerticalBarChart from "./VerticalBarChart";
 import LineChart from "./LineChart.js";
-import { Line } from "react-chartjs-2";
 
 Chart.register(...registerables);
 

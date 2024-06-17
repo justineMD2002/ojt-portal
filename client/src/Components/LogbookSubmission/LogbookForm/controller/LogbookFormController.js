@@ -19,7 +19,6 @@ const LogbookFormController = () => {
       skills: [...prevState.skills, selectedSkill],
     }));
   };
-  
 
   const handleTaskChange = (selectedTask) => {
     setFormData((prevState) => ({ ...prevState, task: selectedTask }));
@@ -34,7 +33,7 @@ const LogbookFormController = () => {
         activities: formData.activities,
       },
       taskIDs: formData.task ? [formData.task] : [],
-      skills: formData.skills.map(skill => ({
+      skills: formData.skills.map((skill) => ({
         skill_name: skill.skill,
         domain: skill.domain,
       })),
@@ -51,12 +50,21 @@ const LogbookFormController = () => {
           },
         }
       );
-      alert("Logbook entry added successfully");
+
       console.log("Response:", response.data);
+      if (
+        typeof response.data === "string" &&
+        response.data.substring(0, 5) === "ERROR"
+      ) {
+        alert("Logbook entry submission failed");
+      } else {
+        alert("Logbook entry submission successful");
+        console.log("Response:", response.data);
+      }
     } catch (error) {
       console.error("Error:", error);
     }
-  };  
+  };
 
   return (
     <LogbookFormView

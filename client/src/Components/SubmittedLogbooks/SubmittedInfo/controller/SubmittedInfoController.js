@@ -21,7 +21,7 @@ const SubmittedInfoController = () => {
     const fetchLogbookData = async () => {
       setLoading(true);
       try {
-        const data = SubmittedInfoModel(authUser);
+        const data = await SubmittedInfoModel(authUser);
         setEntries(data);
       } catch (error) {
         console.error(error);
@@ -78,7 +78,7 @@ const SubmittedInfoController = () => {
         },
       }
     );
-  };
+  };  
 
   const rejectEntry = async (entryId, remarks) => {
     const formData = new FormData();

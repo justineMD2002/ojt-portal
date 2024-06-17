@@ -1,0 +1,34 @@
+@startuml StudentMonitoringSequenceDiagram
+
+actor "Dean/Chair" as User
+participant Router
+participant StudentsDetailsController
+participant AuthContext
+participant Api
+participant StudentsDetailsModel
+participant StudentsDetailsView
+
+User -> Router: navigate("/student-monitoring")
+activate Router
+Router -> StudentsDetailsController: render()
+deactivate Router
+
+activate StudentsDetailsController
+StudentsDetailsController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> StudentsDetailsController: authUser
+deactivate AuthContext
+
+StudentsDetailsController -> StudentsDetailsModel: StudentsDetailsModel(authUser)
+activate StudentsDetailsModel
+StudentsDetailsModel -> Api: axios.get("/get-all-students")
+activate Api
+Api --> StudentsDetailsModel: response.data
+deactivate Api
+StudentsDetailsModel -> StudentsDetailsController: setStudents(filteredStudents)
+deactivate StudentsDetailsModel
+
+StudentsDetailsController -> StudentsDetailsView: render()
+activate StudentsDetailsView
+
+@enduml

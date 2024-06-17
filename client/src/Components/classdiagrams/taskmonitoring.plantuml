@@ -1,0 +1,113 @@
+@startuml task-monitoring
+skinparam classAttributeIconSize 0
+
+class TaskMonitoringController <<controller>> {
+  - isModalOpen : boolean
+  - formData : object
+  - tp : array
+  - students : array
+  - authUser : object
+  + setIsModalOpen(isModalOpen: boolean): void
+  + setFormData(formData: object): void
+  + setTp(tp: array): void
+  + setStudents(students: array): void
+  + fetchTrainingPlansData(): Promise<void>
+  + fetchAllStudentsData(): Promise<void>
+  + handleInputChange(e: Event) : void
+  + handleCreateTrainingPlan() : void
+  + handleAssignClick(studentEmail: string) : void
+  + assignTrainingPlan(studentEmail: string, trainingPlanID: string) : void
+}
+
+class TaskMonitoringView <<view>> {
+  - tp : array
+  - students : array
+  - handleAssignClick : function
+  - handleCreateTrainingPlan : function
+  - handleInputChange : function
+  - formData : object
+  - setIsModalOpen : function
+  - isModalOpen : boolean
+}
+
+class TaskMonitoringModel <<model>> {
+  + trainingFormData : object
+  + fetchTrainingPlans(authUser: object) : Promise<any>
+  + getAllStudents(authUser: object) : Promise<any>
+}
+
+class TaskCardController <<controller>> {
+  - isDetailPopupVisible : boolean
+  - isCreateTaskPopupVisible : boolean
+  - taskTitle : string
+  - taskDescription : string
+  - taskObjective : string
+  - skills : array
+  - authUser : object
+  + thumbnail : string
+  + title : string
+  + description : string
+  + startDate : string
+  + endDate : string
+  + tasks : array
+  + trainingPlanID : string
+  + setDetailPopupVisibility(isVisible: boolean): void
+  + setCreateTaskPopupVisibility(isVisible: boolean): void
+  + setTaskTitle(title: string): void
+  + setTaskDescription(description: string): void
+  + setTaskObjective(objective: string): void
+  + setSkills(skills: array): void
+  + toggleDetailPopup(): void
+  + toggleCreateTaskPopup(): void
+  + addSkill(): void
+  + removeSkill(index: number): void
+  + handleSkillChange(index: number, event: Event): void
+  + handleInputChange(event: Event): void
+  + handleCreateTask(): void
+}
+
+class TaskCardView <<view>> {
+  - thumbnail : string
+  - title : string
+  - description : string
+  - startDate : string
+  - endDate : string
+  - toggleDetailPopup : function
+  - isDetailPopupVisible : boolean
+  - tasks : array
+  - toggleCreateTaskPopup : function
+  - taskTitle : string
+  - isCreateTaskPopupVisible : boolean
+  - handleInputChange : function
+  - taskObjective : string
+  - taskDescription : string
+  - removeSkill : function
+  - addSkill : function
+  - skills : array
+  - handleSkillChange : function
+  - handleCreateTask : function
+}
+
+class TaskCardModel <<model>> {
+  + TaskCardModel: object
+}
+
+TaskMonitoringController -right-> TaskMonitoringView : renders
+TaskMonitoringController -down-> TaskMonitoringModel : uses
+TaskMonitoringController -up-> AuthContext : uses
+
+TaskCardController -down-> TaskCardView : renders
+TaskCardController -down-> TaskCardModel : uses
+TaskCardController -up-> AuthContext : uses
+
+TaskMonitoringView -down-> TaskCardController : renders
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setAuthUser(userData: object): void
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+@enduml

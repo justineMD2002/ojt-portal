@@ -1,0 +1,38 @@
+@startuml activate_account_sequence_diagram
+
+actor User
+participant "Router" as Router
+participant ActivateAccountController
+participant AuthContext
+participant ActivateAccountView
+participant Api
+
+User -> Router: navigate("/activate-account")
+activate Router
+Router -> ActivateAccountController: render()
+activate ActivateAccountController
+
+ActivateAccountController -> ActivateAccountView: render()
+activate ActivateAccountView
+User -> ActivateAccountView: onChange()
+ActivateAccountView -> ActivateAccountController: handleActivationCodeChange(e)
+ActivateAccountController -> ActivateAccountView: setActivationCode(activationCode)
+
+User -> ActivateAccountView: onClick()
+ActivateAccountController -> Api: axios.put("/activate")
+activate Api
+Api --> ActivateAccountController: response.data
+deactivate Api
+
+
+alt Account activation successful
+    ActivateAccountController -> ActivateAccountView: setHasError(false)
+    ActivateAccountController -> User: alert("Account activated successfully. Redirecting to login page.")
+    ActivateAccountController -> Router: navigate("/")
+else Account activation failed
+    ActivateAccountController -> ActivateAccountView: setHasError(true), render()
+    deactivate ActivateAccountController
+    deactivate ActivateAccountView
+end
+
+@enduml

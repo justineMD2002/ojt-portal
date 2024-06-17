@@ -1,0 +1,73 @@
+@startuml task_monitoring
+
+actor Supervisor as User
+participant Router
+participant TaskMonitoringController
+participant AuthContext
+participant TaskMonitoringModel
+participant TaskMonitoringView
+participant Api
+participant TaskCardController
+
+User -> Router: navigate("/task-monitoring")
+activate Router
+Router -> TaskMonitoringController: render()
+deactivate Router
+activate TaskMonitoringController
+TaskMonitoringController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> TaskMonitoringController: authUser
+deactivate AuthContext
+
+TaskMonitoringController -> TaskMonitoringModel: fetchTrainingPlans("all", authUser)
+activate TaskMonitoringModel
+TaskMonitoringModel -> Api: axios.get("/get-training-plans")
+activate Api
+Api --> TaskMonitoringModel: response.data
+TaskMonitoringModel -> TaskMonitoringController: setTp(allTrainingPlans)
+
+TaskMonitoringController -> TaskMonitoringModel: getAllStudents(authUser)
+TaskMonitoringModel -> Api: axios.get("/get-all-students")
+Api --> TaskMonitoringModel: response.data
+deactivate Api
+TaskMonitoringModel -> TaskMonitoringController: setStudents(studentsData)
+deactivate TaskMonitoringModel
+
+TaskMonitoringController -> TaskMonitoringView: render()
+activate TaskMonitoringView
+TaskMonitoringView -> TaskCardController: render()
+activate TaskCardController
+deactivate TaskCardController
+
+User -> TaskMonitoringView: onClick()
+TaskMonitoringView -> TaskMonitoringController: setIsModalOpen(true)
+
+alt supervisor creates training plan
+    User -> TaskMonitoringView: onChange()
+    TaskMonitoringView -> TaskMonitoringController: handleInputChange(e)
+    TaskMonitoringController -> TaskMonitoringView: setFormData(formData)
+
+    User -> TaskMonitoringView: onSubmit()
+    TaskMonitoringView -> TaskMonitoringController: handleCreateTrainingPlan()
+    TaskMonitoringController -> Api: axios.post("/add-training-plan")
+    activate Api
+    Api --> TaskMonitoringController: response.data
+    deactivate Api
+    TaskMonitoringController -> User: alert(response.data)
+    TaskMonitoringController -> TaskMonitoringView: window.location.reload(), setIsModalOpen(false);
+else supervisor closes modal
+    User -> TaskMonitoringView: onRequestClose()
+    TaskMonitoringView -> TaskMonitoringController: setIsModalOpen(false)
+end
+
+User -> TaskMonitoringView: handleAssignClick(studentEmail)
+TaskMonitoringView -> TaskMonitoringController: assignTrainingPlan(studentEmail, selectedTrainingPlanId)
+deactivate TaskMonitoringView
+TaskMonitoringController -> Api: axios.post("/assign-training-plan")
+activate Api
+Api --> TaskMonitoringController: response.data
+deactivate Api
+TaskMonitoringController -> User: alert(response.data)
+
+
+@enduml

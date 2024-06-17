@@ -10,7 +10,7 @@ const TrainingPlan = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://ojt-backend.azurewebsites.net/get-student-trainingplans",
+          "https://ojt-backend.azurewebsites.net/get-training-plans",
           {
             params: {
               studentEmail: authUser.userInfo.email,
@@ -28,23 +28,18 @@ const TrainingPlan = () => {
     };
 
     fetchData();
-  }, []);
+  }, [authUser]);
 
   return (
     <div className="TrainingPlan">
       <h1>Training Plan</h1>
       {plans.map((item) => (
         <div key={item.trainingplanid} className="data">
-          <h2>
-            {item.trainingplanid}: {item.description}
-          </h2>
+          <h2>{item.description}</h2>
           {item.tasks.length > 0 && <h4>Tasks</h4>}
           <ul className="task-list">
             {item.tasks.map((task) => (
               <li key={task.taskId} className="task">
-                <p className="id">
-                  <span>Task ID:</span> {task.taskId}
-                </p>
                 <p className="title">
                   <span>Title:</span> {task.title}
                 </p>
@@ -67,7 +62,6 @@ const TrainingPlan = () => {
           </ul>
         </div>
       ))}
-      <button>Upload Logbook</button>
     </div>
   );
 };

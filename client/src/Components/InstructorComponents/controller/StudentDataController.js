@@ -3,7 +3,7 @@ import { getAllOJTRecords } from "../model/StudentDataModel";
 import { useAuth } from "../../UserManagement/AuthContext";
 import StudentDataView from "../view/StudentDataView";
 
-const OJTRecordsController = () => {
+const StudentDataController = () => {
   const { authUser } = useAuth();
   const [students, setStudents] = useState([]);
 
@@ -22,4 +22,4 @@ const OJTRecordsController = () => {
   return <StudentDataView students={students} />;
 };
 
-export default OJTRecordsController;
+export default StudentDataController;

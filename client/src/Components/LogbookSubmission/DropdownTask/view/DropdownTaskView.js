@@ -7,6 +7,7 @@ const DropdownTaskView = ({ taskMenu, handleTaskChange, selectedTask }) => {
       <FormControl sx={{ minWidth: 120 }}>
         <Select
           value={selectedTask}
+          displayEmpty
           onChange={handleTaskChange}
           inputProps={{ "aria-label": "Without label" }}
           sx={{ height: "40px" }}

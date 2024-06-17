@@ -1,0 +1,44 @@
+@startuml trainee_evaluation_sequence_diagram
+
+actor Supervisor as User
+participant Router
+participant TraineeEvaluationController
+participant AuthContext
+participant TraineeEvaluationModel
+participant TraineeEvaluationView
+participant Api
+participant InternEvalFeedbackFormController
+
+User -> Router: navigate("/trainee-evaluation")
+activate Router
+Router -> TraineeEvaluationController: render()
+deactivate Router
+activate TraineeEvaluationController
+TraineeEvaluationController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> TraineeEvaluationController: authUser
+deactivate AuthContext
+
+TraineeEvaluationController -> TraineeEvaluationModel: getAllStudents(authUser)
+activate TraineeEvaluationModel
+TraineeEvaluationModel -> Api: axios.get("/get-all-students")
+activate Api
+Api --> TraineeEvaluationModel: response.data
+deactivate Api
+
+TraineeEvaluationModel -> TraineeEvaluationController: setTrainees(response.data), setOpenFeedback(array)
+deactivate TraineeEvaluationModel
+TraineeEvaluationController -> TraineeEvaluationView: render()
+activate TraineeEvaluationView
+
+User -> TraineeEvaluationView: onClick()
+TraineeEvaluationView -> TraineeEvaluationController: handleChange(e)
+TraineeEvaluationController -> TraineeEvaluationView: setOpenFeedback(true)
+deactivate TraineeEvaluationController
+TraineeEvaluationView -> InternEvalFeedbackFormController: render()
+deactivate TraineeEvaluationView
+activate InternEvalFeedbackFormController
+deactivate InternEvalFeedbackFormController
+
+
+@enduml

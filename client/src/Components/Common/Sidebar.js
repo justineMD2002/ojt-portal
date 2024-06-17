@@ -53,20 +53,20 @@ const Sidebar = ({ userRole }) => {
 
   const deanLinks = [
     {
-      goto: "/admin-dashboard",
-      name: "Admin Dashboard",
-    },
-    {
       goto: "/student-monitoring",
       name: "Student Monitoring",
     },
     {
       goto: "/ojt-analytics",
       name: "OJT Analytics",
-    }
+    },
   ];
 
   const adminLinks = [
+    {
+      goto: "/admin-dashboard",
+      name: "Admin Dashboard",
+    },
     {
       goto: "/users",
       name: "Users",
@@ -96,18 +96,18 @@ const Sidebar = ({ userRole }) => {
     },
   ];
 
-  const links = 
-  authUser && authUser.accountType === "ROLE_STUDENT"
-    ? studentLinks
-    : authUser && authUser.accountType === "ROLE_SUPERVISOR"
-    ? supervisorLinks
-    : authUser && authUser.userInfo.accountType === "ROLE_CHAIR"
-    ? deanLinks
-    : authUser && authUser.userInfo.accountType === "ROLE_ADMIN"
-    ? adminLinks
-    : authUser && authUser.userInfo.accountType === "ROLE_INSTRUCTOR"
-    ? instructorLinks
-    : [];
+  const links =
+    authUser && authUser.accountType === "ROLE_STUDENT"
+      ? studentLinks
+      : authUser && authUser.accountType === "ROLE_SUPERVISOR"
+      ? supervisorLinks
+      : authUser && authUser.userInfo.accountType === "ROLE_CHAIR"
+      ? deanLinks
+      : authUser && authUser.userInfo.accountType === "ROLE_ADMIN"
+      ? adminLinks
+      : authUser && authUser.userInfo.accountType === "ROLE_INSTRUCTOR"
+      ? instructorLinks
+      : [];
 
   useEffect(() => {
     setCurrentPageIndex(

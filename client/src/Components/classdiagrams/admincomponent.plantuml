@@ -1,0 +1,161 @@
+@startuml admin_components
+skinparam classAttributeIconSize 0
+
+class CompaniesController <<controller>> {
+  - companies: array
+  - showModal: boolean
+  - formData: object
+  - authUser: object
+  + setCompanies(companies: array): void
+  + setShowModal(value: boolean): void
+  + setFormData(data: object): void
+  + fetchCompanies(): Promise<void>
+  + handleClick(): void
+  + handleCloseModal(): void
+  + handleInputChange(e: Event): void
+  + handleSubmit(): Promise<void>
+}
+
+class CompaniesView <<view>> {
+  - handleClick: function
+  - companies: array
+  - showModal: boolean
+  - handleCloseModal: function
+  - handleSubmit: function
+  - formData: object
+  - handleInputChange: function
+}
+
+class AuthContext {
+  + isLoggedIn: boolean
+  + authUser: object
+  + setIsLoggedIn(value: boolean): void
+  + setAuthUser(user: object): void
+  + handleLogout(e: Event): void
+}
+
+class CompaniesModel <<model>> {
+  + companyData: object
+  + getAllCompanies(accessToken: string): Promise<any>
+}
+
+CompaniesController -right-> CompaniesView: Renders
+CompaniesController -down-> CompaniesModel: Uses
+CompaniesController -left-> AuthContext: Uses
+
+
+class OJTRecordsController <<controller>> {
+  - authUser: object
+  - students: array
+  + setStudents(students: array): void
+  + fetchStudents(): Promise<void>
+}
+
+class OJTRecordsModel <<model>> {
+  + getAllOJTRecords(accessToken: string): Promise<any>
+  + getStudentOJTRecords(accessToken: string, email: string): Promise<any>
+}
+
+
+class OJTRecordsView <<view>> {
+  - students: array
+}
+
+class Row {
+  - authUser: object
+  - open: boolean
+  - entries: array
+  + setOpen(value: boolean): void
+  + setEntries(entries: array): void
+  + fetchEntries(): Promise<void>
+}
+
+OJTRecordsController -right-> AuthContext: Uses
+OJTRecordsController -left-> OJTRecordsModel: Uses
+OJTRecordsController -down-> OJTRecordsView: Renders
+OJTRecordsView -right-> Row: Renders
+
+
+class UsersController <<controller>> {
+  - authUser: object
+  - users: array
+  - showModal: boolean
+  - userType: string
+  - formData: object
+  + setUsers(users: array): void
+  + setShowModal(value: boolean): void
+  + setFormData(data: object): void
+  + setUserType(value: string): void
+  + fetchUsers(): Promise<void>
+  + handleClickCreateUser(): void
+  + handleCloseModal(): void
+  + handleInputChange(e: Event): void
+  + handleUserTypeChange(e: Event): void
+  + handleSubmit(): void
+  + renderFormFields(): void
+  + handleActivate(email: string): void
+  + handleRestrict(email: string): void
+}
+
+class UsersModel <<model>> {
+  + userData: object
+  + getAllUsers(accessToken: string): Promise<any>
+}
+
+class UsersView <<view>> {
+  - handleClickCreateUser: function
+  - users: array
+  - showModal: boolean
+  - handleCloseModal: function
+  - handleSubmit: function
+  - userType: string
+  - handleUserTypeChange: function
+  - formData: object
+  - handleInputChange: function
+  - renderFormFields: function
+  - handleActivate: void
+  - handleRestrict: function
+}
+
+class ReusableForm <<view>> {
+  - show.: boolean
+  - onClose: function
+  - onSubmit: function
+  - transactionType: string
+  + handleSubmit(event: Event): void
+}
+
+UsersController -up-> AuthContext: Uses
+UsersController -down-> UsersModel: Uses
+UsersController -down-> UsersView: Renders
+UsersView -right-> ReusableForm: Renders
+
+
+class TrainingPlansTableController <<controller>> {
+  - authUser: object
+  - data: array
+  + setData(data: array): void
+  + fetchData(): Promise<void>
+}
+
+class TrainingPlansTableModel <<model>> {
+  + getTrainingPlans(authUser: object): Promise<any>
+}
+
+class TrainingPlansTableView <<view>> {
+  - data: array
+}
+
+TrainingPlansTableController -up-> AuthContext: Uses
+TrainingPlansTableController -down-> TrainingPlansTableModel: Uses
+TrainingPlansTableController -down-> TrainingPlansTableView: Renders
+
+class AdminDashboard {
+  - dashboardContent: string
+  - authUser: object
+  + useEffect(): void
+}
+
+AdminDashboard -down-> useAuth: Uses
+
+@enduml

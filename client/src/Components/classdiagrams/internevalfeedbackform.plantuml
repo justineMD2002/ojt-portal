@@ -1,0 +1,45 @@
+@startuml intern eval feedback form
+skinparam classAttributeIconSize 0
+
+class InternEvalFeedbackFormController <<controller>> {
+  - InternEvalFeedbackForm: InternEvalFeedbackFormModel
+  - grades: object
+  - feedback: string
+  - authUser: object
+  + setGrades(grades: object): void
+  + setFeedback(feedback: string): void
+  + handleChange(e: Event, type: string)
+  + handleSubmitStudent(): Promise<void>
+  + handleSubmit(): Promise<void>
+  + getGrade(value: String): number
+  + calculateAverageGrade(): number
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setAuthUser(userData: object): void
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+class InternEvalFeedbackFormModel <<model>> {
+  + InternEvalFeedbackFormModel: object
+}
+
+class InternEvalFeedbackFormView <<view>> {
+  - props: object
+  - handleChange: function
+  - handleSubmit: function
+  - handleSubmitStudent: function
+  - calculateAverageGrade: function
+  - feedback: string 
+  - setFeedback: function
+}
+
+
+InternEvalFeedbackFormController -up-> AuthContext: Uses
+InternEvalFeedbackFormController -down-> InternEvalFeedbackFormModel: Uses
+InternEvalFeedbackFormController -right-> InternEvalFeedbackFormView: Renders
+
+@enduml

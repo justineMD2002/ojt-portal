@@ -1,0 +1,38 @@
+@startuml intern_monitoring_sequence_diagram
+
+actor Supervisor as User
+participant Router
+participant InternMonitoringController
+participant InternMonitoringView
+participant InternDesignationController
+participant Api
+participant AuthContext
+
+User -> Router: navigate("/intern-monitoring")
+activate Router
+Router --> InternMonitoringController: render()
+deactivate Router
+activate InternMonitoringController
+
+InternMonitoringController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> InternMonitoringController: authUser
+deactivate AuthContext
+
+InternMonitoringController -> Api: axios.get("/get-ojt-records")
+activate Api
+Api --> InternMonitoringController: response.data
+deactivate Api
+
+InternMonitoringController -> InternMonitoringView:setOJTRecords(response.data.filter("ONGOING")),  render()
+activate InternMonitoringView
+User -> InternMonitoringView: onClick()
+InternMonitoringView -> InternMonitoringController: handleOpenModal()
+InternMonitoringController -> InternMonitoringView: setOpenModal()
+deactivate InternMonitoringController
+InternMonitoringView -> InternDesignationController: render()
+deactivate InternMonitoringView
+activate InternDesignationController
+deactivate InternDesignationController
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml intern 
+skinparam classAttributeIconSize 0
+
+class InternMonitoringController <<controller>> {
+  - authUser: object
+  - openModal: boolean
+  - accessToken: string
+  - OJTRecords: array
+  - loading: boolean
+  + setOpenModal(openModal: boolean): void
+  + setOJTRecords(OJTRecords: array): void
+  + setLoading(loading: boolean): void
+  + handleOpenModal(): void
+  + getOJTRecords(): Promise<void>
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setAuthUser(userData: object): void
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+class InternMonitoringView <<view>> {
+  - openModal: boolean
+  - handleOpenModal: function
+  - accessToken: string
+  - getOJTRecords: array
+  - loading: boolean
+}
+
+class InternDesignationModel <<model>> {
+  + internDesignationModel: object
+}
+
+class InternDesignationController <<controller>> {
+  - handleOpenModal: function
+  - accessToken: string
+  - designation: object
+  + setDesignation(designation: object): void
+  + handleInputChange(e: Event): void
+  + handleAddIntern(e: Event): void
+}
+
+class AddInternModalView <<view>> {
+  - designation: object
+  - handleInputChange: function
+  - handleAddIntern: function
+  - handleOpenModal: function
+}
+
+
+InternMonitoringController -up-> AuthContext: Uses
+InternMonitoringController -right-> InternMonitoringView: Renders
+InternMonitoringView -down-> InternDesignationController: Renders
+InternDesignationController -right-> AddInternModalView: Renders
+InternDesignationController -left-> InternDesignationModel: Uses
+
+@enduml

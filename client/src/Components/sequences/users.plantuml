@@ -1,0 +1,85 @@
+@startuml users_sequence_diagram
+
+actor AdminUser as User
+participant Router
+participant UsersController
+participant AuthContext
+participant UsersModel
+participant UsersView
+participant Api
+
+User -> Router: navigate("/users")
+activate Router
+Router --> UsersController: render()
+deactivate Router
+activate UsersController
+UsersController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> UsersController: authUser
+deactivate AuthContext
+
+UsersController -> UsersModel: getAllUsers(authUser.accessToken)
+activate UsersModel
+UsersModel -> Api: axios.get("/get-all-users")
+activate Api
+Api --> UsersModel: response.data
+UsersModel -> UsersController: setUsers(users)
+deactivate UsersModel
+
+UsersController -> UsersView: render()
+activate UsersView
+
+User -> UsersView: onClick()
+UsersView -> UsersController: handleClickCreateUser()
+UsersController -> UsersView: setShowModal(true)
+
+User -> UsersView: onChange()
+UsersView -> UsersController: handleUserTypeChange()
+UsersController -> UsersView: setUserType(userType)
+
+User -> UsersView: onChange()
+UsersView -> UsersController: handleInputChange(e)
+UsersController -> UsersView: setFormData(updatedFormData)
+
+User -> UsersView: onSubmit()
+UsersView -> UsersController: handleSubmit()
+UsersController -> Api: axios.post(apiEndpoint)
+Api --> UsersController: response.data
+
+alt Registration successful
+    UsersController -> UsersView: setShowModal(false)
+    UsersController -> User: alert("Registration successful")
+else Registration failed
+    UsersController -> UsersView: setShowModal(false)
+    UsersController -> User: alert("Registration failed")
+end
+
+User -> UsersView: onClick()
+alt activate user
+    UsersView -> UsersController: handleActivate(email)
+    UsersController -> Api: axios.put("/activate-user")
+    Api --> UsersController: response.data
+
+    alt response OK 
+        UsersController -> User: alert("User activated")
+    else response failed
+        UsersController -> User: alert("An error occured")
+    end
+else restrict user
+    UsersView -> UsersController: handleRestrict(email)
+    UsersController -> Api: axios.put("/restrict-user")
+    Api --> UsersController: response.data
+    deactivate Api
+    alt response OK
+        UsersController -> User: alert("User restricted")
+    else response failed
+        UsersController -> User: alert("An error occured")
+    end
+end
+
+UsersController -> UsersView: render()
+
+deactivate UsersController
+deactivate UsersView
+
+@enduml

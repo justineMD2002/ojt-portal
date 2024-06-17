@@ -1,0 +1,30 @@
+@startuml training plan
+skinparam classAttributeIconSize 0
+
+class TrainingPlanController <<controller>> {
+  - plans: array
+  - authUser: object
+  + setPlans(plans: array): void
+  + fetchData(): Promise<void>
+}
+
+class TrainingPlanModel <<model>> {
+  + getTrainingPlans(authUser: object): Promise<any>
+}
+
+class TrainingPlanView <<view>> {
+  - plans: array
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+TrainingPlanController -down-> TrainingPlanModel : uses
+TrainingPlanController -down-> TrainingPlanView : renders
+TrainingPlanController -down-> AuthContext : uses
+
+@enduml

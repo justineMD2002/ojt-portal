@@ -1,0 +1,34 @@
+@startuml logbook entries component
+skinparam classAttributeIconSize 0
+
+class LogbookEntriesController <<controller>> {
+  - authUser: object
+  - logbookEntries: array
+  - loading: boolean
+  + setLogbookEntries(logbookEntries: array): void
+  + setLoading(loading: boolean): void
+  + LogbookEntriesModel(): Promise<void>
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setAuthUser(userData: object): void
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+class LogbookEntriesView <<view>> {
+  - loading: boolean
+  - logbookEntries: array
+}
+
+class LogbookEntriesModel <<model>> {
+  + studentLogbookEntries(authUser: object, setLogbookEntries: function, setLoading: function): void
+}
+
+LogbookEntriesController -up-> AuthContext: Uses
+LogbookEntriesController -right-> LogbookEntriesView: Renders
+LogbookEntriesController --> LogbookEntriesModel: Uses
+
+@enduml

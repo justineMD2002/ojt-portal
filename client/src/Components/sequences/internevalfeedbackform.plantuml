@@ -1,0 +1,41 @@
+@startuml intern_eval_feedback_form_sequence_diagram
+
+actor Evaluator as User
+participant InternEvalFeedbackFormController
+participant AuthContext
+participant InternEvalFeedbackFormView
+participant Api
+
+User -> InternEvalFeedbackFormController: onClick()
+
+activate InternEvalFeedbackFormController
+InternEvalFeedbackFormController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> InternEvalFeedbackFormController: authUser
+deactivate AuthContext
+
+InternEvalFeedbackFormController -> InternEvalFeedbackFormView: render()
+activate InternEvalFeedbackFormView
+
+User -> InternEvalFeedbackFormView: onChange()
+InternEvalFeedbackFormView -> InternEvalFeedbackFormController: handleChange()
+InternEvalFeedbackFormController -> InternEvalFeedbackFormView: setGrades(grades)
+InternEvalFeedbackFormView -> InternEvalFeedbackFormController: handleChange()
+InternEvalFeedbackFormController -> InternEvalFeedbackFormView: setFeedback(feedback), calculateAverageGrade()
+
+User -> InternEvalFeedbackFormView: onClick()
+deactivate InternEvalFeedbackFormView
+alt supervisor
+    InternEvalFeedbackFormController -> Api: handleSubmit()
+    activate Api
+else instructor
+    InternEvalFeedbackFormController -> Api: handleSubmitStudent()
+end
+
+Api --> InternEvalFeedbackFormController: response.data
+deactivate Api
+
+InternEvalFeedbackFormController -> User: alert()
+deactivate InternEvalFeedbackFormController
+
+@enduml

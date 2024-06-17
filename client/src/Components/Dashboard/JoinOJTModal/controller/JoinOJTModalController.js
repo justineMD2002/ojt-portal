@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import JoinOJTModalView from "../view/JoinOJTModalView";
 import axios from "axios";
 import qs from "qs";
-import { JoinOJTModalControllerModel } from "../model/JoinOJTModalControllerModel";
+import { JoinOJTModalModel } from "../model/JoinOJTModalModel";
 
 const JoinOJTModalController = ({
   handleLogout,
   accessToken,
   setIsOfficialIntern,
 }) => {
-  const [teamCode, setTeamCode] = useState(
-    JoinOJTModalControllerModel.teamCode
-  );
-  const [error, setError] = useState(JoinOJTModalControllerModel.error);
+  const [teamCode, setTeamCode] = useState(JoinOJTModalModel.teamCode);
+  const [error, setError] = useState(JoinOJTModalModel.error);
 
   const handleChange = (e) => {
     setTeamCode(e.target.value);

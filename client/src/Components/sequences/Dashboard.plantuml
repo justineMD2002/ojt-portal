@@ -1,0 +1,102 @@
+@startuml student_dashboard_sequence_diagram
+
+actor Student as User
+participant Router
+participant Dashboard
+participant JoinOJTTeamModalController
+participant AuthContext
+participant JoinOJTModalView
+participant OJTTrackingController
+participant OJTTrackingModel
+participant OJTTrackingView
+participant ProgressOverviewController
+participant ProgressOverviewModel
+participant ProgressOverview
+participant StudentInfo
+participant Api
+
+User -> Router: navigate("/dashboard")
+activate Router
+Router --> Dashboard: render()
+activate Dashboard
+Dashboard -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> Dashboard: authUser, handleLogout()
+deactivate AuthContext
+
+Dashboard -> Api: axios.get("/get-ojt-records")
+activate Api
+Api --> Dashboard: response.data
+
+alt if OJT record is pending
+    Dashboard -> JoinOJTTeamModalController: render()
+    activate JoinOJTTeamModalController
+    JoinOJTTeamModalController -> JoinOJTModalView: render()
+    activate JoinOJTModalView
+
+    User -> JoinOJTModalView: onChange()
+    JoinOJTModalView -> JoinOJTTeamModalController: handleChange(e)
+    JoinOJTTeamModalController -> JoinOJTModalView: setTeamCode(teamCode)
+
+    User -> JoinOJTModalView: onClick()
+    JoinOJTTeamModalController -> Api: axios.put("/join-team")
+    Api --> JoinOJTTeamModalController: response.data
+
+    alt if join is successful
+        JoinOJTTeamModalController -> JoinOJTModalView: setError(false)
+        JoinOJTTeamModalController -> Dashboard: setIsOfficialIntern(true)
+        JoinOJTTeamModalController -> User: alert("Join successful")
+    else join failed
+        JoinOJTTeamModalController -> JoinOJTModalView: setError(true)
+        JoinOJTTeamModalController -> User: alert("Invalid Team Code")
+    end
+
+    User -> JoinOJTModalView: onClick()
+    JoinOJTModalView -> JoinOJTTeamModalController: handleLogout(e)
+    deactivate JoinOJTModalView
+    JoinOJTTeamModalController -> Router: navigate("/")
+    
+    deactivate JoinOJTTeamModalController
+end
+
+Dashboard -> StudentInfo: render()
+activate StudentInfo
+deactivate StudentInfo
+
+Dashboard -> OJTTrackingController: render()
+activate OJTTrackingController
+OJTTrackingController -> OJTTrackingModel: OJTTrackingModel()(authUser, setOjtEntries)
+activate OJTTrackingModel
+OJTTrackingModel -> Api: axios.get("/student/get-all-entries")
+Api --> OJTTrackingModel: response.data
+deactivate Api
+OJTTrackingModel -> OJTTrackingController: setOjtEntries(response.data)
+deactivate OJTTrackingModel
+OJTTrackingController -> OJTTrackingView: render()
+activate OJTTrackingView
+
+User -> OJTTrackingView: onClick()
+OJTTrackingView -> OJTTrackingController: handleOnClick()
+OJTTrackingController -> Router: navigate("/logbook-entries")
+deactivate Router
+deactivate OJTTrackingView
+deactivate OJTTrackingController
+
+Dashboard -> ProgressOverviewController: render()
+deactivate Dashboard
+activate ProgressOverviewController
+ProgressOverviewController -> ProgressOverviewModel: ProgressOverviewModel()(authUser, setProgressData)
+activate ProgressOverviewModel
+ProgressOverviewModel -> Api: axios.get("/student/get-all-entries")
+activate Api
+Api --> ProgressOverviewModel: response.data
+deactivate Api
+ProgressOverviewModel -> ProgressOverviewController: setApprovalPercentage(approvalPercentage), setPendingPercentage(pendingPercentage)
+deactivate ProgressOverviewModel
+ProgressOverviewController -> ProgressOverview: render()
+deactivate ProgressOverviewController
+activate ProgressOverview
+deactivate ProgressOverview
+
+
+@enduml

@@ -1,0 +1,108 @@
+@startuml dashboard
+skinparam classAttributeIconSize 0
+
+class Dashboard {
+  - authUser: object
+  - handleLogout: function
+  - isOfficialIntern: boolean
+  + setIsOfficialIntern(isOfficialIntern: boolean): void
+  + getOJTRecord(): Promise<void>
+}
+
+class StudentInfo {
+  - authUser: object
+}
+
+class JoinOJTModalController <<controller>> {
+  - handleLogout: function
+  - accessToken: string
+  - setIsOfficialIntern: function
+  - teamCode: string
+  - error: boolean
+  + setTeamCode(teamCode: string): void
+  + setError(error: boolean): void
+  + handleChange(e: Event): void
+  + handleJoinTeam(): Promise<void>
+}
+
+class JoinOJTModalModel <<model>> {
+  + JoinOJTModalModel: object
+}
+
+class JoinOJTModalView <<view>> {
+  - teamCode: string
+  - handleChange: function
+  - handleJoinTeam: function
+  - error: boolean
+  - handleLogout: function
+  -navigate: NavigateFunction
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setAuthUser(userData: object): void
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+
+Dashboard -up-> AuthContext: Uses
+Dashboard -left-> JoinOJTModalController: Renders
+Dashboard -down-> StudentInfo: Renders
+JoinOJTModalController -down-> JoinOJTModalModel: Uses
+JoinOJTModalController -left-> JoinOJTModalView: Renders
+
+class OJTTrackingController <<controller>> {
+  - authUser: object
+  -ojtEntries: array
+  + setOjtEntries(ojtEntries: array): void
+  + fetchOjtRecord(authUser: object, setOjtEntries: function): OJTTrackingModel
+  + handleOnClick(): void
+}
+
+class OJTTrackingModel <<model>> {
+  + fetchOjtRecord(authUser: object, setOjtEntries: function): Promise<void>
+}
+
+class OJTTrackingView <<view>> {
+  - authUser: object
+  - ojtEntries: array
+  - handleOnClick: function
+}
+
+
+Dashboard -down-> OJTTrackingController: Renders
+OJTTrackingController -down-> OJTTrackingModel: Uses
+OJTTrackingController -right-> OJTTrackingView: Renders
+
+class ProgressOverviewController <<controller>> {
+  - authUser: object
+  - approvalPercentage: number
+  - pendingPercentage: number
+  + fetchProgressData(): Promise<void>
+  + setApprovalPercentage(approvalPercentage: number): void
+  + setPendingPercentage(pendingPercentage: number): void
+}
+
+class ProgressOverviewModel <<model>> {
+  + getLogbookCount(authUser: object): Promise<any>
+}
+
+class ProgressOverview <<view>> {
+  - authUser: object
+  - approvalPercentage: number
+  - pendingPercentage: number
+}
+
+class CircularProgress {
+  - percentage: number
+  - value: number
+}
+
+
+Dashboard -right-> ProgressOverviewController: Renders
+ProgressOverviewController -down-> ProgressOverviewModel: Uses
+ProgressOverviewController -right-> ProgressOverview: Renders
+ProgressOverview -down-> CircularProgress: Renders
+@enduml

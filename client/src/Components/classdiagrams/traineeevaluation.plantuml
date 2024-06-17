@@ -1,0 +1,40 @@
+@startuml trainee evaluation
+skinparam classAttributeIconSize 0
+
+class TraineeEvaulationController <<controller>> {
+  - authUser: object
+  - trainees: array
+  - loading: boolean
+  - openFeedback: array
+  + setTrainees(trainees: array): void
+  + setLoading(loading: boolean): void
+  + setOpenFeedback(openFeedback: array): void
+  + fetchData(): Promise<void>
+  + handleChange(index: number): void
+  + handleCloseFeedback(index: number): void
+}
+
+class TraineeEvaluationModel <<model>> {
+  + getAllStudents(authUser: object): Promise<any>
+}
+
+class TraineeEvaluationView <<view>> {
+  - trainees: array
+  - loading: boolean
+  - openFeedback: array
+  - handleChange: function
+  - handleCloseFeedback: function
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+TraineeEvaulationController -down-> AuthContext : uses
+TraineeEvaulationController -down-> TraineeEvaluationModel : uses
+TraineeEvaulationController -down-> TraineeEvaluationView : renders
+
+@enduml

@@ -1,0 +1,31 @@
+@startuml students monitoring
+skinparam classAttributeIconSize 0
+
+class StudentsDetailsController <<controller>> {
+  - authUser: object
+  - students: array
+  + setStudents(students: array): void
+  + fetchStudents(): Promise<void>
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setAuthUser(userData: object): void
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+class StudentsDetailsView <<view>> {
+  - students: array
+}
+
+class StudentsDetailsModel <<model>> {
+  + getAllStudents(): Promise<any>
+}
+
+StudentsDetailsController -up-> AuthContext: Uses
+StudentsDetailsController -right-> StudentsDetailsView: Renders
+StudentsDetailsController -down-> StudentsDetailsModel: Uses
+
+@enduml

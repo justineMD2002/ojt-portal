@@ -27,9 +27,9 @@ const TraineeEvaluation = () => {
         );
         setTrainees(response.data);
         setOpenFeedback(Array(response.data.length).fill(false));
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
       }
     };

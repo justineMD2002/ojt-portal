@@ -1,0 +1,64 @@
+@startuml SubmittedLogbooksSequenceDiagram
+
+actor Supervisor as User
+participant Router
+participant SubmittedLogbooks
+participant SubmittedInfoController
+participant AuthContext
+participant SubmittedInfoModel
+participant SubmittedInfoView
+participant Api
+
+User -> Router: navigate("/submitted-logbooks")
+activate Router
+Router -> SubmittedLogbooks: render()
+deactivate Router
+activate SubmittedLogbooks
+SubmittedLogbooks -> SubmittedInfoController: render()
+deactivate SubmittedLogbooks
+
+activate SubmittedInfoController
+SubmittedInfoController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> SubmittedInfoController: authUser
+deactivate AuthContext
+
+SubmittedInfoController -> SubmittedInfoModel: SubmittedInfoModel(authUser)
+activate SubmittedInfoModel
+SubmittedInfoModel -> Api: axios.get("/supervisor/get-logbooks")
+activate Api
+Api --> SubmittedInfoModel: response.data
+SubmittedInfoModel -> SubmittedInfoController: setEntries(response.data)
+deactivate SubmittedInfoModel
+
+SubmittedInfoController -> SubmittedInfoView: render()
+activate SubmittedInfoView
+
+User -> SubmittedInfoView: onClick()
+SubmittedInfoView -> SubmittedInfoController: handleApproveRejectClick(type, entry)
+SubmittedInfoController -> SubmittedInfoView: setActionPopupVisible(true)
+SubmittedInfoView -> SubmittedInfoController: setSelectedEntry(entry)
+SubmittedInfoController -> SubmittedInfoView: setActionType(type)
+
+User -> SubmittedInfoView: onChange()
+SubmittedInfoView -> SubmittedInfoController: handleFeedbackChange(feedback)
+SubmittedInfoController -> SubmittedInfoView: setActionFeedback(feedback)
+
+User -> SubmittedInfoView: onClick()
+SubmittedInfoView -> SubmittedInfoController: handleActionSubmit()
+alt type == "Approve"
+    SubmittedInfoController -> Api: approveEntry(selectedEntry.entryId, actionFeedback)
+else type == "Rejected"
+    SubmittedInfoController -> Api: rejectEntry(selectedEntry.entryId, actionFeedback) 
+end
+
+Api --> SubmittedInfoController: response.data
+deactivate Api
+SubmittedInfoController -> SubmittedInfoView: closeActionModal(), alert(response.data)
+
+User -> SubmittedInfoView: onClick(handleViewFeedbackClick)
+SubmittedInfoView -> SubmittedInfoController: handleViewFeedbackClick(entry.remarks)
+SubmittedInfoController -> SubmittedInfoView: setFeedbackPopupVisible(true)
+SubmittedInfoView -> SubmittedInfoController: setFeedbackMessage(entry.remarks)
+
+@enduml

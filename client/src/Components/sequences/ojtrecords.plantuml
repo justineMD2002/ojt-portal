@@ -1,0 +1,48 @@
+@startuml ojt_records_sequence_diagram
+
+actor Admin as User
+participant "Router" as Router
+participant OJTRecordsController
+participant AuthContext
+participant OJTRecordsModel
+participant OJTRecordsView
+participant Row
+participant Api
+
+User -> Router: navigate("/ojt-records")
+activate Router
+Router --> OJTRecordsController: render()
+deactivate Router
+activate OJTRecordsController
+OJTRecordsController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> OJTRecordsController: authUser
+deactivate AuthContext
+
+OJTRecordsController -> OJTRecordsModel: getAllOJTRecords(accessToken)
+activate OJTRecordsModel
+OJTRecordsModel -> Api: axios.get("/get-ojt-records")
+activate Api
+Api --> OJTRecordsModel: response.data
+deactivate Api
+OJTRecordsModel -> OJTRecordsController: setStudents(students)
+deactivate OJTRecordsModel
+OJTRecordsController -> OJTRecordsView: render()
+deactivate OJTRecordsController
+activate OJTRecordsView
+
+
+OJTRecordsView -> Row: render()
+deactivate OJTRecordsView
+activate Row
+
+User -> Row: onClick()
+Row -> Row: setOpen(!open)
+
+Row -> Api: axios.get("/get-student-ojt-records")
+activate Api
+Api --> Row: response.data
+deactivate Api
+Row -> Row: setEntries(entries), render()
+
+@enduml

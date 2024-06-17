@@ -1,0 +1,69 @@
+@startuml task_card_sequence_diagram
+
+actor Supervisor as User
+participant TaskCardController
+participant AuthContext
+participant TaskCardView
+participant Api
+
+User -> TaskCardController: render()
+activate TaskCardController
+TaskCardController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> TaskCardController: authUser
+deactivate AuthContext
+
+TaskCardController -> TaskCardView: render()
+activate TaskCardView
+User -> TaskCardView: onClick()
+TaskCardView -> TaskCardController: toggleDetailPopup()
+TaskCardController -> TaskCardView: setDetailPopupVisibility(!isDetailPopupVisible)
+
+alt supervisor views task details
+    User -> TaskCardView: onClick()
+    TaskCardView -> TaskCardController: toggleCreateTaskPopup()
+    TaskCardController -> TaskCardView: setCreateTaskPopupVisibility(!createTaskPopupVisibility)
+    alt supervisor creates task
+        User -> TaskCardView: onChange()
+        TaskCardView -> TaskCardController: handleInputChange(event)
+        TaskCardController -> TaskCardView: setTaskTitle(value), setTaskDescription(value), setTaskObjective(value)
+
+        User -> TaskCardView: onClick()
+        alt add skill
+            TaskCardView -> TaskCardController: addSkill()
+            TaskCardController -> TaskCardView: setSkillList([...skills, newSkill])
+        else remove skill.
+            TaskCardView -> TaskCardController: removeSkill()
+            TaskCardController -> TaskCardView: setSkillList([...skills.filter(skill => skill !== removedSkill)])
+        end
+
+        User -> TaskCardView: onChange()
+        TaskCardView -> TaskCardController: handleSkilLChange(event)
+        TaskCardController -> TaskCardView: setSkills(newSkills)
+
+        User -> TaskCardView: onClick()
+        TaskCardView -> TaskCardController: handleCreateTask()
+        TaskCardController -> Api: axios.post("/add-task")
+        activate Api
+        Api --> TaskCardController: response.data
+        deactivate Api
+
+        TaskCardController -> User: alert(response.data)
+        TaskCardController -> TaskCardView: setCreateTaskPopupVisibility(false), setDetailPopupVisibility(false) 
+    else supervisor closes task modal
+        User -> TaskCardView: onClick()
+        TaskCardView -> TaskCardController: toggleCreateTaskPopup()
+        TaskCardController -> TaskCardView: setCreateTaskPopupVisibility(!createTaskPopupVisibility)
+    end
+    
+    
+else closes the modal
+    User -> TaskCardView: onClick()
+    TaskCardView -> TaskCardController: toggleDetailPopup()
+    TaskCardController -> TaskCardView: setDetailPopupVisibility(!isDetailPopupVisible)
+    deactivate TaskCardController
+    deactivate TaskCardView
+end
+
+
+@enduml

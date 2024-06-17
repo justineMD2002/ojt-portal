@@ -1,0 +1,56 @@
+@startuml instructor_dashboard_sequence_diagram
+
+actor Instructor as User
+participant Router
+participant AuthContext
+participant StudentDataController
+participant StudentDataModel
+participant StudentDataView
+participant Row
+participant Api
+participant InternEvalFeedbackFormController
+
+User -> Router: navigate("/instructor-dashboard")
+activate Router
+Router --> StudentDataController: render()
+deactivate Router
+activate StudentDataController
+StudentDataController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> StudentDataController: authUser
+deactivate AuthContext
+
+StudentDataController -> StudentDataModel: getAllOJTRecords(authUser.accessToken)
+activate StudentDataModel
+StudentDataModel -> Api: axios.get("/get-ojt-records")
+activate Api
+Api --> StudentDataModel: response.data
+StudentDataModel -> StudentDataController: setStudents(data)
+StudentDataController -> StudentDataView: render()
+deactivate StudentDataController
+activate StudentDataView
+
+User -> StudentDataView: onClick()
+StudentDataView -> Row: render()
+deactivate StudentDataView
+activate Row
+Row -> StudentDataModel: getStudentOJTRecords(authUser.accessToken, row.student.user.email)
+StudentDataModel -> Api: axios.get("/student/get-all-entries")
+Api --> StudentDataModel: response.data
+deactivate Api
+StudentDataModel -> Row: setEntries(data)
+deactivate StudentDataModel
+Row -> Row: render()
+
+User -> Row: onClick()
+Row -> Row: handleFormOpen()
+Row -> InternEvalFeedbackFormController: render()
+activate InternEvalFeedbackFormController
+User -> InternEvalFeedbackFormController: onClose()
+InternEvalFeedbackFormController -> Row: handleFormClose()
+deactivate InternEvalFeedbackFormController
+deactivate Row
+deactivate StudentDataView
+deactivate StudentDataController
+
+@enduml

@@ -6,11 +6,7 @@ import Footer from "./Components/Common/Footer";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LogbookContents from "./Components/ViewLogbook/LogbookContents";
-import TaskMonitoring from "./Components/TaskMonitoring/TaskMonitoring";
 import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
-import OJTAnalytics from "./Components/OJTAnalytics/OJTAnalytics";
-import TraineeEvaluation from "./Components/TraineeEvaluation/TraineeEvaluation";
-import TrainingPlan from "./Components/TrainingPlan/TrainingPlan";
 import { AuthProvider } from "./Components/UserManagement/AuthContext";
 import LoginSignupController from "./Components/UserManagement/LoginSignup/controllers/LoginSignupController";
 import InternMonitoringController from "./Components/InternMonitoring/controllers/InternMonitoringController";
@@ -26,7 +22,10 @@ import InternEvalFeedbackFormController from "./Components/InternEvalFeedbackFor
 import LogbookFormController from "./Components/LogbookSubmission/LogbookForm/controller/LogbookFormController";
 import StudentsDetailsController from "./Components/StudentsMonitoring/controller/StudentsDetailsController";
 import TrainingPlansTableController from "./Components/AdminComponents/TrainingPlansTable/controller/TrainingPlansTableController";
-
+import TaskMonitoringController from "./Components/TaskMonitoring/TaskMonitoring/controller/TaskMonitoringController";
+import TraineeEvaluationController from "./Components/TraineeEvaluation/controller/TraineeEvaluationController";
+import TrainingPlanController from "./Components/TrainingPlan/controller/TrainingPlanController";
+import OJTAnalyticsController from "./Components/OJTAnalytics/Analytics/controller/OJTAnalyticsController";
 const App = () => {
   return (
     <AuthProvider>
@@ -46,12 +45,18 @@ const App = () => {
               <Route path="/student-info" element={<Dashboard />} />
               <Route path="/logbook" element={<LogbookFormController />} />
               <Route path="/view-logbook" element={<LogbookContents />} />
-              <Route path="/task-monitoring" element={<TaskMonitoring />} />
+              <Route
+                path="/task-monitoring"
+                element={<TaskMonitoringController />}
+              />
               <Route
                 path="/submitted-logbook"
                 element={<SubmittedLogbooks />}
               />
-              <Route path="/tp-table" element={<TrainingPlansTableController />} />
+              <Route
+                path="/tp-table"
+                element={<TrainingPlansTableController />}
+              />
               <Route path="/ojt-records" element={<OJTRecordsController />} />
               <Route path="/users" element={<UsersController />} />
               <Route path="/companies" element={<CompaniesController />} />
@@ -59,11 +64,14 @@ const App = () => {
 
               <Route path="/student-data" element={<StudentDataController />} />
 
-              <Route path="/ojt-analytics" element={<OJTAnalytics />} />
-              <Route path="/student-monitoring" element={<StudentsDetailsController />} />
+              <Route path="/ojt-analytics" element={<OJTAnalyticsController />} />
+              <Route
+                path="/student-monitoring"
+                element={<StudentsDetailsController />}
+              />
               <Route
                 path="/trainee-evaluation"
-                element={<TraineeEvaluation />}
+                element={<TraineeEvaluationController />}
               />
               <Route
                 path="/interneval-feedbackform"
@@ -73,7 +81,10 @@ const App = () => {
                 path="/logbook-entries"
                 element={<LogbookEntriesController />}
               />
-              <Route path="/training-plan" element={<TrainingPlan />} />
+              <Route
+                path="/training-plan"
+                element={<TrainingPlanController />}
+              />
               <Route
                 path="/activate-account"
                 element={<ActivateAccountController />}

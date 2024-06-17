@@ -25,11 +25,7 @@ const LoginSignupController = () => {
   const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
-
-  useEffect(() => {
-    console.log("userinfo:", user);
-  }, [user]);
-
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     try {

@@ -1,0 +1,47 @@
+@startuml instructor component diagram
+skinparam classAttributeIconSize 0
+
+class StudentDataController {
+  - authUser: object
+  - students: array
+  + fetchStudents(): Promise<void>
+  + setStudents(students: array): void
+}
+
+class StudentDataModel <<model>> {
+  + getAllOJTRecords(accessToken: string): Promise<any>
+  + getStudentOJTRecords(accessToken: string, email: string): Promise<any>
+}
+
+class StudentDataView <<view>> {
+  - students: array
+}
+
+class Row {
+  - open: boolean
+  - entries: array
+  - authUser: object
+  - formOpen: boolean
+  + setOpen(open: boolean): void
+  + setEntries(entries: array): void
+  + setFormOpen(formOpen: boolean): void
+  + handleFormOpen(): void
+  + handleFormClose(): void
+  + fetchEntries(): Promise<void>
+}
+
+class AuthContext {
+  + authUser: object
+  + isLoggedIn: boolean
+  + setAuthUser(userData: object): void
+  + setIsLoggedIn(loggedIn: boolean): void
+  + handleLogout(e: Event): void
+}
+
+StudentDataController -up-> AuthContext: Uses
+StudentDataController -down-> StudentDataModel: Uses
+StudentDataController -right-> StudentDataView: Renders
+StudentDataView -down-> Row: Renders
+Row -up-> AuthContext: Uses
+
+@enduml

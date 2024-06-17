@@ -1,0 +1,88 @@
+@startuml ojtanalytics
+skinparam classAttributeIconSize 0
+
+class AuthContext {
+  + isLoggedIn: boolean
+  + authUser: object
+  + setIsLoggedIn(value: boolean): void
+  + setAuthUser(user: object): void
+  + handleLogout(e: Event): void
+}
+
+class OJTAnalyticsController <<controller>> {
+    -skillFilter: array
+    -selectedSkill: string
+    -fromDate: string
+    -toDate: string
+    -apiData: object
+    -authUser: object
+    +setSelectedSkill(skill: string): void
+    +setFromDate(date: string): void
+    +setToDate(date: string): void
+    +setApiData(data: object): void
+    +handleSkillChange(e: Event): void
+    +handleFromDateChange(e: Event): void
+    +handleToDateChange(e: Event): void
+    +handleClick(): Promise<void>
+}
+
+class OJTAnalyticsModel <<model>> {
+    + skillFilterModel: array
+}
+
+class OJTAnalyticsView <<view>> {
+    -skillFilter: array
+    -selectedSkill: string
+    -handleSkillChange: function
+    -handleFromDateChange: function
+    -handleToDateChange: function
+    -apiData: object
+    -handleClick: function
+}
+
+OJTAnalyticsController -up-> AuthContext: Uses
+OJTAnalyticsController --> OJTAnalyticsModel: Uses
+OJTAnalyticsController --> OJTAnalyticsView: Renders
+
+
+class ChartModel <<model>> {
+    + trendCountsModel: object
+    + getTrendSummary(accessToken: string): Promise<any>
+}
+
+class LineChartController <<controller>> {
+    -trendCounts: object
+    -data: array
+    -authUser: object
+    -chartData: object
+    +setData(data: object): void
+    +fetchData(): Promise<void>
+}
+
+class LineChartView <<view>> {
+    -chartData: object
+}
+
+class VerticalBarController <<controller>> {
+    -data: 
+    -labels: array
+    -demandChanges: array
+    -trendColors: array
+    -authUser: object
+    -chartData: object
+    +setData(data: object): void
+    +fetchData(): Promise<void>
+}
+
+class VerticalBarView <<view>> {
+    -chartData: object
+}
+
+LineChartController -up-> AuthContext: Uses
+LineChartController --> ChartModel: Uses
+LineChartController --> LineChartView: Renders
+VerticalBarController --> ChartModel: Uses
+VerticalBarController -up-> AuthContext: Uses
+VerticalBarController --> VerticalBarView: Renders
+
+@enduml
