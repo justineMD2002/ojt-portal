@@ -1,0 +1,69 @@
+@startuml ojtanalytics_sequence_diagram
+
+actor "Dean/Chair/Instructor" as User
+participant Router
+participant OJTAnalyticsController
+participant AuthContext
+participant OJTAnalyticsView
+participant LineChartController
+participant LineChartView
+participant ChartModel
+participant VerticalBarController
+participant VerticalBarView
+participant Api
+
+User -> Router: navigate("/ojt-analytics")
+activate Router
+Router -> OJTAnalyticsController: render()
+deactivate Router
+activate OJTAnalyticsController
+OJTAnalyticsController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> OJTAnalyticsController: authUser
+OJTAnalyticsController -> OJTAnalyticsView: render()
+activate OJTAnalyticsView
+
+OJTAnalyticsView -> LineChartController: render()
+activate LineChartController
+LineChartController -> AuthContext: useAuth()
+AuthContext --> LineChartController: authUser
+LineChartController -> ChartModel: getTrendSummary(authUser.accessToken)
+activate ChartModel
+ChartModel -> Api: axios.get("/get-trend-summary")
+activate Api
+Api --> ChartModel: response.data
+ChartModel -> LineChartController: setData(data)
+LineChartController -> LineChartView: render()
+activate LineChartView
+deactivate LineChartView
+deactivate LineChartController
+
+OJTAnalyticsView -> VerticalBarController: render()
+activate VerticalBarController
+VerticalBarController -> AuthContext: useAuth()
+AuthContext --> VerticalBarController: authUser
+deactivate AuthContext
+VerticalBarController -> ChartModel: getTrendSummary(authUser.accessToken)
+ChartModel -> Api: axios.get("/get-trend-summary")
+Api --> ChartModel: response.data
+ChartModel -> VerticalBarController: setData(response)
+deactivate ChartModel
+VerticalBarController -> VerticalBarView: render()
+activate VerticalBarView
+deactivate VerticalBarView
+deactivate VerticalBarController
+
+User -> OJTAnalyticsView: onChange()
+OJTAnalyticsView -> OJTAnalyticsController: handleSkillChange(e), handleFromDateChange(e), handleToDateChange(e)
+OJTAnalyticsController -> OJTAnalyticsView: setSelectedSkill(selectedSkill), setFromDate(fromDate), setToDate(toDate)
+
+User -> OJTAnalyticsView: onClick()
+OJTAnalyticsView -> OJTAnalyticsController: handleClick()
+OJTAnalyticsController -> Api: axios.post("/get-skill-trend-report")
+Api --> OJTAnalyticsController: response.data
+deactivate Api
+OJTAnalyticsController -> OJTAnalyticsView: setApiData(response.data)
+deactivate OJTAnalyticsController
+deactivate OJTAnalyticsView
+
+@enduml

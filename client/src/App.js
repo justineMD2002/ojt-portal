@@ -5,7 +5,6 @@ import Sidebar from "./Components/Common/Sidebar";
 import Footer from "./Components/Common/Footer";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LogbookContents from "./Components/ViewLogbook/LogbookContents";
 import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
 import { AuthProvider } from "./Components/UserManagement/AuthContext";
 import LoginSignupController from "./Components/UserManagement/LoginSignup/controllers/LoginSignupController";
@@ -26,6 +25,7 @@ import TaskMonitoringController from "./Components/TaskMonitoring/TaskMonitoring
 import TraineeEvaluationController from "./Components/TraineeEvaluation/controller/TraineeEvaluationController";
 import TrainingPlanController from "./Components/TrainingPlan/controller/TrainingPlanController";
 import OJTAnalyticsController from "./Components/OJTAnalytics/Analytics/controller/OJTAnalyticsController";
+import LogbookContentsController from "./Components/ViewLogbook/controller/LogbookContentsController";
 const App = () => {
   return (
     <AuthProvider>
@@ -44,7 +44,7 @@ const App = () => {
               />
               <Route path="/student-info" element={<Dashboard />} />
               <Route path="/logbook" element={<LogbookFormController />} />
-              <Route path="/view-logbook" element={<LogbookContents />} />
+              <Route path="/view-logbook" element={<LogbookContentsController />} />
               <Route
                 path="/task-monitoring"
                 element={<TaskMonitoringController />}
