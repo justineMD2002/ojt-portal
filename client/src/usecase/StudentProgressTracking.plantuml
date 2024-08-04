@@ -1,0 +1,17 @@
+@startuml studentprogress_use_case_diagram
+
+left to right direction
+
+actor Instructor as User
+
+rectangle "Student Progress Tracking" {
+  usecase UC1 as "Navigate to Instructor Dashboard"
+  usecase "Display Students' Information" as UC2
+  usecase UC3 as "Expand Student Information"
+}
+
+User -- UC1
+UC1 ..> UC2 : <<include>>
+User -- UC3
+
+@enduml

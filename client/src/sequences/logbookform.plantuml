@@ -1,6 +1,6 @@
 @startuml LogbookSubmissionSequenceDiagram
 
-actor Intern as User
+actor Student as User
 participant Router
 participant LogbookFormController
 participant AuthContext
@@ -43,6 +43,7 @@ LogbookFormView -> LogbookFormController: handleSubmit()
 LogbookFormController -> Api: axios.post("/add-logbook-entry")
 activate Api
 Api --> LogbookFormController: response.data
+deactivate Api
 
 alt ERROR
     LogbookFormController -> User: alert("Logbook entry submission failed")
@@ -50,8 +51,8 @@ else Successful
     LogbookFormController -> User: alert("Logbook entry submission successful");
 end
 
-deactivate Api
 LogbookFormController -> LogbookFormView: render()
 deactivate LogbookFormController
+deactivate LogbookFormView
 
 @enduml

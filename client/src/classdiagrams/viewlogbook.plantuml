@@ -1,0 +1,43 @@
+@startuml viewlogbook
+skinparam classAttributeIconSize 0
+
+class AuthContext {
+    + isLoggedIn: boolean
+    + authUser: object
+    + setIsLoggedIn(value: boolean): void
+    + setAuthUser(user: object): void
+    + handleLogout(e: Event): void
+}
+
+class LogbookContentsController <<controller>> {
+    - state: object
+    - logbookEntry: array
+    - formData: object
+    - isReadOnly: boolean
+    - authUser: object
+    - navigate: NavigateFunction
+    + setFormData(data: object): void
+    + handleChange(e: Event): void
+    + handleSkillChange(selectedSkill: any): void
+    + handleTaskChange(selectedTask: any): void
+    + handleSubmit(e: Event): Promise<void>
+}
+
+class LogbookContentsView <<view>> {
+    - logbookEntry: object
+    - formData: object
+    - isReadOnly: boolean
+    - handleChange: function
+    - handleSkillChange: function
+    - handleTaskChange: function
+    - handleSubmit: function
+}
+
+class LogbookContentsModel <<model>> {
+    + LogbookContentsModel(logbookEntry, state): object
+}
+
+LogbookContentsController -up-> AuthContext: Uses
+LogbookContentsController -right-> LogbookContentsView: Renders
+LogbookContentsController -down-> LogbookContentsModel: Uses
+@enduml

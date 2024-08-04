@@ -1,0 +1,13 @@
+@startuml chairdashboard_use_case_diagram
+
+left to right direction
+
+actor Chair as User
+
+rectangle "Chair Dashboard" {
+  usecase UC1 as "Navigate to Student Monitoring Page"
+  usecase "Display Interns' Information" as UC2
+}
+User -- UC1
+UC1 ..> UC2 : <<include>>
+@enduml

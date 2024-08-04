@@ -1,0 +1,19 @@
+@startuml logbook_submission_use_case_diagram
+
+left to right direction
+
+actor Student as User
+
+rectangle "Logbook Submission" {
+  usecase "Navigate Logbook Submission Page" as UC1
+  usecase "Fill logbook details" as UC2
+  usecase "Verify Form Validity" as UC3
+  usecase "Display Submission Response" as UC4
+}
+
+  User -- UC1
+  User -- UC2
+  UC2 ..> UC3 : <<include>>
+  UC2 <.. UC4 : <<extend>>
+
+@enduml

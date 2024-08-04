@@ -1,0 +1,24 @@
+@startuml internmonitoring_use_case_diagram
+
+left to right direction
+
+actor Supervisor as User
+
+rectangle "Supervisor Dashboard" {
+  usecase UC1 as "Navigate to Supervisor Dashboard"
+  usecase "Display Interns' Information" as UC2
+  usecase "Invite Intern" as UC3
+  usecase "Display Invite Intern Modal" as UC4
+  usecase "Enter Intern's Information" as UC5
+  usecase "Display Submission Response" as UC6
+  usecase "Close Modal" as UC7
+}
+User -- UC1
+UC1 ..> UC2 : <<include>>
+User -- UC3
+UC3 ..> UC4 : <<include>>
+User -- UC5
+UC5 <.. UC6 : <<extend>>
+UC5 <.. UC7 : <<extend>>
+
+@enduml

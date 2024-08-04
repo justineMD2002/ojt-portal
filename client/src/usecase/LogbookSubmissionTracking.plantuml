@@ -1,0 +1,19 @@
+@startuml logbook_entries_use_case_diagram
+
+left to right direction
+
+actor Student as User
+
+rectangle "Logbook Entries" {
+  usecase "Navigate to Logbook Entries Page" as UC1
+  usecase "Display Student Logbook Entries" as UC2
+  usecase "View Entry" as UC3
+  usecase "Edit Entry" as UC4
+}
+
+  User -- UC1
+  UC1 ..> UC2 : <<include>>
+  User -- UC3
+  UC3 <.. UC4 : <<extend>>
+
+@enduml

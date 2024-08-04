@@ -1,0 +1,25 @@
+@startuml admindashboard_use_case_diagram
+
+left to right direction
+
+actor Admin as User
+
+rectangle "Admin Dashboard" {
+  usecase UC1 as "Navigate to Admin Dashboard"
+  usecase "Display Users' Information" as UC2
+  usecase UC3 as "Action
+  --
+  Extension Points
+  Activate
+  Restrict"
+  
+  usecase "Activate User" as UC4
+  usecase "Restrict User" as UC5
+    
+}
+User -- UC1
+UC1 ..> UC2 : <<include>>
+User -- UC3
+UC3 <.. UC4 : <<extends>>
+UC3 <.. UC5 : <<extends>>
+@enduml

@@ -1,0 +1,30 @@
+@startuml taskassignment_use_case_diagram
+
+left to right direction
+
+actor Supervisor as User
+
+rectangle "Task Assignment" {
+  usecase UC1 as "Navigate to Task Monitoring Page"
+  usecase "Display Created Training Plans" as UC2
+  usecase "View Training Plan Details" as UC3
+  usecase "Display Training Plan Tasks" as UC4
+  usecase "Create Task" as UC5
+  usecase "Display Create Task Modal" as UC6
+  usecase "Enter Task Information" as UC7
+  usecase "Display Submission Response" as UC8
+  usecase "Close Modal" as UC9
+}
+User -- UC1
+UC1 ..> UC2 : <<include>>
+User -- UC3
+UC3 ..> UC4 : <<include>>
+User -- UC5
+UC5 ..> UC6 : <<include>>
+User -- UC7
+UC7 <.. UC8 : <<extend>>
+
+UC5 <.. UC9 : <<extend>>
+UC7 <.. UC9 : <<extend>>
+
+@enduml

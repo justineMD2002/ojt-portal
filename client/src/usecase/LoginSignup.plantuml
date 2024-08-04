@@ -1,0 +1,33 @@
+@startuml loginsignup_use_case_diagram
+
+left to right direction
+
+actor User
+
+rectangle "Login/Signup" {
+    usecase UC1 as "Login
+    --
+    Extension Points
+    Signup
+    Forgot Password"
+
+  usecase "Signup" as UC2
+  usecase "Forgot Password" as UC3
+  usecase "Register Student" as UC4
+  usecase "Register Supervisor" as UC5
+  usecase "Validate Credentials" as UC6
+  usecase "Display Error Message" as UC7
+
+    
+}
+User -- UC1
+UC1 <.. UC2 : <<extends>>
+UC2 <|-- UC4
+UC2 <|-- UC5
+UC1 <.. UC3 : <<extends>>
+UC1 ..> UC6 : <<include>>
+UC1 <.. UC7 : <<extends>>
+UC2 ..right..> UC6 : <<include>>
+UC2 <.. UC7 : <<extends>>
+
+@enduml

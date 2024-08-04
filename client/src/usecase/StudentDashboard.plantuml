@@ -1,0 +1,15 @@
+@startuml studentdashboard_use_case_diagram
+
+left to right direction
+
+actor Student as User
+
+rectangle "Student Dashboard" {
+  usecase UC1 as "Navigate to Student Dashboard"
+  usecase "Display Student Information" as UC2
+  usecase UC3 as "View Logbook Entries"
+}
+User -- UC1
+UC1 ..> UC2 : <<include>>
+User -- UC3
+@enduml

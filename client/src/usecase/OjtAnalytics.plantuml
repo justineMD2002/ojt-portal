@@ -1,0 +1,19 @@
+@startuml ojtanalytics_use_case_diagram
+
+left to right direction
+
+actor Instructor as User
+
+rectangle "OJT Analytics" {
+  usecase UC1 as "Navigate to OJT Analytics Page"
+  usecase "Display Chart" as UC2
+  usecase "Filter data" as UC3
+  usecase "Display Filtered Data" as UC4
+}
+
+User -- UC1
+UC1 ..> UC2 : <<include>>
+User -- UC3
+UC3 ..> UC4 : <<include>>
+
+@enduml

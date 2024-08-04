@@ -1,0 +1,61 @@
+@startuml viewlogbook_sequence_diagram
+
+actor Student as User
+participant Router
+participant LogbookContentsController
+participant AuthContext
+participant LogbookContentsView
+participant DropdownDomainController
+participant DropdownTaskController
+participant Api
+
+User -> Router: navigate("/view-logbook")
+activate Router
+Router -> LogbookContentsController: render()
+deactivate Router
+
+activate LogbookContentsController
+LogbookContentsController -> AuthContext: useAuth()
+activate AuthContext
+AuthContext --> LogbookContentsController: authUser
+deactivate AuthContext
+LogbookContentsController -> LogbookContentsView: render()
+activate LogbookContentsView
+
+User -> LogbookContentsView: onChange()
+LogbookContentsView -> LogbookContentsController: handleChange()
+LogbookContentsController -> LogbookContentsView: setFormData(formData)
+
+LogbookContentsView -> DropdownDomainController: render()
+activate DropdownDomainController
+DropdownDomainController -> LogbookContentsView: handleSkillChange()
+deactivate DropdownDomainController
+LogbookContentsView -> LogbookContentsController: setFormData(formData)
+
+LogbookContentsView -> DropdownTaskController: render()
+activate DropdownTaskController
+DropdownTaskController -> LogbookContentsView: handleTaskChange()
+deactivate DropdownTaskController
+LogbookContentsView -> LogbookContentsController: setFormData(formData)
+
+User -> LogbookContentsView: onClick()
+LogbookContentsView -> LogbookContentsController: handleSubmit()
+LogbookContentsController -> Api: axios.put("/update-logbook-entry")
+activate Api
+Api --> LogbookContentsController: response.data
+deactivate Api
+
+alt ERROR
+    LogbookContentsController -> User: alert("Logbook entry update failed")
+else Successful
+    LogbookContentsController -> User: alert("Logbook entry updated successfully");
+    User -> Router: navigate("/logbook-entries")
+    activate Router
+    deactivate Router
+end
+
+LogbookContentsController -> LogbookContentsView: render()
+deactivate LogbookContentsController
+deactivate LogbookContentsView
+
+@enduml

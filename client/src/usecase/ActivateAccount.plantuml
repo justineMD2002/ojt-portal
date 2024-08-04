@@ -1,0 +1,19 @@
+@startuml activateaccount_use_case_diagram
+
+left to right direction
+
+actor User
+
+rectangle "Account Activation" {
+  usecase (U1) as "Navigate to Activate Account Page"
+  usecase (U2) as "Enter Activation Code"
+  usecase (U3) as "Verify Activation Code"
+  usecase (U4) as "Display Error Message"
+}
+
+User --- U1
+User --- U2
+U2 ..> U3 : <<include>>
+U2 <.. U4 : <<extend>>
+
+@enduml

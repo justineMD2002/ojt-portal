@@ -19,7 +19,6 @@ const LogbookContents = () => {
     task: logbookEntry.tasks[logbookEntry.tasks.length - 1],
     activities: logbookEntry.activities,
   });
-
   const [isReadOnly] = useState(
     logbookEntry.status === "APPROVED" || logbookEntry.status === "PENDING"
   );

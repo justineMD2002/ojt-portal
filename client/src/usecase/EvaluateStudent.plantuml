@@ -1,0 +1,22 @@
+@startuml evaluatestudent_use_case_diagram
+
+left to right direction
+
+actor Supervisor as User
+
+rectangle "Evaluate Trainee" {
+  usecase UC1 as "Navigate to Evaluate Trainee Page"
+  usecase "Display Trainee Information" as UC2
+  usecase "Evaluate Trainee" as UC3
+  usecase "Enter Evaluation Feedback" as UC5
+  usecase "Display Submission Response" as UC6
+  usecase "Close Modal" as UC7
+}
+User -- UC1
+UC1 ..> UC2 : <<include>>
+UC1 <.. UC3 : <<extend>>
+User -- UC5
+UC5 <.. UC6 : <<extend>>
+UC5 <.. UC7 : <<extend>>
+
+@enduml
