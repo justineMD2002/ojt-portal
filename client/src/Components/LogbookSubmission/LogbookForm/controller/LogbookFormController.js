@@ -45,7 +45,6 @@ const LogbookFormController = () => {
         body,
         {
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${authUser.accessToken}`,
           },
         }
