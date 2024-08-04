@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import JoinOJTModalView from "../view/JoinOJTModalView";
 import axios from "axios";
 import qs from "qs";
 import { JoinOJTModalModel } from "../model/JoinOJTModalModel";
+import { useAuth } from "../../../UserManagement/AuthContext";
 
 const JoinOJTModalController = ({
   handleLogout,
@@ -11,7 +12,7 @@ const JoinOJTModalController = ({
 }) => {
   const [teamCode, setTeamCode] = useState(JoinOJTModalModel.teamCode);
   const [error, setError] = useState(JoinOJTModalModel.error);
-
+  const { authUser, setAuthUser } = useAuth();
   const handleChange = (e) => {
     setTeamCode(e.target.value);
   };
@@ -32,7 +33,10 @@ const JoinOJTModalController = ({
       if (response.data === 1) {
         setError(false);
         setIsOfficialIntern(true);
-      } else {
+        setAuthUser({
+          ...authUser,
+          ojtRecord: { ...authUser.ojtRecord, status: "ONGOING" },
+        });
         setError(true);
       }
     } catch (error) {
@@ -40,7 +44,7 @@ const JoinOJTModalController = ({
       console.log(error);
     }
   };
-  
+
   return (
     <JoinOJTModalView
       teamCode={teamCode}

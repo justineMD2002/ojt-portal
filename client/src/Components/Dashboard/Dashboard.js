@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [isOfficialIntern, setIsOfficialIntern] = useState(true);
 
   useEffect(() => {
-    if (!authUser.ojtRecord.status) {
+    if (!authUser.ojtRecord.status || authUser.ojtRecord.status === "PENDING") {
       setIsOfficialIntern(false);
     } else {
       setIsOfficialIntern(true);

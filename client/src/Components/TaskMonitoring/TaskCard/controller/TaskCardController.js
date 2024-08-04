@@ -18,8 +18,12 @@ const TaskCardController = ({
     useState(false);
   const { authUser } = useAuth();
   const [taskTitle, setTaskTitle] = useState(TaskCardModel.taskTitle);
-  const [taskDescription, setTaskDescription] = useState(TaskCardModel.taskDescription);
-  const [taskObjective, setTaskObjective] = useState(TaskCardModel.taskObjective);
+  const [taskDescription, setTaskDescription] = useState(
+    TaskCardModel.taskDescription
+  );
+  const [taskObjective, setTaskObjective] = useState(
+    TaskCardModel.taskObjective
+  );
   const [skills, setSkills] = useState([TaskCardModel.skills]);
   const toggleDetailPopup = () => {
     setDetailPopupVisibility(!isDetailPopupVisible);
@@ -30,7 +34,7 @@ const TaskCardController = ({
   };
 
   const addSkill = () => {
-    setSkills([...skills, { skillName: "", domain: "" }]);
+    setSkills([...skills, { skill_name: "", domain: "" }]);
   };
 
   const removeSkill = (index) => {

@@ -96,7 +96,7 @@ const TaskCardView = ({
               <div key={index} className="skill-container">
                 <input
                   type="text"
-                  name="skillName"
+                  name="skill_name"
                   placeholder="Skill Name"
                   value={skill.skillName}
                   onChange={(event) => handleSkillChange(index, event)}

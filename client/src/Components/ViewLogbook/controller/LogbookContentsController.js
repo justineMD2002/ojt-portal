@@ -18,8 +18,6 @@ const LogbookContentsController = () => {
   );
   const { authUser } = useAuth();
   const navigate = useNavigate();
-
-  console.log(logbookEntry);
   const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -27,6 +25,7 @@ const LogbookContentsController = () => {
     }));
   };
 
+  console.log("logbookEntry", logbookEntry);
   const handleSkillChange = (skill) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -41,6 +40,7 @@ const LogbookContentsController = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("formData", formData);
     const body = {
       entry: {
         entryID: formData.entryID,
