@@ -27,6 +27,7 @@ const InternDesignationController = ({ handleOpenModal, accessToken }) => {
         }
       );
       console.log(response.data);
+      alert(response.data);
     } catch (error) {
       console.log(error);
     }

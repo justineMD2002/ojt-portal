@@ -11,6 +11,7 @@ const TaskMonitoringView = ({
   formData,
   setIsModalOpen,
   isModalOpen,
+  handleDropdownChange
 }) => {
   return (
     <div className="TaskMonitoring">
@@ -49,7 +50,7 @@ const TaskMonitoringView = ({
               <button onClick={() => handleAssignClick(item.user.email)}>
                 Assign Training Plan
               </button>
-              <select id="trainingPlanDropdown">
+              <select onChange={(e) => handleDropdownChange(e)}>
                 {tp.map((plan) => (
                   <option key={plan.trainingplanid} value={plan.trainingplanid}>
                     {plan.trainingplanid} - {plan.title}

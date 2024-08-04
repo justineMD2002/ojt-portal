@@ -11,6 +11,7 @@ import TaskMonitoringView from "../view/TaskMonitoringView";
 const TaskMonitoringController = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(trainingFormData);
+  const [selectedTrainingPlanId, setSelectedTrainingPlanId] = useState(null);
   const [tp, setTp] = useState([]);
   const { authUser } = useAuth();
   const [students, setStudents] = useState([]);
@@ -67,10 +68,11 @@ const TaskMonitoringController = () => {
   };
 
   const handleAssignClick = async (studentEmail) => {
-    const selectedTrainingPlanId = document.getElementById(
-      "trainingPlanDropdown"
-    ).value;
     assignTrainingPlan(studentEmail, selectedTrainingPlanId);
+  };
+
+  const handleDropdownChange = (e) => {
+    setSelectedTrainingPlanId(e.target.value);
   };
 
   const assignTrainingPlan = async (studentEmail, trainingPlanID) => {
@@ -90,6 +92,8 @@ const TaskMonitoringController = () => {
           },
         }
       );
+
+      console.log(response.data);
       alert(response.data);
     } catch (error) {
       console.error("Error assigning training plan:", error);
@@ -106,6 +110,7 @@ const TaskMonitoringController = () => {
       formData={formData}
       setIsModalOpen={setIsModalOpen}
       isModalOpen={isModalOpen}
+      handleDropdownChange={handleDropdownChange}
     />
   );
 };
