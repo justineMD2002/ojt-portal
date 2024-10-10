@@ -1,0 +1,38 @@
+.register {
+  margin: 30px $main-padding;
+  min-width: 500px;
+
+  .heading {
+    font-size: $heading-2;
+    font-weight: bold;
+  }
+
+  
+
+  .register-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.2rem;
+
+    .tapad {
+      display: flex;
+
+      input {
+        flex: 1;
+      }
+
+      input:first-child {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  a {
+    font-size: $small-text;
+    color: black;
+  }
+
+  a:hover {
+    font-weight: bold;
+  }
+}

@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({ userRole }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const { authUser } = useAuth();
+  const { userInfo, isLoggedIn } = useAuth();
   const studentLinks = [
     {
       goto: "/student-info",
@@ -92,18 +92,39 @@ const Sidebar = ({ userRole }) => {
     },
   ];
 
-  const links =
-    authUser && authUser.accountType === "ROLE_STUDENT"
-      ? studentLinks
-      : authUser && authUser.accountType === "ROLE_SUPERVISOR"
-      ? supervisorLinks
-      : authUser && authUser.userInfo.accountType === "ROLE_CHAIR"
-      ? deanLinks
-      : authUser && authUser.userInfo.accountType === "ROLE_ADMIN"
-      ? adminLinks
-      : authUser && authUser.userInfo.accountType === "ROLE_INSTRUCTOR"
-      ? instructorLinks
-      : [];
+  // const links =
+  //   authUser && authUser.accountType === "ROLE_STUDENT"
+  //     ? studentLinks
+  //     : authUser && authUser.accountType === "ROLE_SUPERVISOR"
+  //     ? supervisorLinks
+  //     : authUser && authUser.userInfo.accountType === "ROLE_CHAIR"
+  //     ? deanLinks
+  //     : authUser && authUser.userInfo.accountType === "ROLE_ADMIN"
+  //     ? adminLinks
+  //     : authUser && authUser.userInfo.accountType === "ROLE_INSTRUCTOR"
+  //     ? instructorLinks
+  //     : [];
+
+  const getLinks = () => {
+    if (isLoggedIn) {
+      switch (userInfo.userType) {
+        case "Student":
+          return studentLinks;
+        case "Mentor":
+          return supervisorLinks;
+        case "Chair":
+          return deanLinks;
+        case "Admin":
+          return adminLinks;
+        case "Teacher":
+          return instructorLinks;
+        default:
+          return supervisorLinks;
+      }
+    }
+  };
+
+  const [links] = useState(getLinks());
 
   useEffect(() => {
     setCurrentPageIndex(

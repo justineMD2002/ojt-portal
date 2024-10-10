@@ -1,127 +1,131 @@
 import React from "react";
-import "./Styles/App.scss";
+import "./Styles/App.scss"; 
+import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useLocation } from "react-router-dom";
+import { AuthProvider, useAuth } from "./Components/UserManagement/AuthContext";
 import Header from "./Components/Common/Header";
 import Sidebar from "./Components/Common/Sidebar";
 import Footer from "./Components/Common/Footer";
+import NotFound from "./Components/Common/NotFound";
+
 import Dashboard from "./Components/Dashboard/Dashboard";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
-import { AuthProvider } from "./Components/UserManagement/AuthContext";
-import LoginSignupController from "./Components/UserManagement/LoginSignup/controllers/LoginSignupController";
-import InternMonitoringController from "./Components/InternMonitoring/controllers/InternMonitoringController";
-import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
-import ForgotPasswordController from "./Components/UserManagement/ForgotPassword/controller/ForgotPasswordController";
-import LogbookEntriesController from "./Components/LogbookEntries/controller/LogbookEntriesController";
-import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
-import StudentDataController from "./Components/InstructorComponents/controller/StudentDataController";
-import CompaniesController from "./Components/AdminComponents/Companies/controller/CompaniesController";
-import UsersController from "./Components/AdminComponents/Users/controller/UsersController";
 import OJTRecordsController from "./Components/AdminComponents/OJTRecords/controller/OJTRecordsController";
-import InternEvalFeedbackFormController from "./Components/InternEvalFeedbackForm/controller/InternEvalFeedbackFormController";
-import LogbookFormController from "./Components/LogbookSubmission/LogbookForm/controller/LogbookFormController";
-import StudentsDetailsController from "./Components/StudentsMonitoring/controller/StudentsDetailsController";
+import UsersController from "./Components/AdminComponents/Users/controller/UsersController";
+import CompaniesController from "./Components/AdminComponents/Companies/controller/CompaniesController";
 import TrainingPlansTableController from "./Components/AdminComponents/TrainingPlansTable/controller/TrainingPlansTableController";
+import SubmittedLogbooks from "./Components/SubmittedLogbooks/SubmittedLogbooks";
 import TaskMonitoringController from "./Components/TaskMonitoring/TaskMonitoring/controller/TaskMonitoringController";
-import TraineeEvaluationController from "./Components/TraineeEvaluation/controller/TraineeEvaluationController";
-import TrainingPlanController from "./Components/TrainingPlan/controller/TrainingPlanController";
-import OJTAnalyticsController from "./Components/OJTAnalytics/Analytics/controller/OJTAnalyticsController";
+import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
+import LogbookFormController from "./Components/LogbookSubmission/LogbookForm/controller/LogbookFormController";
 import LogbookContentsController from "./Components/ViewLogbook/controller/LogbookContentsController";
+import StudentDataController from "./Components/InstructorComponents/controller/StudentDataController";
+import OJTAnalyticsController from "./Components/OJTAnalytics/Analytics/controller/OJTAnalyticsController";
+import StudentsDetailsController from "./Components/StudentsMonitoring/controller/StudentsDetailsController";
+import TraineeEvaluationController from "./Components/TraineeEvaluation/controller/TraineeEvaluationController";
+import InternEvalFeedbackFormController from "./Components/InternEvalFeedbackForm/controller/InternEvalFeedbackFormController";
+import InternMonitoringController from "./Components/InternMonitoring/controllers/InternMonitoringController";
+import TrainingPlanController from "./Components/TrainingPlan/controller/TrainingPlanController";
+import LoginController from "./Components/UserManagement_V2/Login/controller/LoginController";
+import RegisterController from "./Components/UserManagement_V2/Register/controller/RegisterController";
+import ForgotPasswordController from "./Components/UserManagement_V2/ForgotPassword/controller/ForgotPasswordController";
+import ActivateAccountController from "./Components/UserManagement_V2/ActivateAccount/controller/ActivateAccountController";
+import { GlobalStateProvider, useGlobalState } from "./Components/Helpers/Globals/variables";
+
+const ProtectedRoute = ({ children }) => {
+  const { authUser, isLoggedIn } = useAuth();
+  const { setAllowPath } = useGlobalState();
+
+  if (!authUser || !isLoggedIn) {
+    setAllowPath(false);
+    return <Navigate to="/" />;
+  }
+
+  return children ? children : <Outlet />;
+};
+
+const AdminProtectedRoute = ({ children }) => {
+  const { authUser, isLoggedIn, userInfo } = useAuth();
+  const { setAllowPath } = useGlobalState();
+
+  // Check if the user is logged in and has an admin usertype
+  if (!authUser || !isLoggedIn || userInfo.userType !== 'admin') {
+    setAllowPath(false);
+    return <Navigate to="/" />;
+  }
+
+  return children ? children : <Outlet />;
+};
+
+const ConditionalRoute = ({ children }) => {
+  const { allowPath } = useGlobalState();
+
+  if (!allowPath) {
+    return <NotFound />;
+  }
+  return children ? children : <Outlet />;
+};
+
+const Layout = () => {
+  const hideSidebarPaths = ["/", "/forgot-password", "/activate-account"];
+  const { pathname } = useLocation();
+
+  return (
+    <div className="App">
+      <Header />
+      {!hideSidebarPaths.includes(pathname) && <Sidebar />}
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
 const App = () => {
   return (
     <AuthProvider>
-      <Router>
-        <div className="App">
-          <Header />
-          <Sidebar />
-          <Footer />
+      <GlobalStateProvider>
+        <Router>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<LoginController />} />
+            <Route path="/register" element={<RegisterController />} />
+            <Route path="/forgot-password" element={<ForgotPasswordController />} />
+            <Route path="/activate-account" element={<ConditionalRoute><ActivateAccountController /></ConditionalRoute>} />
+            
+            {/* Protected Routes */}
+            <Route element={<Layout />}>
+              <Route element={<ProtectedRoute />}>
+                <Route path="/student-info" element={<Dashboard />} />
+                <Route path="/submitted-logbook" element={<SubmittedLogbooks />} />
+                <Route path="/task-monitoring" element={<TaskMonitoringController />} />
 
-          <main>
-            <Routes>
-              <Route path="/" element={<LoginSignupController />} />
-              <Route
-                path="/forgot-password"
-                element={<ForgotPasswordController />}
-              />
-              <Route path="/student-info" element={<Dashboard />} />
-              <Route path="/logbook" element={<LogbookFormController />} />
-              <Route path="/view-logbook" element={<LogbookContentsController />} />
-              <Route
-                path="/task-monitoring"
-                element={<TaskMonitoringController />}
-              />
-              <Route
-                path="/submitted-logbook"
-                element={<SubmittedLogbooks />}
-              />
-              <Route
-                path="/tp-table"
-                element={<TrainingPlansTableController />}
-              />
-              <Route path="/ojt-records" element={<OJTRecordsController />} />
-              <Route path="/users" element={<UsersController />} />
-              <Route path="/companies" element={<CompaniesController />} />
-              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                {/* Admin Protected Routes */}
+                <Route element={<AdminProtectedRoute />}>
+                  <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                  <Route path="/users" element={<UsersController />} />
+                  <Route path="/companies" element={<CompaniesController />} />
+                  <Route path="/training-plans" element={<TrainingPlansTableController />} />
+                  <Route path="/ojt-records" element={<OJTRecordsController />} />
+                </Route>
+                {/* End Admin Protected Routes */}
 
-              <Route path="/student-data" element={<StudentDataController />} />
+                <Route path="/logbook" element={<LogbookFormController />} />
+                <Route path="/view-logbook" element={<LogbookContentsController />} />
+                <Route path="/student-data" element={<StudentDataController />} />
+                <Route path="/ojt-analytics" element={<OJTAnalyticsController />} />
+                <Route path="/student-monitoring" element={<StudentsDetailsController />} />
+                <Route path="/trainee-evaluation" element={<TraineeEvaluationController />} />
+                <Route path="/interneval-feedbackform" element={<InternEvalFeedbackFormController />} />
+                <Route path="/training-plan" element={<TrainingPlanController />} />
+                <Route path="/intern-monitoring" element={<InternMonitoringController />} />
+              </Route>
+            </Route>
 
-              <Route path="/ojt-analytics" element={<OJTAnalyticsController />} />
-              <Route
-                path="/student-monitoring"
-                element={<StudentsDetailsController />}
-              />
-              <Route
-                path="/trainee-evaluation"
-                element={<TraineeEvaluationController />}
-              />
-              <Route
-                path="/interneval-feedbackform"
-                element={<InternEvalFeedbackFormController />}
-              />
-              <Route
-                path="/logbook-entries"
-                element={<LogbookEntriesController />}
-              />
-              <Route
-                path="/training-plan"
-                element={<TrainingPlanController />}
-              />
-              <Route
-                path="/activate-account"
-                element={<ActivateAccountController />}
-              />
-              <Route
-                path="/intern-monitoring"
-                element={<InternMonitoringController />}
-              />
-              <Route />
-              <Route
-                path="*"
-                element={
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "0",
-                      left: "0",
-                      right: "0",
-                      bottom: "0",
-                      zIndex: "100",
-                      backgroundColor: "white",
-                      padding: "20px",
-                    }}
-                  >
-                    <h1 style={{ fontSize: "5rem" }}>404 - Page Not Found</h1>
-                    <br />
-                    <p style={{ fontSize: "2rem" }}>
-                      Sorry, the page you are looking for does not exist.
-                    </p>
-                  </div>
-                }
-                replace
-              />
-            </Routes>
-          </main>
-        </div>
-      </Router>
+            {/* Catch All Route */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </GlobalStateProvider>
     </AuthProvider>
   );
 };

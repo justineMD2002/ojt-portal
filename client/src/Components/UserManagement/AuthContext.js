@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import Cookies from "js-cookie"; 
 
 const AuthContext = React.createContext();
 
@@ -8,32 +9,48 @@ export function useAuth() {
 
 export function AuthProvider(props) {
   const [authUser, setAuthUserState] = useState(() => {
-    const savedAuthUser = localStorage.getItem("authUser");
+    const savedAuthUser = Cookies.get("authUser");
     return savedAuthUser ? JSON.parse(savedAuthUser) : null;
-  }); 
-  const [isLoggedIn, setIsLoggedInState] = useState(() => {
-    const savedLoginState = localStorage.getItem("isLoggedIn");
-    return JSON.parse(savedLoginState);
   });
-  
-  const setAuthUser = (userData) => {
-    localStorage.setItem("authUser", JSON.stringify(userData));
-    setAuthUserState(userData);
+
+  const [userInfo, setUserInfoState] = useState(() => {
+    const savedUserInfo = Cookies.get("userInfo");
+    return savedUserInfo ? JSON.parse(savedUserInfo) : null;
+  });
+
+  const [isLoggedIn, setIsLoggedInState] = useState(() => {
+    const savedLoginState = Cookies.get("isLoggedIn");
+    return savedLoginState === "true"; 
+  });
+
+  const setAuthUser = (tokenData, userData) => {
+    Cookies.set("authUser", JSON.stringify(tokenData), { expires: 7 }); 
+    Cookies.set("userInfo", JSON.stringify(userData), { expires: 7 });
+
+    setAuthUserState(tokenData);
+    setUserInfoState(userData);
   };
 
   const setIsLoggedIn = (loggedIn) => {
-    localStorage.setItem("isLoggedIn", loggedIn);
+    Cookies.set("isLoggedIn", loggedIn ? "true" : "false", { expires: 7 });
+    
     setIsLoggedInState(loggedIn);
   };
 
   const handleLogout = (e) => {
     e.preventDefault();
-    setIsLoggedIn(null);
-    setAuthUser(null);
+    setIsLoggedIn(false);
+    setAuthUserState(null);
+    setUserInfoState(null);
+
+    Cookies.remove("authUser");
+    Cookies.remove("userInfo");
+    Cookies.remove("isLoggedIn");
   };
 
   const value = {
-    authUser,
+    authUser,   
+    userInfo,   
     setAuthUser,
     isLoggedIn,
     setIsLoggedIn,
@@ -41,6 +58,8 @@ export function AuthProvider(props) {
   };
 
   return (
-    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
+    <AuthContext.Provider value={value}>
+      {props.children}
+    </AuthContext.Provider>
   );
 }

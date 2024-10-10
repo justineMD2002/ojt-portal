@@ -1,0 +1,224 @@
+.container {
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    padding-top: 20px; 
+    max-height: 80vh; 
+    overflow-y: auto; 
+    width: 40%;
+  }
+  
+  
+  
+  .error {
+    color: $darker-red; 
+    font-size: $small-text; 
+    font-weight: bold;
+    padding: 5px 0;
+  }
+  
+  .success {
+    color: $main-green; 
+    font-size: $small-text; 
+    font-weight: bold;
+    padding: 5px 0;
+  }
+  
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  label {
+    font-size: $sub-heading;
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+  }
+  
+  input,
+  select,
+  textarea {
+    height: 50px;
+    border: 0.8px solid #ececec;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(3, 3, 3, 0.1);
+    padding: 10px;
+    margin-bottom: 0.5rem;
+    font-size: $placeholder;
+    display: block;
+  
+    &::placeholder {
+      color: $darker-gray;
+    }
+  
+    &:focus {
+      outline: none;
+    }
+  
+    &:hover {
+      box-shadow: 2px 2px 4px rgba(3, 3, 3, 0.2);
+    }
+  
+    &.smaller {
+      height: 70%;
+      width: 20%;
+    }
+  
+    &.large-textarea {
+      height: 210px;
+      width: 100%;
+    }
+  }
+  
+  .button-main {
+    height: $button-height;
+    background-color: $main-red;
+    border: none;
+    border-radius: 10px;
+    font-size: $button-text;
+    color: white;
+  
+    &:hover {
+      cursor: pointer;
+      background-color: $darker-red;
+    }
+  
+    &.create {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0.8rem;
+      font-weight: bold;
+      font-size: $small-text;
+      height: 40px;
+    }
+  
+    &:disabled {
+      background-color: $disabled-red; 
+      cursor: not-allowed;
+  
+      &:hover {
+        background-color: $disabled-red; 
+        cursor: not-allowed;             
+      }
+    }
+  }
+  
+  .button-secondary {
+    height: $button-height;
+    background-color: white;
+    border: 1px solid $main-red;
+    border-radius: 10px;
+    font-size: $button-text;
+    color: $main-red;
+  
+    &:hover {
+      cursor: pointer;
+      background-color: #ffb8b2;
+      color: white;
+    }
+  }
+  
+  option {
+    font-size: 100%;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    border: 1px solid $gray-shade;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: $gray-shade;
+  }
+  
+  .sub-heading {
+    font-size: $small-text;
+    line-height: 1.5;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 0.8px solid $darker-gray;
+    margin-bottom: 0.5rem;
+  
+    .tab {
+      font-size: $placeholder;
+      padding: 0.5rem;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .tab:hover,
+    .tab.active {
+      font-weight: bold;
+      border-bottom: 3px solid $main-red;
+      cursor: pointer;
+    }
+  }
+  
+  .pagination {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+  
+    .left-page,
+    .right-page {
+      color: $main-red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  
+    p {
+      font-size: $small-text;
+  
+      .page {
+        box-shadow: none;
+        border: none;
+        border-radius: 0px;
+        margin: 0;
+        font-size: 100%;
+        border-bottom: 1px solid $main-red;
+        width: 1.5rem;
+        height: auto;
+        text-align: center;
+  
+        &::placeholder {
+          font-size: 100%;
+        }
+      }
+    }
+  }
+  
+  @import "./Table.scss";
+  

@@ -1,0 +1,49 @@
+.login {
+  margin: $main-padding;
+  min-width: 500px;
+
+  .login-header {
+    font-size: $heading;
+    margin: 0rem 2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $main-red;
+
+    span {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .login-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .login-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a,
+    p {
+      font-size: $small-text;
+      color: black;
+      cursor: pointer;
+    }
+
+    a:hover,
+    p:hover {
+      font-weight: bold;
+    }
+  }
+}
+
+label {
+  display: block; /* Ensures the label takes up the full width above the input */
+  font-size: 14px; /* Adjust the font size */
+  font-weight: bold; /* Make the label bold */
+  margin-bottom: 5px; /* Adds space between the label and the input */
+  color: #333; /* Color for the label text */
+}
