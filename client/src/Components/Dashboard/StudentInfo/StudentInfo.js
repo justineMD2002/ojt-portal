@@ -8,7 +8,7 @@ const StudentInfo = ({ userInfo, authUser }) => {
         <li>
           <p className="title">Student ID:</p>
           <p className="description">
-            {authUser != null ? userInfo.studentID : "Guest"}
+            {authUser != null ? userInfo.studentId : "Guest"}
           </p>
         </li>
         <li>

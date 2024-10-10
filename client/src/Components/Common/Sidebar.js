@@ -107,7 +107,7 @@ const Sidebar = ({ userRole }) => {
 
   const getLinks = () => {
     if (isLoggedIn) {
-      switch (userInfo.userType) {
+      switch (userInfo.user.userType) {
         case "Student":
           return studentLinks;
         case "Mentor":
