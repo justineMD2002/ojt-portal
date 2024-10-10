@@ -1,9 +1,9 @@
 import React from "react";
 
-const workingDays = [ 'WeekdaysOnly', 'WeekdaysAndSaturdays', 'WholeWeek' ]
+const workingDays = ["WeekdaysOnly", "WeekdaysAndSaturdays", "WholeWeek"];
 
 const formatWorkingDays = (day) => {
-  return day.replace(/([A-Z])/g, ' $1').trim(); 
+  return day.replace(/([A-Z])/g, " $1").trim();
 };
 
 const StudentContent = ({
@@ -13,7 +13,7 @@ const StudentContent = ({
   error,
   loading,
   degreePrograms,
-  teachers
+  teachers,
 }) => {
   return (
     <form className="register-content">
@@ -45,40 +45,42 @@ const StudentContent = ({
       </div>
 
       <select
-        name="degreeProgramId" 
+        name="degreeProgramId"
         className="program"
         onChange={handleFormChange}
-        defaultValue="" 
+        defaultValue=""
         required
       >
         <option value="" disabled>
           Select Degree Program
         </option>
         {degreePrograms.map((program) => (
-          <option key={program.id} value={program.id}> 
+          <option key={program.id} value={program.id}>
             {program.programName}
           </option>
         ))}
       </select>
 
       <select
-        name="teacherId" 
+        name="teacherId"
         className="program"
         onChange={handleFormChange}
-        defaultValue="" 
-      > 
+        defaultValue=""
+      >
         <option value="" disabled>
           Select Teacher
         </option>
         {teachers.map((teacher) => (
-          <option key={teacher.user.id} value={teacher.user.id}> 
+          <option key={teacher.user.id} value={teacher.user.id}>
             {teacher.user.firstName} {teacher.user.lastName}
           </option>
         ))}
       </select>
       <div className="tapad">
-        <p style={{ fontSize: "0.5rem", marginRight: 410, marginLeft: 10, marginBottom:10, fontWeight: "bold" }}>Start Date</p>
-        <p style={{ fontSize: "0.5rem", fontWeight: "bold" }}>Number of Hours To Render</p>
+        <p style={{ fontSize: "0.5rem", fontWeight: "bold" }}>Start Date</p>
+        <p style={{ fontSize: "0.5rem", fontWeight: "bold" }}>
+          Number of Hours To Render
+        </p>
       </div>
       <div className="tapad">
         <input
@@ -95,7 +97,7 @@ const StudentContent = ({
         />
       </div>
       <div className="tapad">
-        <p style={{ fontSize: "0.5rem", marginRight: 410, marginLeft: 10, marginBottom:10, fontWeight: "bold" }}>Start Shift</p>
+        <p style={{ fontSize: "0.5rem", fontWeight: "bold" }}>Start Shift</p>
         <p style={{ fontSize: "0.5rem", fontWeight: "bold" }}>End Shift</p>
       </div>
       <div className="tapad">
@@ -121,17 +123,17 @@ const StudentContent = ({
         onChange={handleFormChange}
       />
 
-      <select 
-        name="workingDays" 
+      <select
+        name="workingDays"
         className="program"
         onChange={handleFormChange}
-        defaultValue="" 
-      > 
+        defaultValue=""
+      >
         <option value="" disabled>
           Select Working Days
         </option>
         {workingDays.map((day) => (
-          <option key={day} value={day}> 
+          <option key={day} value={day}>
             {formatWorkingDays(day)}
           </option>
         ))}

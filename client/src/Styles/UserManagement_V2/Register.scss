@@ -7,8 +7,6 @@
     font-weight: bold;
   }
 
-  
-
   .register-content {
     display: flex;
     flex-direction: column;
@@ -16,13 +14,11 @@
 
     .tapad {
       display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
 
       input {
         flex: 1;
-      }
-
-      input:first-child {
-        margin-right: 0.5rem;
       }
     }
   }
