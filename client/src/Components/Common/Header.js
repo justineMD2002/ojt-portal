@@ -21,6 +21,7 @@ const Header = () => {
   useEffect(() => {
     console.log("Is User Logged In:", isLoggedIn);
     console.log("Auth User Data:", authUser);
+    console.log("Auth User Data:", userInfo);
   }, [isLoggedIn, authUser]);
 
   return (
@@ -35,7 +36,7 @@ const Header = () => {
           Welcome,{" "}
           <span>
             {authUser != null
-              ? userInfo.firstname + " " + userInfo.lastname
+              ? userInfo.user.firstName + " " + userInfo.user.lastName
               : "Guest"}
           </span>{" "}
           <FontAwesomeIcon className="icon" icon={faUserCircle} />

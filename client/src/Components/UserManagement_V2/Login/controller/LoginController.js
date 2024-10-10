@@ -52,8 +52,21 @@ const LoginController = ({ view }) => {
         
       setAuthUser(userData, response.data); 
       setIsLoggedIn(true); 
-      if(response.data.userType === "Admin") navigate('/admin-users');
-      else navigate('/intern-dashboard');
+      // if(response.data.userType === "Admin") navigate('/admin-users');
+      if (response.data.user) {
+        if (response.data.user.userType === "Student") {
+          navigate("/student-info");
+        } else if(response.data.user.userType === "Chair") {
+          navigate("/student-monitoring");
+        } else if(response.data.user.userType === "Admin") {
+          navigate("/users");
+        } else if(response.data.user.userType === "Teacher") { 
+          navigate("/student-data");
+        } else {
+          navigate("/intern-monitoring");
+        }
+      }
+      // else navigate('/intern-dashboard');
       setIsLoading(false);
     } catch (err) {
       if(err.response.status === 422) {

@@ -1,6 +1,6 @@
 import React from "react";
 
-const StudentInfo = ({ authUser }) => {
+const StudentInfo = ({ userInfo, authUser }) => {
   return (
     <section className="student-info-wrapper">
       <h3>Student Information</h3>
@@ -8,27 +8,27 @@ const StudentInfo = ({ authUser }) => {
         <li>
           <p className="title">Student ID:</p>
           <p className="description">
-            {authUser != null ? authUser.userInfo.studentID : "Guest"}
+            {authUser != null ? userInfo.studentID : "Guest"}
           </p>
         </li>
         <li>
           <p className="title">Student Name:</p>
           <p className="description">
             {authUser != null
-              ? authUser.userInfo.firstname + " " + authUser.userInfo.lastname
+              ? userInfo.user.firstName + " " + userInfo.user.lastName
               : "Guest"}
           </p>
         </li>
         <li>
           <p className="title">Email:</p>
           <p className="description">
-            {authUser != null ? authUser.userInfo.email : "Guest"}
+            {authUser != null ? userInfo.user.email : "Guest"}
           </p>
         </li>
         <li>
           <p className="title">Degree Program</p>
           <p className="description">
-            {authUser != null ? authUser.userInfo.degreeProgram : "Guest"}
+            {authUser != null ? userInfo.degreeProgram.programName : "Guest"}
           </p>
         </li>
       </ul>

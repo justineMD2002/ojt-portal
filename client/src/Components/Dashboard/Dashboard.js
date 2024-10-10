@@ -6,11 +6,11 @@ import ProgressOverviewController from "./ProgressOverview/controller/ProgressOv
 import OJTTrackingController from "./OJTTracking/controller/OJTTrackingController";
 
 const Dashboard = () => {
-  const { authUser, handleLogout } = useAuth();
+  const { authUser, handleLogout, userInfo } = useAuth();
   const [isOfficialIntern, setIsOfficialIntern] = useState(true);
 
   useEffect(() => {
-    if (!authUser.ojtRecord.status || authUser.ojtRecord.status === "PENDING") {
+    if (!userInfo.internshipStatus || userInfo.internshipStatus === "Pending") {
       setIsOfficialIntern(false);
     } else {
       setIsOfficialIntern(true);
@@ -27,7 +27,7 @@ const Dashboard = () => {
         />
       )}
       {/* student info */}
-      <StudentInfo authUser={authUser} />
+      <StudentInfo authUser={authUser} userInfo={userInfo} />
       {/* ojt tracking */}
       <OJTTrackingController authUser={authUser} />
       {/* progress overview */}
